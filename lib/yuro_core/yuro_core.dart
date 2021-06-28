@@ -1,6 +1,8 @@
 library yuro_core;
 
-export 'src/yuro_interface.dart';
-export 'src/yuro_lifecycle.dart';
-export 'src/yuro_typedefs.dart';
+export 'src/interface.dart';
+export 'src/lifecycle.dart';
+export 'src/typedefs.dart';
+
+export 'src/logger_ext.dart';
 

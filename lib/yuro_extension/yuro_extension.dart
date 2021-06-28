@@ -11,4 +11,3 @@ export 'src/path.dart';
 export 'src/screen.dart';
 export 'src/string.dart';
 export 'src/list.dart';
-export 'src/logger.dart';

@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 
-import 'connect.dart';
+import 'http_base.dart';
 
-mixin HttpConnectMixin on HttpConnect {
+mixin HttpBaseMixin on HttpBase {
   set baseUrl(String url) {
     dio.options.baseUrl = url;
   }

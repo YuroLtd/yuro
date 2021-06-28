@@ -1,6 +1,6 @@
 name: yuro
 description: A Flutter package.
-version: 0.2.0
+version: 0.2.1
 homepage: https://github.com/YuroLtd/yuro_kit.git
 
 environment:
@@ -29,5 +29,3 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-
-flutter:

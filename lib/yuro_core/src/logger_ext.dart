@@ -1,6 +1,6 @@
-import 'package:yuro/yuro_core/yuro_core.dart';
+import 'interface.dart';
 
-extension YuroInterfaceExt on YuroInterface {
+extension LoggerExt on YuroInterface {
   void logV(dynamic message, [dynamic error, StackTrace? stackTrace]) {
     if (Yuro.enableLog) logger.v(message, error, stackTrace);
   }
