@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:yuro/yuro_core/yuro_core.dart';
 
-import 'annotation.dart';
 import 'observer.dart';
 import 'util.dart';
 
