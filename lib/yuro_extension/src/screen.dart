@@ -23,6 +23,8 @@ extension ScreenExt on YuroInterface {
   double widthConvert(num width) => _screen.getWidth(width);
 
   double heightConvert(num height) => _screen.getHeight(height);
+
+  double fontSizeConvert(num fontSize) => _screen.getFontSize(fontSize);
 }
 
 extension ScreenNumExt on num {
@@ -33,6 +35,8 @@ extension ScreenNumExt on num {
   double get wp => Yuro.screenWidth * this;
 
   double get hp => Yuro.screenHeight * this;
+
+  double get fs => Yuro.fontSizeConvert(this);
 }
 
 class _Screen {
@@ -90,7 +94,6 @@ class _Screen {
   /// 字体适配
   ///
   /// @param allowScale 字体是否跟随系统缩放, 默认true
-  ///
-  /// TODO 未验证
-  num getSp(num fontSize, {bool allowScale = true}) => allowScale ? fontSize * _scaleWidth : fontSize * _scaleWidth / _textScaleFactor;
+  double getFontSize(num fontSize, {bool allowScale = true}) =>
+      allowScale ? fontSize * _scaleWidth : fontSize * _scaleWidth / _textScaleFactor;
 }
