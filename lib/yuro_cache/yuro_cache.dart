@@ -44,25 +44,25 @@ extension SharedPreferencesExt on YuroInterface {
   Future<bool> clear(String key) => _prefs.then((sp) => sp.clear());
 }
 
-extension YuroCacheExt on YuroInterface {
-  static YuroCache? _cache;
-
-  Future<YuroCache> openCache({Directory? directory, int? maxSize}) async {
-    return _cache ??= await YuroCache.open(directory ?? await Yuro.temporaryDirectory, maxSize ?? 100.MB);
-  }
-
-  YuroCache _checkCacheInitialized() {
-    assert(_cache != null, '请先调用"Yuro.openCache()"方法完成初始化.');
-    return _cache!;
-  }
-
-  Future<Snapshot?> getCache(String key) async => await _checkCacheInitialized().get(key.toMd5());
-
-  Future<Editor?> editCache(String key, [Duration? expire]) async => await _checkCacheInitialized().edit(key.toMd5(), expire);
-
-  Future<bool> removeCache(String key) async => await _checkCacheInitialized().remove(key.toMd5());
-
-  Future<void> clearCache() => _checkCacheInitialized().clear();
-
-  int getCacheSize() => _checkCacheInitialized().getSize();
-}
+// extension YuroCacheExt on YuroInterface {
+//   static YuroCache? _cache;
+//
+//   Future<YuroCache> openCache({Directory? directory, int? maxSize}) async {
+//     return _cache ??= await YuroCache.open(directory ?? await Yuro.temporaryDirectory, maxSize ?? 100.MB);
+//   }
+//
+//   YuroCache _checkCacheInitialized() {
+//     assert(_cache != null, '请先调用"Yuro.openCache()"方法完成初始化.');
+//     return _cache!;
+//   }
+//
+//   Future<Snapshot?> getCache(String key) async => await _checkCacheInitialized().get(key.toMd5());
+//
+//   Future<Editor?> editCache(String key, [Duration? expire]) async => await _checkCacheInitialized().edit(key.toMd5(), expire);
+//
+//   Future<bool> removeCache(String key) async => await _checkCacheInitialized().remove(key.toMd5());
+//
+//   Future<void> clearCache() => _checkCacheInitialized().clear();
+//
+//   int getCacheSize() => _checkCacheInitialized().getSize();
+// }

@@ -120,7 +120,7 @@ class _YuroMaterialAppState extends State<YuroMaterialApp> {
     // 加载应用信息
     await Yuro.loadPackageInfo();
     // 初始化缓存
-    await Yuro.openCache();
+    // await Yuro.openCache();
 
     //加载Locale
     var localeCache = await Yuro.getString(KEY_LOCALE);
