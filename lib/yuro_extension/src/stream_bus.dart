@@ -13,7 +13,7 @@ extension StreamBusExt on YuroInterface {
 class StreamEvent {
   final int code;
   final String? msg;
-  final Map<String, dynamic>? extra;
+  final dynamic extra;
 
   StreamEvent(this.code, {this.msg, this.extra});
 }
