@@ -3,8 +3,11 @@ library yuro_app;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+export 'src/crash/yuro_crash.dart';
+export 'src/tracker/yuro_tracker.dart';
+export 'src/translation/translation.dart';
+
 export 'src/yuro_app_controller.dart';
-export 'src/yuro_cupertino_app.dart';
 export 'src/yuro_material_app.dart';
 
 /// 程序入口

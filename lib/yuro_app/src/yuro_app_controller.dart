@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:package_info/package_info.dart';
 
 import 'package:yuro/yuro_core/yuro_core.dart';
 import 'package:yuro/yuro_route/yuro_route.dart';
@@ -57,4 +58,22 @@ extension YuroAppControllerExt on YuroInterface {
   TextTheme get textTheme => theme.textTheme;
 
   void restart() => _appController.restart();
+
+
+  static PackageInfo? _packageInfo;
+
+  /// 加载应用信息
+  Future<void> loadPackageInfo() async => _packageInfo = await PackageInfo.fromPlatform();
+
+  /// 获取应用名称
+  String? get appName => _packageInfo?.appName;
+
+  /// 获取应用包名
+  String? get appPackageName =>_packageInfo?.packageName;
+
+  /// 获取应用版本
+  String? get appVersionName => _packageInfo?.version;
+
+  /// 获取应用数字版本号
+  String? get appVersionCode => _packageInfo?.buildNumber;
 }

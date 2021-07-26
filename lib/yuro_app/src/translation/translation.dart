@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:yuro/yuro_core/yuro_core.dart';
 import 'package:yuro/yuro_app/yuro_app.dart' show YuroAppControllerExt;
 
+export 'package:flutter_localizations/flutter_localizations.dart';
+
+const List<String> RtlLanguages = <String>['ar', 'fa', 'he', 'ps', 'ur'];
+
 class _Translation {
   late Locale fallbackLocale;
   Map<String, Map<String, String>> translations = {};

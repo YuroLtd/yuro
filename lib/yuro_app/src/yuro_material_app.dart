@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+
 import 'package:yuro/yuro_cache/yuro_cache.dart';
 import 'package:yuro/yuro_core/yuro_core.dart';
 import 'package:yuro/yuro_extension/yuro_extension.dart';
 import 'package:yuro/yuro_route/yuro_route.dart';
 import 'package:yuro/yuro_state/yuro_state.dart';
-import 'package:yuro/yuro_translation/yuro_translation.dart';
-import 'package:yuro/yuro_upgrade/yuro_upgrade.dart';
 import 'package:yuro/yuro_widget/yuro_widget.dart';
 
 import 'yuro_app_controller.dart';
+import 'translation/translation.dart';
 
 class YuroMaterialApp extends StatefulWidget {
   YuroMaterialApp({
-    this.appId,
-    this.upgradeUrl,
     this.designSize = const Size(360, 640),
     //
     required this.title,
@@ -49,10 +48,6 @@ class YuroMaterialApp extends StatefulWidget {
     this.shortcuts,
     this.actions,
   });
-
-  /// 用于应用更新、埋点上报、崩溃上报的标识
-  final String? appId;
-  final String? upgradeUrl;
 
   /// ui设计尺寸,以dp为单位
   final Size designSize;
@@ -102,8 +97,6 @@ class _YuroMaterialAppState extends State<YuroMaterialApp> {
   @override
   void initState() {
     super.initState();
-    // 设置应用标识
-    Yuro.appId = widget.appId;
     // 注入UI设计图尺寸
     Yuro.uiSize(widget.designSize.width, widget.designSize.height);
 
