@@ -27,9 +27,6 @@ dependencies:
   convert: ^3.0.0
   logger: ^1.0.0
 
-  yuro_plugin:
-    path: ../yuro_plugin
-
 dev_dependencies:
   flutter_test:
     sdk: flutter

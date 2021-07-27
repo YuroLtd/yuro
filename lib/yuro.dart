@@ -9,5 +9,4 @@ export 'package:yuro/yuro_state/yuro_state.dart';
 export 'package:yuro/yuro_route/yuro_route.dart';
 export 'package:yuro/yuro_widget/yuro_widget.dart';
 
-export 'package:yuro_plugin/yuro_plugin.dart';
 export 'package:permission_handler/permission_handler.dart';
