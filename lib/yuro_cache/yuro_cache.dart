@@ -13,35 +13,14 @@ export 'src/closeable.dart';
 export 'src/lru_map.dart';
 
 extension SharedPreferencesExt on YuroInterface {
-  static SharedPreferences? _preferences;
+  static SharedPreferences? _sp;
 
-  Future<SharedPreferences> get _prefs async => _preferences ??= await SharedPreferences.getInstance();
+  Future<void> initSharedPreferences() async => _sp = await SharedPreferences.getInstance();
 
-  Future<int?> getInt(String key) async => _prefs.then((sp) => sp.getInt(key));
-
-  Future<String?> getString(String key) async => _prefs.then((sp) => sp.getString(key));
-
-  Future<bool?> getBool(String key) async => _prefs.then((sp) => sp.getBool(key));
-
-  Future<double?> getDouble(String key) async => _prefs.then((sp) => sp.getDouble(key));
-
-  Future<List<String>?> getStringList(String key) async => _prefs.then((sp) => sp.getStringList(key));
-
-  Future<bool> setInt(String key, int value) => _prefs.then((sp) => sp.setInt(key, value));
-
-  Future<bool> setString(String key, String value) => _prefs.then((sp) => sp.setString(key, value));
-
-  Future<bool> setBool(String key, bool value) => _prefs.then((sp) => sp.setBool(key, value));
-
-  Future<bool> setDouble(String key, double value) => _prefs.then((sp) => sp.setDouble(key, value));
-
-  Future<bool> setStringList(String key, List<String> value) => _prefs.then((sp) => sp.setStringList(key, value));
-
-  Future<bool> hasKey(String key) => _prefs.then((sp) => sp.containsKey(key));
-
-  Future<bool> removeKey(String key) => _prefs.then((sp) => sp.remove(key));
-
-  Future<bool> clear(String key) => _prefs.then((sp) => sp.clear());
+  SharedPreferences get sp {
+    assert(_sp != null, 'SharedPreferences 还未完成初始化');
+    return _sp!;
+  }
 }
 
 // extension YuroCacheExt on YuroInterface {

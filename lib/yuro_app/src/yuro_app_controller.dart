@@ -21,7 +21,7 @@ class YuroAppController extends YuroController {
   set themeMode(ThemeMode newThemeMode) {
     if (themeMode == newThemeMode) return;
     _themeMode = newThemeMode;
-    Yuro.setInt(KEY_THEME_MODE, newThemeMode.index);
+    Yuro.sp.setInt(KEY_THEME_MODE, newThemeMode.index);
     notifyListeners();
   }
 
@@ -32,7 +32,7 @@ class YuroAppController extends YuroController {
   set locale(Locale? newLocale) {
     if (locale == newLocale) return;
     _locale = newLocale;
-    Yuro.setString(KEY_LOCALE, '${_locale?.languageCode}_${_locale?.countryCode}');
+    Yuro.sp.setString(KEY_LOCALE, '${_locale?.languageCode}_${_locale?.countryCode}');
     restart();
   }
 

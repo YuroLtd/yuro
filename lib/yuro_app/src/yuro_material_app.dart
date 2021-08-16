@@ -112,18 +112,15 @@ class _YuroMaterialAppState extends State<YuroMaterialApp> {
   void lazyLoad(Duration duration) async {
     // 加载应用信息
     await Yuro.loadPackageInfo();
-    // 初始化缓存
-    // await Yuro.openCache();
-
     //加载Locale
-    var localeCache = await Yuro.getString(KEY_LOCALE);
+    var localeCache =  Yuro.sp.getString(KEY_LOCALE);
     if (localeCache != null) {
       var config = localeCache.split('_');
       var locale = Locale(config[0], config.length == 2 ? config[1] : null);
       Yuro.changeLocale(locale);
     }
     //加载ThemeMode
-    var themeModeIndex = await Yuro.getInt(KEY_THEME_MODE);
+    var themeModeIndex =  Yuro.sp.getInt(KEY_THEME_MODE);
     if (themeModeIndex != null) {
       Yuro.changeThemeMode(ThemeMode.values[themeModeIndex]);
     }
