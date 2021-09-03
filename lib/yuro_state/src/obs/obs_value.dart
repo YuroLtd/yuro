@@ -11,8 +11,11 @@ class Obs<T> extends StatelessWidget {
   final ValueWidgetBuilder<T> builder;
 
   @override
-  Widget build(BuildContext context) =>
-      ValueListenableBuilder<T>(valueListenable: valueListenable, builder: builder, child: child);
+  Widget build(BuildContext context) => ValueListenableBuilder<T>(
+        valueListenable: valueListenable,
+        builder: builder,
+        child: child,
+      );
 }
 
 extension ObsExt<T> on T {

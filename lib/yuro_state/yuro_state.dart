@@ -8,4 +8,6 @@ export 'src/obs/obs_value.dart';
 export 'src/obs/obs_list.dart';
 export 'src/obs/list_notifier.dart';
 
+export 'src/obn/obn_value.dart';
+
 export 'package:provider/provider.dart';
