@@ -14,15 +14,18 @@ export 'src/yuro_app_controller.dart';
 export 'src/yuro_material_app.dart';
 
 /// 程序入口
-///
-/// @param onInit 需要在程序运行前执行的操作写在此方法中
-///
-/// @param onReady 程序运行起来后需要执行的操作写在此方法中
-void runYuroApp(Widget app) async {
+void runYuroApp({OpenObjectBoxFunc? openObjectBox, required Widget app}) async {
   WidgetsFlutterBinding.ensureInitialized();
-  // 初始化缓存
+  // 初始化SharedPreferences
   await Yuro.initSharedPreferences();
+
+  // 初始化ObjectBox数据库
+  if (openObjectBox != null) {
+    Yuro.objectboxStore = await openObjectBox.call();
+  }
 
   runApp(app);
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Colors.transparent));
 }
+
+typedef OpenObjectBoxFunc = Future<Store> Function();

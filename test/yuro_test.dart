@@ -1,8 +1,8 @@
 import 'dart:collection';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:yuro/yuro_cache/src/lru_cache/lru_map.dart';
 
-import 'package:yuro/yuro.dart';
 
 void main() {
   test('description', (){

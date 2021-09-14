@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:synchronized/synchronized.dart';
-import 'package:yuro/yuro_cache/src/iosink_proxy.dart';
+import 'package:yuro/yuro_cache/src/lru_cache/iosink_proxy.dart';
 import 'package:yuro/yuro_core/yuro_core.dart';
 import 'package:yuro/yuro_extension/yuro_extension.dart';
 
