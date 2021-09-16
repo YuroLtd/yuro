@@ -4,10 +4,10 @@ export 'src/yuro_controller.dart';
 export 'src/yuro_view.dart';
 export 'src/yuro_widget.dart';
 
-export 'src/obs/obs_value.dart';
-export 'src/obs/obs_list.dart';
-export 'src/obs/list_notifier.dart';
+export 'src/notifier/list_notifier.dart';
 
-export 'src/obn/obn_value.dart';
+export 'src/observer/obs_value.dart';
+export 'src/observer/obs_list.dart';
+export 'src/observer/obn_value.dart';
 
 export 'package:provider/provider.dart';

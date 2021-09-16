@@ -8,6 +8,11 @@ extension StreamBusExt on YuroInterface {
   Stream<T> streamOn<T>() => _streamController.stream.where((event) => event is T).cast<T>();
 
   void sendStream(dynamic event) => _streamController.add(event);
+
+  Stream<StreamEvent> streamEventOn([List<int> codes = const []]) => _streamController.stream
+      .where((event) => event is StreamEvent)
+      .cast<StreamEvent>()
+      .where((event) => codes.isNotEmpty ? codes.contains(event.code) : true);
 }
 
 class StreamEvent {

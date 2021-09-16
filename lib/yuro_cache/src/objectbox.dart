@@ -1,6 +1,9 @@
 import 'package:objectbox/objectbox.dart';
 import 'package:yuro/yuro_core/yuro_core.dart';
 
+/// 默认路径 /data/user/0/<packages>/objectbox
+typedef OpenObjectBox = Future<Store> Function(String directory);
+
 extension ObjectBoxExt on YuroInterface {
   static Store? _objectboxStore;
 

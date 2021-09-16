@@ -1,10 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
 
-abstract class YuroInterface {
-  Logger logger = Logger();
-  bool enableLog = kDebugMode;
-}
+abstract class YuroInterface {}
 
 class _YuroImpl extends YuroInterface {}
 

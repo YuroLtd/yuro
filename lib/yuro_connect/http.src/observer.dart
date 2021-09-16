@@ -1,10 +1,8 @@
-
 import 'dart:async';
 import 'package:dio/dio.dart';
 
 import 'package:yuro/yuro_core/yuro_core.dart';
-
-import 'util.dart';
+import 'package:yuro/yuro_state/yuro_state.dart';
 
 class Observer<T> {
   final Future<T> fetchData;
@@ -13,26 +11,47 @@ class Observer<T> {
 
   StreamSubscription<T>? _subscription;
 
-  factory Observer.fromFetch(Future<T> fetchData) => Observer._(fetchData);
+  factory Observer.fromFuture(Future<T> fetchData) => Observer._(fetchData);
 
-  void listen({VoidFunction? onListen, required ValueFunction<T> onData, Function(HttpError err)? onError, VoidFunction? onDone}) {
-    onListen?.call();
+  /// onStart -> onDone -> onData / onError
+  void listen(
+      {VoidFunction? onStart, required ValueFunction<T> onData, Function(String err)? onError, VoidFunction? onDone}) {
+    onStart?.call();
     _subscription = Stream<T>.fromFuture(fetchData).listen(
-      onData,
-      onError: (err) {
-        var httpError = err is DioError ? err.error as HttpError : HttpError(-1, err.toString());
-        onError?.call(httpError);
-        onDone?.call();
+      (event) {
+        _onCompleted(onDone);
+        onData.call(event);
       },
-      onDone: () {
-        _subscription = null;
-        onDone?.call();
+      onError: (err) {
+        _onCompleted(onDone);
+        onError?.call(err is DioError ? err.error.toString() : err.toString());
       },
       cancelOnError: true,
     );
   }
 
+  void _onCompleted(VoidFunction? onDone) {
+    _subscription = null;
+    onDone?.call();
+  }
+
   Future<void> cancel() async {
     await _subscription?.cancel();
+  }
+}
+
+mixin ObserverMixin on YuroController {
+  final List<Observer> observers = [];
+
+  Observer<T> request<T>(Future<T> request) {
+    final observer = Observer.fromFuture(request);
+    observers.add(observer);
+    return observer;
+  }
+
+  @override
+  void dispose() {
+    observers.forEach((element) => element.cancel());
+    super.dispose();
   }
 }

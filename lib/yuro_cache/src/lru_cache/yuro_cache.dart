@@ -55,7 +55,7 @@ class YuroCache {
         cache._processJournal();
         return cache;
       } on IOException catch (e) {
-        Yuro.logE('DiskLruCache $directory is dirty: ${e.toString()}, remove.');
+        Yuro.log.e('DiskLruCache $directory is dirty: ${e.toString()}, remove.');
         cache.clear();
       }
     }
@@ -175,7 +175,7 @@ class YuroCache {
   void _addRedundantOpCount() => _lock.synchronized(() {
         _redundantOpCount++;
         if (_redundantOpCount >= 2000 || _redundantOpCount >= _lruEntries.length) {
-          Yuro.logD('redundantOpCount: $_redundantOpCount, cacheEntry count: ${_lruEntries.length}, 开始重构缓存日志文件');
+          Yuro.log.d('redundantOpCount: $_redundantOpCount, cacheEntry count: ${_lruEntries.length}, 开始重构缓存日志文件');
           _rebuildJournal();
         }
       });
@@ -212,15 +212,15 @@ class YuroCache {
   Future<Snapshot?> get(String key) => _lock.synchronized<Snapshot?>(() async {
         Entry? entry = _lruEntries[key];
         if (entry == null) {
-          Yuro.logD('cache key: $key 不存在.');
+          Yuro.log.d('cache key: $key 不存在.');
           return null;
         }
         if (!entry.readable) {
-          Yuro.logD('cache key: $key 正在编辑中,无法读取.');
+          Yuro.log.d('cache key: $key 正在编辑中,无法读取.');
           return null;
         }
         if (entry.isExpire()) {
-          Yuro.logD('cache key: $key 已过期,将从内存和本地移除.');
+          Yuro.log.d('cache key: $key 已过期,将从内存和本地移除.');
           remove(key);
           return null;
         }
@@ -250,11 +250,11 @@ class YuroCache {
   Future<bool> remove(String key) => _lock.synchronized<bool>(() async {
         Entry? entry = _lruEntries[key];
         if (entry == null) {
-          Yuro.logD('key: "$key"不存在,移除失败.');
+          Yuro.log.d('key: "$key"不存在,移除失败.');
           return false;
         }
         if (!entry.readable) {
-          Yuro.logD('key: "$key"正在编辑中,无法移除.');
+          Yuro.log.d('key: "$key"正在编辑中,无法移除.');
           return false;
         }
         entry.getCleanFile().deleteIfExists();
@@ -320,7 +320,7 @@ class Editor {
   Future<void> abort() => _cache._editCommit(entry, false);
 
   void _onErr(e) async {
-    Yuro.logE('写缓存失败: $e');
+    Yuro.log.e('写缓存失败: $e');
     entry.getDirtyFile().deleteIfExists();
     entry.editor = null;
     await abort();

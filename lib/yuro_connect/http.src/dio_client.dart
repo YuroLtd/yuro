@@ -3,8 +3,17 @@ import 'dart:io';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 
+import 'interceptors/error.dart';
+
 class DioClient {
   final Dio _dio = Dio();
+
+  DioClient() {
+    // 添加错误拦截器
+    addInterceptor(ErrorInterceptor());
+  }
+
+  Dio get dio => _dio;
 
   set baseUrl(String url) {
     _dio.options.baseUrl = url;
@@ -67,10 +76,19 @@ class DioClient {
   }
 
   /// eg. 192.168.0.1:8888
-  void openProxy(String proxy) {
+  set openProxy(String? proxy) {
+    if (proxy == null) return;
     (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
       client.findProxy = (uri) => "PROXY $proxy";
     };
+  }
+
+  void addInterceptor(Interceptor interceptor) {
+    _dio.interceptors.add(interceptor);
+  }
+
+  void addInterceptors(List<Interceptor> interceptors) {
+    _dio.interceptors.addAll(interceptors);
   }
 
   void setCertificate(String pem) {
@@ -83,14 +101,6 @@ class DioClient {
     (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
       return HttpClient(context: SecurityContext()..setTrustedCertificates(file.path));
     };
-  }
-
-  void addInterceptor(Interceptor interceptor) {
-    _dio.interceptors.add(interceptor);
-  }
-
-  void addInterceptors(List<Interceptor> interceptors) {
-    _dio.interceptors.addAll(interceptors);
   }
 
   void openLog({
@@ -107,6 +117,4 @@ class DioClient {
         responseHeader: responseHeader,
         responseBody: responseBody));
   }
-
-  Dio build() => _dio;
 }

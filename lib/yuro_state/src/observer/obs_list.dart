@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'list_notifier.dart';
+import '../notifier/list_notifier.dart';
 
 typedef ListWidgetBuilder<T> = Widget Function(BuildContext context, List<T> list, Widget? child);
 

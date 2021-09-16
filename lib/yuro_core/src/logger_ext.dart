@@ -1,23 +1,22 @@
+import 'package:logger/logger.dart';
+
 import 'interface.dart';
 
 extension LoggerExt on YuroInterface {
-  void logV(dynamic message, [dynamic error, StackTrace? stackTrace]) {
-    if (Yuro.enableLog) logger.v(message, error, stackTrace);
+  static late Logger _log;
+
+  void initLogger(LogConfig config) {
+    _log = Logger(filter: config.filter, printer: config.printer, output: config.output, level: config.level);
   }
 
-  void logI(dynamic message, [dynamic error, StackTrace? stackTrace]) {
-    if (Yuro.enableLog) logger.i(message, error, stackTrace);
-  }
+  Logger get log => _log;
+}
 
-  void logD(dynamic message, [dynamic error, StackTrace? stackTrace]) {
-    if (Yuro.enableLog) logger.d(message, error, stackTrace);
-  }
+class LogConfig {
+  LogFilter? filter;
+  LogPrinter? printer;
+  LogOutput? output;
+  Level? level;
 
-  void logW(dynamic message, [dynamic error, StackTrace? stackTrace]) {
-    if (Yuro.enableLog) logger.w(message, error, stackTrace);
-  }
-
-  void logE(dynamic message, [dynamic error, StackTrace? stackTrace]) {
-    if (Yuro.enableLog) logger.e(message, error, stackTrace);
-  }
+  LogConfig({this.filter, this.printer, this.output, this.level});
 }

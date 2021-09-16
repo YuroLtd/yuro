@@ -7,7 +7,7 @@ extension ListNotifierExt<T> on List<T> {
   ListNotifier<T> get obs => ListNotifier(this);
 }
 
-class ListNotifier<E> extends ListListenable<E> {
+class ListNotifier<E> extends _ListListenable<E> {
   ListNotifier(List<E> list) : super(list);
 
   set value(List<E> list) {
@@ -140,8 +140,8 @@ class ListNotifier<E> extends ListListenable<E> {
   }
 }
 
-class ListListenable<E> extends IterableListenable<List<E>, E> implements List<E> {
-  ListListenable(List<E> list) : super(list);
+class _ListListenable<E> extends IterableListenable<List<E>, E> implements List<E> {
+  _ListListenable(List<E> list) : super(list);
 
   @override
   List<E> operator +(List<E> other) => _value + other;
