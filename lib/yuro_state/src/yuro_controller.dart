@@ -16,7 +16,3 @@ abstract class YuroController extends YuroLifeCycle with ChangeNotifier {
     super.dispose();
   }
 }
-
-extension YuroControllerExt on ChangeNotifier {
-  ChangeNotifierProvider get create => ChangeNotifierProvider(create: (_) => this,lazy: false);
-}

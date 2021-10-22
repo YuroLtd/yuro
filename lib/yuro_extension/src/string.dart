@@ -9,7 +9,7 @@ extension StringExt on String {
   bool isPhone() => RegExp(r'^1(3|4|5|6|7|8|9)\d{9}$').hasMatch(this);
 }
 
-extension StringExt2 on String? {
+extension NullableStringExt on String? {
   bool isNullOrEmpty() => this == null || this!.isEmpty;
 
   bool isNullOrBlank() => this == null || this!.trim().isEmpty;

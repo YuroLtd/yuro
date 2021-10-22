@@ -3,15 +3,8 @@ import 'dart:io';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 
-import 'interceptors/error.dart';
-
 class DioClient {
   final Dio _dio = Dio();
-
-  DioClient() {
-    // 添加错误拦截器
-    addInterceptor(ErrorInterceptor());
-  }
 
   Dio get dio => _dio;
 

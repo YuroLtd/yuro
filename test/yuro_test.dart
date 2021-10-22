@@ -4,7 +4,6 @@ import 'dart:math';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:yuro/yuro_cache/src/lru_cache/lru_map.dart';
-import 'package:yuro/yuro_connect/http.src/observer.dart';
 
 void main() {
   Future<bool> futureFunc() async{

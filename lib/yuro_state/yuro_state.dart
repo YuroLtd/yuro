@@ -2,7 +2,6 @@ library yuro_state;
 
 export 'src/yuro_controller.dart';
 export 'src/yuro_view.dart';
-export 'src/yuro_widget.dart';
 
 export 'src/notifier/list_notifier.dart';
 

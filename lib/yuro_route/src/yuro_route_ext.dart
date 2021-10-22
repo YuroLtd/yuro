@@ -1,16 +1,12 @@
 import 'package:flutter/widgets.dart';
 import 'package:yuro/yuro_core/yuro_core.dart';
 
-class _YuroRoute {
-  late GlobalKey<NavigatorState> navigatorKey;
-}
-
 extension YuroRouteExt on YuroInterface {
-  static _YuroRoute _yuroRoute = _YuroRoute();
+  static GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
 
-  GlobalKey<NavigatorState> get navigatorKey => _yuroRoute.navigatorKey;
+  GlobalKey<NavigatorState> get navigatorKey => _navigatorKey;
 
-  set navigatorKey(GlobalKey<NavigatorState> navigatorKey) => _yuroRoute.navigatorKey = navigatorKey;
+  set navigatorKey(GlobalKey<NavigatorState> navigatorKey) => _navigatorKey = navigatorKey;
 
   BuildContext get currentContext => navigatorKey.currentContext!;
 
