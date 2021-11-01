@@ -3,95 +3,91 @@ import 'dart:io';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 
-class DioClient {
-  final Dio _dio = Dio();
-
-  Dio get dio => _dio;
-
+extension DioExt on Dio {
   set baseUrl(String url) {
-    _dio.options.baseUrl = url;
+    options.baseUrl = url;
   }
 
   set connectTimeout(Duration timeout) {
-    _dio.options.connectTimeout = timeout.inMilliseconds;
+    options.connectTimeout = timeout.inMilliseconds;
   }
 
   set receiveTimeout(Duration timeout) {
-    _dio.options.receiveTimeout = timeout.inMilliseconds;
+    options.receiveTimeout = timeout.inMilliseconds;
   }
 
   set sendTimeout(Duration timeout) {
-    _dio.options.sendTimeout = timeout.inMilliseconds;
+    options.sendTimeout = timeout.inMilliseconds;
   }
 
   set contentType(String contentType) {
-    _dio.options.contentType = contentType;
+    options.contentType = contentType;
   }
 
   set responseType(ResponseType type) {
-    _dio.options.responseType = type;
+    options.responseType = type;
   }
 
   set headers(Map<String, dynamic> headers) {
-    _dio.options.headers.addAll(headers);
+    options.headers.addAll(headers);
   }
 
   set queryParameters(Map<String, dynamic> parameters) {
-    _dio.options.queryParameters.addAll(parameters);
+    options.queryParameters.addAll(parameters);
   }
 
   set extras(Map<String, dynamic> extras) {
-    _dio.options.extra.addAll(extras);
+    options.extra.addAll(extras);
   }
 
   set validateStatus(ValidateStatus validateStatus) {
-    _dio.options.validateStatus = validateStatus;
+    options.validateStatus = validateStatus;
   }
 
   set receiveDataWhenStatusError(bool receiveDataWhenStatusError) {
-    _dio.options.receiveDataWhenStatusError = receiveDataWhenStatusError;
+    options.receiveDataWhenStatusError = receiveDataWhenStatusError;
   }
 
   set followRedirects(bool followRedirects) {
-    _dio.options.followRedirects = followRedirects;
+    options.followRedirects = followRedirects;
   }
 
   set maxRedirects(int maxRedirects) {
-    _dio.options.maxRedirects = maxRedirects;
+    options.maxRedirects = maxRedirects;
   }
 
   set requestEncoder(RequestEncoder requestEncoder) {
-    _dio.options.requestEncoder = requestEncoder;
+    options.requestEncoder = requestEncoder;
   }
 
   set responseDecoder(ResponseDecoder responseDecoder) {
-    _dio.options.responseDecoder = responseDecoder;
+    options.responseDecoder = responseDecoder;
   }
 
   /// eg. 192.168.0.1:8888
   set openProxy(String? proxy) {
     if (proxy == null) return;
-    (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
+    (httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
       client.findProxy = (uri) => "PROXY $proxy";
     };
   }
 
   void addInterceptor(Interceptor interceptor) {
-    _dio.interceptors.add(interceptor);
+    interceptors.add(interceptor);
   }
 
-  void addInterceptors(List<Interceptor> interceptors) {
-    _dio.interceptors.addAll(interceptors);
+  void addInterceptors(List<Interceptor> list) {
+    interceptors.addAll(list);
   }
 
   void setCertificate(String pem) {
-    (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
+    (httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
       client.badCertificateCallback = (cert, host, port) => cert.pem == pem;
     };
   }
 
   void setCertificateFile(File file) {
-    (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
+    (httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
       return HttpClient(context: SecurityContext()..setTrustedCertificates(file.path));
     };
   }

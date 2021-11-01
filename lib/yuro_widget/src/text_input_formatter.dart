@@ -21,7 +21,6 @@ class _MoneyTextInputFormatter extends TextInputFormatter {
 
   @override
   TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
-    print('${oldValue.text},${newValue.text} \n \n');
     // 数字开头不允许出现"00"
     if (oldValue.text.startsWith('0') && newValue.text.startsWith('00')) {
       return oldValue;
