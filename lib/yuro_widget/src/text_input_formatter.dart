@@ -1,7 +1,9 @@
 import 'package:flutter/services.dart';
+import 'package:yuro/yuro_extension/yuro_extension.dart';
 
 extension TextInputFormatters on TextInputFormatter {
-  static TextInputFormatter money([int decimalPlaces = 2]) => _MoneyTextInputFormatter(decimalPlaces);
+  static List<TextInputFormatter> money({int integer = 6, int decimal = 2}) =>
+      [_MoneyTextInputFormatter(integer, decimal), allow(RegExp(r'[0-9.]'))];
 
   static TextInputFormatter allow(Pattern filterPattern, {String replacementString = ''}) =>
       FilteringTextInputFormatter.allow(filterPattern, replacementString: replacementString);
@@ -15,9 +17,10 @@ extension TextInputFormatters on TextInputFormatter {
 }
 
 class _MoneyTextInputFormatter extends TextInputFormatter {
-  final int decimalPlaces;
+  final int integer;
+  final int decimal;
 
-  _MoneyTextInputFormatter(this.decimalPlaces);
+  _MoneyTextInputFormatter(this.integer, this.decimal);
 
   @override
   TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
@@ -31,15 +34,23 @@ class _MoneyTextInputFormatter extends TextInputFormatter {
       return TextEditingValue(text: '0.', selection: TextSelection.collapsed(offset: 2));
     }
 
+    // 限制整数部分长度不超过给定值
+    if (newValue.text.toDouble() != null) {
+      final value = newValue.text.toDouble();
+      if (value!.truncate().toString().length > integer) {
+        return oldValue;
+      }
+    }
+
     if (oldValue.text.contains('.')) {
       // 小数部分不允许出现第二个小数点
       if (newValue.text.indexOf('.') != newValue.text.lastIndexOf('.')) {
         return oldValue;
       }
 
-      final decimal = newValue.text.split('.');
+      final decimalPart = newValue.text.split('.');
       // 如果新值的小数位大于指定值,返回旧值
-      if (decimal.length == 2 && decimal[1].length > decimalPlaces) {
+      if (decimalPart.length == 2 && decimalPart[1].length > decimal) {
         return oldValue;
       }
     }

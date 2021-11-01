@@ -1,3 +1,30 @@
+import 'package:yuro/yuro_extension/src/util/num_to_rmb.dart';
+
+extension NumExt on num {
+  /// 格式化距离
+  String formatDistance() {
+    final distance = this.round();
+    if (distance < 1000) {
+      return '${distance}m';
+    } else {
+      return '${(distance / 1000).toStringAsFixed(1)}km';
+    }
+  }
+
+  /// 格式化金额
+  String formatMoney([String? unit]) => '${this.toStringAsFixed(2)}${unit ?? ''}';
+
+  /// 格式化为大写人民币
+  String formatToRMB([int fixed = 2]) {
+    assert(fixed >= 0 && fixed <= 3);
+    return NumToRMB().toChinese(this.toStringAsFixed(fixed));
+  }
+}
+
+extension IntExt on int {
+  DateTime parseToDateTime([bool isUtc = false]) => DateTime.fromMillisecondsSinceEpoch(this, isUtc: isUtc);
+}
+
 extension DurationForIntExt on int {
   Duration get day => Duration(days: this);
 
