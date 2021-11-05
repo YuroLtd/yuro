@@ -1,14 +1,12 @@
 library yuro_intl;
 
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import 'package:yuro/yuro_core/yuro_core.dart';
 import 'package:yuro/yuro_app/yuro_app.dart';
 import 'package:yuro/yuro_cache/yuro_cache.dart';
-import 'package:yuro/yuro_route/yuro_route.dart';
+import 'package:yuro/yuro_core/yuro_core.dart';
 
 export 'package:flutter_localizations/flutter_localizations.dart';
+
 export 'src/intl_ext.dart';
 
 const List<String> RtlLanguages = <String>['ar', 'fa', 'he', 'ps', 'ur'];
