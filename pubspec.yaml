@@ -22,10 +22,11 @@ dependencies:
   synchronized: ^3.0.0          # https://pub.dev/packages/synchronized
   provider: ^6.0.0              # https://pub.dev/packages/provider
   path_provider: ^2.0.3         # https://pub.dev/packages/path_provider
-  package_info: ^2.0.0          # https://pub.dev/packages/package_info
   shared_preferences: ^2.0.7    # https://pub.dev/packages/shared_preferences
   permission_handler: ^8.1.6    # https://pub.dev/packages/permission_handler
 
+  yuro_plugin:
+    path: ../yuro_plugin
 
 dev_dependencies:
   flutter_test:

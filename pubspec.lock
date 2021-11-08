@@ -154,13 +154,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.0"
-  package_info:
-    dependency: "direct main"
-    description:
-      name: package_info
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "2.0.2"
   path:
     dependency: transitive
     description:
@@ -376,6 +369,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.2.0"
+  yuro_plugin:
+    dependency: "direct main"
+    description:
+      path: "../yuro_plugin"
+      relative: true
+    source: path
+    version: "0.0.1"
 sdks:
   dart: ">=2.13.0 <3.0.0"
   flutter: ">=2.0.0"

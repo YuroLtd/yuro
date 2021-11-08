@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/single_child_widget.dart';
 
+
 import 'yuro_app/yuro_app.dart';
 import 'yuro_cache/yuro_cache.dart';
 import 'yuro_core/yuro_core.dart';
@@ -11,6 +12,7 @@ import 'yuro_intl/yuro_intl.dart';
 import 'yuro_logger/yuro_logger.dart';
 import 'yuro_state/yuro_state.dart';
 import 'yuro_screen/yuro_screen.dart';
+import 'yuro_plus/yuro_plus.dart';
 
 export 'package:yuro/yuro_app/yuro_app.dart';
 export 'package:yuro/yuro_cache/yuro_cache.dart';
@@ -46,6 +48,8 @@ void runYuroApp({
   WidgetsFlutterBinding.ensureInitialized();
   // 初始化SharedPreferences
   await Yuro.initSharedPreferences();
+  // 加载应用信息
+  await Yuro.loadAppInfo();
   //初始化日志系统
   Yuro.initLogger(LogConfig());
 

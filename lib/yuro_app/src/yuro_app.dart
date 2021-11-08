@@ -11,13 +11,6 @@ import 'yuro_app_ext.dart';
 class YuroAppController extends YuroController {
   final _uniqueKey = ValueNotifier(UniqueKey());
 
-  @override
-  void onReady() async {
-    super.onReady();
-    // 加载应用信息
-    await Yuro.loadPackageInfo();
-  }
-
   void restart() => _uniqueKey.value = UniqueKey();
 }
 
