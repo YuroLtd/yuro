@@ -11,7 +11,7 @@ import 'yuro_app_ext.dart';
 class YuroAppController extends YuroController {
   final _uniqueKey = ValueNotifier(UniqueKey());
 
-  void restart() => _uniqueKey.value = UniqueKey();
+  void reload() => _uniqueKey.value = UniqueKey();
 }
 
 class YuroApp extends YuroView<YuroAppController> {

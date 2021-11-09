@@ -19,13 +19,13 @@ extension YuroAppExt on YuroInterface {
     if (themeMode == newThemeMode) return;
     _themeMode = newThemeMode;
     Yuro.sp.setInt(KEY_THEME_MODE, newThemeMode.index);
-    restart();
+    reload();
   }
 
   ThemeData get theme => Theme.of(Yuro.currentContext);
 
   TextTheme get textTheme => theme.textTheme;
 
-  /// 应用重启
-  void restart() => Yuro.currentContext.read<YuroAppController>().restart();
+  /// 应用重新加载
+  void reload() => Yuro.currentContext.read<YuroAppController>().reload();
 }

@@ -21,7 +21,7 @@ extension YuroTranslationExt on YuroInterface {
     if (_locale == locale) return;
     _locale = locale;
     Yuro.sp.setString(KEY_LOCALE, '${_locale?.languageCode}_${_locale?.countryCode}');
-    Yuro.restart();
+    Yuro.reload();
   }
 
   /// 备用语言
