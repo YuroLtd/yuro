@@ -29,18 +29,6 @@ class ListNotifier<E> extends _ListListenable<E> {
   }
 
   @override
-  set first(E value) {
-    super.first = value;
-    notifyListeners();
-  }
-
-  @override
-  set last(E value) {
-    super.last = value;
-    notifyListeners();
-  }
-
-  @override
   void add(E value) {
     super.add(value);
     notifyListeners();
@@ -49,6 +37,12 @@ class ListNotifier<E> extends _ListListenable<E> {
   @override
   void addAll(Iterable<E> iterable) {
     super.addAll(iterable);
+    notifyListeners();
+  }
+
+  @override
+  void clear() {
+    super.clear();
     notifyListeners();
   }
 
@@ -110,16 +104,12 @@ class ListNotifier<E> extends _ListListenable<E> {
   }
 
   @override
-  void clear() {
-    super.clear();
-    notifyListeners();
-  }
-
-  @override
   void retainWhere(bool Function(E element) test) {
     super.retainWhere(test);
     notifyListeners();
   }
+
+  void reverse() => value = value.reversed.toList();
 
   @override
   void fillRange(int start, int end, [E? fillValue]) {

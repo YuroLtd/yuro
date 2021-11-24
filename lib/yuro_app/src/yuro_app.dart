@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:yuro/yuro_core/yuro_core.dart';
 import 'package:yuro/yuro_intl/yuro_intl.dart';
-import 'package:yuro/yuro_plus/yuro_plus.dart';
 import 'package:yuro/yuro_route/yuro_route.dart';
 import 'package:yuro/yuro_state/yuro_state.dart';
 import 'package:yuro/yuro_widget/yuro_widget.dart';
@@ -48,7 +47,12 @@ class YuroApp extends YuroView<YuroAppController> {
     this.showSemanticsDebugger = false,
     this.shortcuts,
     this.actions,
-  });
+  }) {
+    if (navigatorKey != null) {
+      Yuro.navigatorKey = navigatorKey!;
+    }
+    Yuro.addTranslations(translations);
+  }
 
   final String title;
   final GenerateAppTitle? onGenerateTitle;
@@ -91,54 +95,49 @@ class YuroApp extends YuroView<YuroAppController> {
   YuroAppController createController() => YuroAppController();
 
   @override
-  Widget builder(context, controller) {
-    if (navigatorKey != null) Yuro.navigatorKey = navigatorKey!;
-    Yuro.addTranslations(translations);
+  Widget builder(context, controller) => Obs<UniqueKey>(
+      valueListenable: controller._uniqueKey,
+      builder: (context, value, child) => MaterialApp(
+            key: value,
+            title: title,
+            onGenerateTitle: onGenerateTitle,
+            color: color,
+            builder: (context, child) => DismissKeyBoard(child: transitionBuilder?.call(context, child) ?? child),
+            //
+            navigatorKey: Yuro.navigatorKey,
+            navigatorObservers: [...navigatorObservers],
 
-    return Obs<UniqueKey>(
-        valueListenable: controller._uniqueKey,
-        builder: (context, value, child) => MaterialApp(
-              key: value,
-              title: title,
-              onGenerateTitle: onGenerateTitle,
-              color: color,
-              builder: (context, child) => DismissKeyBoard(child: transitionBuilder?.call(context, child) ?? child),
-              //
-              navigatorKey: Yuro.navigatorKey,
-              navigatorObservers: [...navigatorObservers],
+            // 主题部分
+            theme: theme,
+            darkTheme: darkTheme,
+            highContrastTheme: highContrastTheme,
+            highContrastDarkTheme: highContrastDarkTheme,
+            themeMode: Yuro.themeMode,
 
-              // 主题部分
-              theme: theme,
-              darkTheme: darkTheme,
-              highContrastTheme: highContrastTheme,
-              highContrastDarkTheme: highContrastDarkTheme,
-              themeMode: Yuro.themeMode,
+            //
+            initialRoute: routes.initialRoute,
+            onGenerateRoute: routes.onGenerateRoute,
+            onUnknownRoute: routes.onUnknownRoute,
 
-              //
-              initialRoute: routes.initialRoute,
-              onGenerateRoute: routes.onGenerateRoute,
-              onUnknownRoute: routes.onUnknownRoute,
-
-              // 语言
-              locale: Yuro.locale,
-              supportedLocales: supportedLocales ?? const <Locale>[Locale('zh', 'CN')],
-              localizationsDelegates: localizationsDelegates ??
-                  const [
-                    GlobalWidgetsLocalizations.delegate,
-                    GlobalMaterialLocalizations.delegate,
-                    GlobalCupertinoLocalizations.delegate,
-                  ],
-              localeListResolutionCallback: localeListResolutionCallback,
-              localeResolutionCallback: localeResolutionCallback,
-              //
-              debugShowCheckedModeBanner: debugShowCheckedModeBanner,
-              debugShowMaterialGrid: debugShowMaterialGrid,
-              showPerformanceOverlay: showPerformanceOverlay,
-              checkerboardRasterCacheImages: checkerboardRasterCacheImages,
-              checkerboardOffscreenLayers: checkerboardOffscreenLayers,
-              showSemanticsDebugger: showSemanticsDebugger,
-              shortcuts: shortcuts,
-              actions: actions,
-            ));
-  }
+            // 语言
+            locale: Yuro.locale,
+            supportedLocales: supportedLocales ?? const <Locale>[Locale('zh', 'CN')],
+            localizationsDelegates: localizationsDelegates ??
+                const [
+                  GlobalWidgetsLocalizations.delegate,
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                ],
+            localeListResolutionCallback: localeListResolutionCallback,
+            localeResolutionCallback: localeResolutionCallback,
+            //
+            debugShowCheckedModeBanner: debugShowCheckedModeBanner,
+            debugShowMaterialGrid: debugShowMaterialGrid,
+            showPerformanceOverlay: showPerformanceOverlay,
+            checkerboardRasterCacheImages: checkerboardRasterCacheImages,
+            checkerboardOffscreenLayers: checkerboardOffscreenLayers,
+            showSemanticsDebugger: showSemanticsDebugger,
+            shortcuts: shortcuts,
+            actions: actions,
+          ));
 }

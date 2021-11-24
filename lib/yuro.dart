@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/single_child_widget.dart';
 
-
 import 'yuro_app/yuro_app.dart';
 import 'yuro_cache/yuro_cache.dart';
 import 'yuro_core/yuro_core.dart';
@@ -43,7 +42,7 @@ void runYuroApp({
   Size designSize = const Size(360, 640),
   List<SingleChildWidget> providers = const [],
   Widget Function(BuildContext context, Widget child)? builder,
-  Color? statusBarColor,
+  Color statusBarColor = Colors.transparent,
 }) async {
   WidgetsFlutterBinding.ensureInitialized();
   // 初始化SharedPreferences
@@ -77,7 +76,5 @@ void runYuroApp({
   ));
 
   // 开启沉浸式状态栏
-  if (statusBarColor != null) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: statusBarColor));
-  }
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: statusBarColor));
 }
