@@ -1,7 +1,8 @@
 import 'dart:convert';
 
-import 'package:yuro/yuro_logger/src/log_level.dart';
+import 'level.dart';
 
+/// 日志事件
 class LogEvent {
   final LogLevel level;
   final dynamic message;
@@ -11,30 +12,34 @@ class LogEvent {
   LogEvent(this.level, this.message, this.error, this.stackTrace);
 }
 
+/// 日志格式化
 abstract class LogPrinter {
   List<String> log(LogEvent event);
-}
 
-class SimplePrinter extends LogPrinter {
-  final bool printTime;
-  final bool printLevel;
-
-  SimplePrinter({this.printTime = false, this.printLevel = false});
-
-  @override
-  List<String> log(LogEvent event) {
-    final timeStr = printTime ? DateTime.now().toIso8601String() : '';
-    final levelStr = printLevel ? ' [${event.level.simpleStr}] ' : '';
-    final message = _stringifyMessage(event.message);
-    return ['$timeStr$levelStr$message'];
-  }
-
-  String _stringifyMessage(dynamic message) {
+  String stringifyMessage(dynamic message) {
     final finalMessage = message is Function ? message.call() : message;
     if (finalMessage is Map || finalMessage is Iterable) {
       return json.encode(finalMessage);
     } else {
       return finalMessage.toString();
     }
+  }
+}
+
+/// 简单日志输出
+///
+/// I/flutter ( 6433): *** Response ***
+class SimplePrinter extends LogPrinter {
+  final bool printTime;
+  final bool printLevel;
+
+  SimplePrinter({this.printTime = false, this.printLevel = true});
+
+  @override
+  List<String> log(LogEvent event) {
+    final timeStr = printTime ? DateTime.now().toIso8601String() : '';
+    final levelStr = printLevel ? ' [${event.level.simpleStr}] ' : '';
+    final message = stringifyMessage(event.message);
+    return ['$timeStr$levelStr$message'];
   }
 }

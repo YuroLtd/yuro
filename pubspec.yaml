@@ -17,7 +17,6 @@ dependencies:
   uuid: ^3.0.4                  # https://pub.dev/packages/uuid
   crypto: ^3.0.1                # https://pub.dev/packages/crypto
   convert: ^3.0.1               # https://pub.dev/packages/convert
-  logger: ^1.1.0                # https://pub.dev/packages/logger
   collection: ^1.15.0           # https://pub.dev/packages/collection
   synchronized: ^3.0.0          # https://pub.dev/packages/synchronized
   provider: ^6.0.0              # https://pub.dev/packages/provider

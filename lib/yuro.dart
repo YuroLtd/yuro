@@ -43,14 +43,15 @@ void runYuroApp({
   List<SingleChildWidget> providers = const [],
   Widget Function(BuildContext context, Widget child)? builder,
   Color statusBarColor = Colors.transparent,
+  LogConfig? logConfig,
 }) async {
   WidgetsFlutterBinding.ensureInitialized();
   // 初始化SharedPreferences
   await Yuro.initSharedPreferences();
   // 加载应用信息
   await Yuro.loadAppInfo();
-  //初始化日志系统
-  Yuro.initLogger(LogConfig());
+  // 更新日志配置
+  if (logConfig != null) Yuro.updateLogConfig(logConfig);
 
   //加载ThemeMode
   var themeModeIndex = Yuro.sp.getInt(KEY_THEME_MODE);

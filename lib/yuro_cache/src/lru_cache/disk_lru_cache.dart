@@ -21,7 +21,7 @@ import 'lru_map.dart';
 //     READ 3400330d1dfc7f3f7f4b8d4d803d3cf6
 
 /// 基于Lru实现的缓存管理
-class YuroCache {
+class DiskLruCache {
   static const String MAGIC = 'flutter.io.DiskLruCache';
   static const String JOURNAL_FILE = 'journal';
   static const String JOURNAL_FILE_TEMP = 'journal.tmp';
@@ -36,8 +36,8 @@ class YuroCache {
   ///
   /// @param directory 缓存目录
   ///
-  /// @param maxSize   缓存占用空间
-  static Future<YuroCache> open(Directory directory, int maxSize) async {
+  /// @param maxSize   缓存占用空间,单位MB
+  static Future<DiskLruCache> open(Directory directory, [int maxSize = 100]) async {
     assert(maxSize > 0, '缓存占用空间必须大于0!');
     File backupFile = File('${directory.path}/$JOURNAL_FILE_BACKUP');
     if (backupFile.existsSync()) {
@@ -49,7 +49,7 @@ class YuroCache {
       }
     }
 
-    YuroCache cache = YuroCache._(directory, maxSize);
+    DiskLruCache cache = DiskLruCache._(directory, maxSize);
     if (cache._journalFile.existsSync()) {
       try {
         cache._readJournal();
@@ -66,12 +66,12 @@ class YuroCache {
     return cache;
   }
 
-  YuroCache._(Directory directory, int maxSize) {
+  DiskLruCache._(Directory directory, int maxSize) {
     this._directory = directory;
     this._journalFile = File('${directory.path}/$JOURNAL_FILE');
     this._journalTempFile = File('${directory.path}/$JOURNAL_FILE_TEMP');
     this._journalBackupFile = File('${directory.path}/$JOURNAL_FILE_BACKUP');
-    this._maxSize = maxSize;
+    this._maxSize = maxSize * 1000 * 1000;
     this._journalWriter = _journalFile.openWrite(mode: FileMode.append);
   }
 
@@ -176,7 +176,7 @@ class YuroCache {
   void _addRedundantOpCount() => _lock.synchronized(() {
         _redundantOpCount++;
         if (_redundantOpCount >= 2000 || _redundantOpCount >= _lruEntries.length) {
-          Yuro.log.d('redundantOpCount: $_redundantOpCount, cacheEntry count: ${_lruEntries.length}, 开始重构缓存日志文件');
+          Yuro.log.i('redundantOpCount: $_redundantOpCount, cacheEntry count: ${_lruEntries.length}, 开始重构缓存日志文件');
           _rebuildJournal();
         }
       });
@@ -213,15 +213,15 @@ class YuroCache {
   Future<Snapshot?> get(String key) => _lock.synchronized<Snapshot?>(() async {
         Entry? entry = _lruEntries[key];
         if (entry == null) {
-          Yuro.log.d('cache key: $key 不存在.');
+          Yuro.log.i('cache key: $key 不存在.');
           return null;
         }
         if (!entry.readable) {
-          Yuro.log.d('cache key: $key 正在编辑中,无法读取.');
+          Yuro.log.i('cache key: $key 正在编辑中,无法读取.');
           return null;
         }
         if (entry.isExpire()) {
-          Yuro.log.d('cache key: $key 已过期,将从内存和本地移除.');
+          Yuro.log.i('cache key: $key 已过期,将从内存和本地移除.');
           remove(key);
           return null;
         }
@@ -281,7 +281,7 @@ class Snapshot {
   Snapshot(this.entry, this._cache);
 
   final Entry entry;
-  final YuroCache _cache;
+  final DiskLruCache _cache;
 
   Future<Editor?> getEditor() => _cache.edit(entry.key);
 
@@ -298,7 +298,7 @@ class Editor {
   }
 
   final Entry entry;
-  final YuroCache _cache;
+  final DiskLruCache _cache;
 
   late IOSink _ioSink;
 

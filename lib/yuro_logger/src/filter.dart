@@ -1,5 +1,5 @@
-import 'package:yuro/yuro_logger/src/log_level.dart';
-import 'package:yuro/yuro_logger/src/log_printer.dart';
+import 'level.dart';
+import 'printer.dart';
 
 /// 日志过滤器,如果传入日志等级大于等于当前过滤器等级则打印,否则忽略
 class LogFilter {

@@ -1,6 +1,6 @@
-import 'package:yuro/yuro_logger/src/log_level.dart';
-import 'dart:developer' as developer;
+import 'level.dart';
 
+/// 日志输出事件
 class OutputEvent {
   final LogLevel level;
 
@@ -8,15 +8,13 @@ class OutputEvent {
 
   OutputEvent(this.level, this.lines);
 }
-
+/// 日志输出
 abstract class LogOutput {
   void output(OutputEvent event);
 }
 
+/// 日志输出到控制台
 class ConsoleOutput extends LogOutput {
   @override
-  void output(OutputEvent event) {
-    event.lines.forEach(print);
-
-  }
+  void output(OutputEvent event) => event.lines.forEach(print);
 }

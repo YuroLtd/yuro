@@ -1,5 +1,3 @@
-import 'package:yuro/yuro_logger/src/ansi_color.dart';
-
 enum LogLevel { verbose, debug, info, warring, error }
 
 extension LogLevelExt on LogLevel {
@@ -30,21 +28,6 @@ extension LogLevelExt on LogLevel {
         return 'W';
       case LogLevel.error:
         return 'E';
-    }
-  }
-
-  AnsiColor get color {
-    switch (this) {
-      case LogLevel.verbose:
-        return AnsiColor();
-      case LogLevel.debug:
-        return AnsiColor();
-      case LogLevel.info:
-        return AnsiColor();
-      case LogLevel.warring:
-        return AnsiColor();
-      case LogLevel.error:
-        return AnsiColor();
     }
   }
 }
