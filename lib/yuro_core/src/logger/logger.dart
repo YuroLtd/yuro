@@ -1,13 +1,16 @@
-import 'package:yuro/yuro_logger/src/output.dart';
+import '../interface.dart';
 
 import 'config.dart';
+import 'output.dart';
 import 'level.dart';
 import 'printer.dart';
 
-class Logger {
-  LogConfig _config = LogConfig();
+export 'config.dart';
 
-  void updateConfig(LogConfig config) => _config = config;
+extension LoggerExt on YuroInterface {
+  static LogConfig _config = LogConfig();
+
+  set logConfig(LogConfig config) => _config = config;
 
   void v(dynamic message, [dynamic err, StackTrace? stackTrace]) {
     _log(LogLevel.verbose, message, err, stackTrace);
