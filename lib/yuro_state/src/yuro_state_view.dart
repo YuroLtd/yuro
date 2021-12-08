@@ -4,11 +4,13 @@ import 'package:provider/provider.dart';
 import 'yuro_controller.dart';
 
 abstract class YuroStateView<T extends YuroController> extends StatefulWidget {
+  T createController();
+
+  bool get wantKeepAlive => false;
+
   void initState() {}
 
   void dispose() {}
-
-  T createController();
 
   Widget builder(BuildContext context, T controller);
 
@@ -16,8 +18,7 @@ abstract class YuroStateView<T extends YuroController> extends StatefulWidget {
   _YuroStateViewState createState() => _YuroStateViewState();
 }
 
-class _YuroStateViewState<T extends YuroController> extends State<YuroStateView<T>> {
-
+class _YuroStateViewState<T extends YuroController> extends State<YuroStateView<T>> with AutomaticKeepAliveClientMixin {
   @override
   void initState() {
     widget.initState();
@@ -31,7 +32,13 @@ class _YuroStateViewState<T extends YuroController> extends State<YuroStateView<
   }
 
   @override
-  Widget build(BuildContext context) => ChangeNotifierProvider(
-      create: (_) => widget.createController(),
-      builder: (context, child) => widget.builder(context, context.read<T>()));
+  bool get wantKeepAlive => widget.wantKeepAlive;
+
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+    return ChangeNotifierProvider(
+        create: (_) => widget.createController(),
+        builder: (context, child) => widget.builder(context, context.read<T>()));
+  }
 }

@@ -105,7 +105,7 @@ class YuroApp extends YuroView<YuroAppController> {
             builder: (context, child) => DismissKeyBoard(child: transitionBuilder?.call(context, child) ?? child),
             //
             navigatorKey: Yuro.navigatorKey,
-            navigatorObservers: [...navigatorObservers],
+            navigatorObservers: [YuroNavigatorObserver(), ...navigatorObservers],
 
             // 主题部分
             theme: theme,

@@ -5,7 +5,7 @@ extension IterableExt<T> on Iterable<T> {
 }
 
 extension ListExt<T> on List<T> {
-
+  List<T> reverse() => reversed.toList();
 }
 
 extension List2Ext<T> on List<T>? {

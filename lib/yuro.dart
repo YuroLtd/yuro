@@ -9,6 +9,7 @@ import 'yuro_cache/yuro_cache.dart';
 import 'yuro_core/yuro_core.dart';
 import 'yuro_intl/yuro_intl.dart';
 import 'yuro_state/yuro_state.dart';
+import 'yuro_route/yuro_route.dart';
 import 'yuro_overlay/yuro_overlay.dart';
 import 'yuro_screen/yuro_screen.dart';
 import 'yuro_plus/yuro_plus.dart';
@@ -41,15 +42,24 @@ void runYuroApp({
   Color statusBarColor = Colors.transparent,
   LogConfig? logConfig,
   ToastTheme? toastTheme,
+  LoadingTheme? loadingTheme,
 }) async {
   WidgetsFlutterBinding.ensureInitialized();
-  // 更新日志配置
+  // 绑定全局路由监听
+  YuroWidgetsBindingObserver();
+
+  // 初始化日志配置
   if (logConfig != null) Yuro.logConfig = logConfig;
-  // 更新Toast配置
+
+  // 初始化Toast配置
   if (toastTheme != null) Yuro.toastTheme = toastTheme;
+
+  // 初始化Loading配置
+  if (loadingTheme != null) Yuro.loadingTheme = loadingTheme;
 
   // 初始化SharedPreferences
   await Yuro.initSharedPreferences();
+
   // 加载应用信息
   await Yuro.loadAppInfo();
 

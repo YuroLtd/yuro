@@ -1,60 +1,70 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
-import 'package:yuro/yuro_state/yuro_state.dart';
+import 'package:flutter/material.dart';
+import 'package:yuro/yuro_core/yuro_core.dart';
+import 'package:yuro/yuro_overlay/src/loading/loading.dart';
 
 class Observer<T> {
-  final Future<T> fetchData;
+  final Future<T> _fetchData;
 
-  Observer._(this.fetchData);
+  Observer._(this._fetchData);
 
   StreamSubscription<T>? _subscription;
+  UniqueKey? _uniqueKey;
+
+  bool completed = false;
+  bool canceled = false;
 
   factory Observer.fromFuture(Future<T> fetchData) => Observer._(fetchData);
 
-  /// onStart -> onDone -> onData / onError
-  void listen({
-    void Function()? onStart,
-    required void Function(T data) onData,
-    Function(String err)? onError,
-    void Function()? onDone,
-  }) {
-    onStart?.call();
-    _subscription = Stream<T>.fromFuture(fetchData).listen(
-      (event) {
-        _onCompleted(onDone);
-        onData.call(event);
-      },
-      onError: (err) {
-        _onCompleted(onDone);
-        onError?.call(err is DioError ? err.error.toString() : err.toString());
-      },
+  late final ValueSetter<T> onData;
+  late final ValueSetter<String>? onError;
+  late final VoidCallback? onDone;
+
+  void fetch({required ValueSetter<T> onData, ValueSetter<String>? onError, VoidCallback? onDone}) {
+    this.onData = onData;
+    this.onError = onError;
+    this.onDone = onDone;
+    _subscription = Stream<T>.fromFuture(_fetchData).listen(
+      (event) => _onData(event),
+      onError: (err) => _onError(err),
       cancelOnError: true,
     );
   }
 
-  void _onCompleted(void Function()? onDone) {
+  void listen({required ValueSetter<T> onData, ValueSetter<String>? onError, VoidCallback? onDone}) {
+    this.onData = onData;
+    this.onError = onError;
+    this.onDone = onDone;
+    _uniqueKey = Yuro.showLoading(() => cancel());
+    _subscription = Stream<T>.fromFuture(_fetchData).listen(
+      (event) => _onData(event),
+      onError: (err) => _onError(err),
+      cancelOnError: true,
+    );
+  }
+
+  void _onData(T event) {
+    _onCompleted();
+    onData.call(event);
+  }
+
+  void _onError(dynamic err) {
+    _onCompleted();
+    onError?.call(err is DioError ? err.error.toString() : err.toString());
+  }
+
+  void _onCompleted() {
+    completed = true;
     _subscription = null;
     onDone?.call();
+    if (_uniqueKey != null) Yuro.dismissLoading(_uniqueKey);
   }
 
   Future<void> cancel() async {
     await _subscription?.cancel();
-  }
-}
-
-mixin ObserverMixin on YuroController {
-  final List<Observer> observers = [];
-
-  Observer<T> request<T>(Future<T> request) {
-    final observer = Observer.fromFuture(request);
-    observers.add(observer);
-    return observer;
-  }
-
-  @override
-  void dispose() {
-    observers.forEach((element) => element.cancel());
-    super.dispose();
+    canceled = true;
+    _subscription = null;
   }
 }

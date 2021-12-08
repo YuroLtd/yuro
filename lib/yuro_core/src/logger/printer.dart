@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:yuro/yuro_extension/src/string.dart';
 
 import 'level.dart';
 
@@ -14,7 +15,7 @@ class LogEvent {
 
 /// 日志格式化
 abstract class LogPrinter {
-  List<String> log(LogEvent event);
+  List<String> log(String? tag, LogEvent event);
 
   String stringifyMessage(dynamic message) {
     final finalMessage = message is Function ? message.call() : message;
@@ -36,10 +37,11 @@ class SimplePrinter extends LogPrinter {
   SimplePrinter({this.printTime = false, this.printLevel = true});
 
   @override
-  List<String> log(LogEvent event) {
-    final timeStr = printTime ? DateTime.now().toIso8601String() : '';
-    final levelStr = printLevel ? ' [${event.level.simpleStr}] ' : '';
+  List<String> log(String? tag, LogEvent event) {
+    final timeStr = printTime ? '${DateTime.now().toIso8601String()} ' : '';
+    final levelStr = printLevel ? '[${event.level.simpleStr}]' : '';
+    final tagStr = tag.isNullOrEmpty() ? '' : '$tag: ';
     final message = stringifyMessage(event.message);
-    return ['$timeStr$levelStr$message'];
+    return ['$timeStr$levelStr$tagStr$message'];
   }
 }

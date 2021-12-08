@@ -1,18 +1,16 @@
-part of '../yuro_overlay.dart';
+part of 'toast.dart';
 
-class OverlayContainer extends StatefulWidget {
-  final AnimationBuilder builder;
+class _ToastContainer extends StatefulWidget {
+  final ToastTheme theme;
   final Widget child;
-  final OverlayTheme theme;
 
-  const OverlayContainer(this.builder, this.child, this.theme, {Key? key}) : super(key: key);
+  const _ToastContainer(this.theme, this.child, {Key? key}) : super(key: key);
 
   @override
-  _OverlayContainerState createState() => _OverlayContainerState();
+  _ToastContainerState createState() => _ToastContainerState();
 }
 
-class _OverlayContainerState extends State<OverlayContainer>
-    with WidgetsBindingObserver, SingleTickerProviderStateMixin {
+class _ToastContainerState extends State<_ToastContainer> with WidgetsBindingObserver, SingleTickerProviderStateMixin {
   EdgeInsets get _bottomOffset => EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom);
 
   Duration get _animationDuration => widget.theme.animationDuration;
@@ -65,7 +63,10 @@ class _OverlayContainerState extends State<OverlayContainer>
           curve: widget.theme.animationCurve,
           child: AnimatedBuilder(
               animation: _animController,
-              builder: (context, child) {
-                return widget.builder.call(context, _animController, _animController.value, widget.child);
-              })));
+              builder: (context, child) => widget.theme.animationBuilder.call(
+                    context,
+                    _animController,
+                    _animController.value,
+                    widget.child,
+                  ))));
 }
