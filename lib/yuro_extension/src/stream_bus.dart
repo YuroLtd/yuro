@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:yuro/yuro_core/yuro_core.dart';
 
 extension StreamBusExt on YuroInterface {
-  static StreamController _streamController = StreamController.broadcast();
+  static final StreamController _streamController = StreamController.broadcast();
 
   Stream<T> streamOn<T>() => _streamController.stream.where((event) => event is T).cast<T>();
 

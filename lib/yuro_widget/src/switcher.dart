@@ -45,7 +45,7 @@ class Switcher extends StatefulWidget {
 
   final List<BoxShadow>? boxShadow;
 
-  Switcher({
+  const Switcher({
     Key? key,
     required this.onChanged,
     this.open = false,
@@ -61,9 +61,10 @@ class Switcher extends StatefulWidget {
     this.sliderChild,
     //
     this.boxShadow,
-  })  : this.height = width * 0.5,
-        this.offset = width * 0.5 / 18,
-        this.childOffset = width * 0.5 / 5;
+  })  : height = width * 0.5,
+        offset = width * 0.5 / 18,
+        childOffset = width * 0.5 / 5,
+        super(key: key);
 
   @override
   _SwitcherState createState() => _SwitcherState();
@@ -82,24 +83,25 @@ class _SwitcherState extends State<Switcher> {
   Widget build(BuildContext context) {
     var children = <Widget>[];
     var background = AnimatedContainer(
-      duration: Duration(milliseconds: 250),
+      duration: const Duration(milliseconds: 250),
       decoration: BoxDecoration(
         color: isOpen ? widget.onColor : widget.offColor,
         borderRadius: BorderRadius.circular(widget.height / 2),
         boxShadow: widget.boxShadow,
       ),
-      child: Container(width: widget.width, height: widget.height),
+      child: SizedBox(width: widget.width, height: widget.height),
     );
     children.add(background);
 
     var showChild = isOpen ? widget.onChild : widget.offChild;
     if (showChild != null) {
-      showChild = Positioned(child: showChild, left: isOpen ? widget.childOffset : null, right: isOpen ? null : widget.childOffset);
+      showChild = Positioned(
+          child: showChild, left: isOpen ? widget.childOffset : null, right: isOpen ? null : widget.childOffset);
       children.add(showChild);
     }
 
     var slider = AnimatedContainer(
-        duration: Duration(milliseconds: 200),
+        duration: const Duration(milliseconds: 200),
         margin: EdgeInsets.fromLTRB(widget.offset + sliderOffset, 0, 0, 0),
         width: circleSize + ((draging && sliderOffset != maxOffset) ? sliderDragW : 0),
         height: circleSize,
@@ -121,7 +123,7 @@ class _SwitcherState extends State<Switcher> {
               width: widget.width,
               height: widget.height,
               decoration: BoxDecoration(
-                color: Color(0xFFF1F1F1),
+                color: const Color(0xFFF1F1F1),
                 borderRadius: BorderRadius.circular(widget.height / 2),
               )));
       children.add(disableMask);

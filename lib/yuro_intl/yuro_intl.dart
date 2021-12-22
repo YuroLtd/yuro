@@ -9,7 +9,7 @@ export 'package:flutter_localizations/flutter_localizations.dart';
 
 export 'src/intl_ext.dart';
 
-const List<String> RtlLanguages = <String>['ar', 'fa', 'he', 'ps', 'ur'];
+const List<String> rtlLanguages = <String>['ar', 'fa', 'he', 'ps', 'ur'];
 
 extension YuroTranslationExt on YuroInterface {
   /// 首选语言
@@ -32,7 +32,7 @@ extension YuroTranslationExt on YuroInterface {
   set fallbackLocale(Locale locale) => _fallbackLocale = locale;
 
   /// 国际化翻译对照表
-  static Map<String, Map<String, String>> _translations = {};
+  static final Map<String, Map<String, String>> _translations = {};
 
   Map<String, Map<String, String>> get translations => _translations;
 

@@ -16,7 +16,7 @@ class DefaultLoading extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Card(
         child: Padding(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           child: CircularProgressIndicator(color: Yuro.theme.primaryColor, strokeWidth: 3),
         ),
       );

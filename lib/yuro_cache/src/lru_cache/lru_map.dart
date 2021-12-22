@@ -1,7 +1,7 @@
 class LruLinkedHashMap<K, V> implements Map<K, V> {
   LruLinkedHashMap();
 
-  Map<K, _Entry<K, V>> _lruMap = Map();
+  final Map<K, _Entry<K, V>> _lruMap = {};
 
   _Entry<K, V>? _head;
   _Entry<K, V>? _trail;
@@ -22,10 +22,11 @@ class LruLinkedHashMap<K, V> implements Map<K, V> {
       n.before = n.after = null;
       n.after = _head!..before = n;
       before!.after = after;
-      if (after != null)
+      if (after != null) {
         after.before = before;
-      else
+      } else {
         _trail = before;
+      }
       _head = n;
     }
   }
@@ -95,13 +96,15 @@ class LruLinkedHashMap<K, V> implements Map<K, V> {
 
   @override
   V update(K key, V Function(V value) update, {V Function()? ifAbsent}) {
-    var updateFunc = (_Entry<K, V> entry) {
-      entry.value = update(entry.value);
-      _afterNodeAccess(entry);
-      return entry;
-    };
-    var ifAbsentFunc = ifAbsent == null ? null : () => _createNewNode(key, ifAbsent());
-    return _lruMap.update(key, updateFunc, ifAbsent: ifAbsentFunc).value;
+    return _lruMap.update(
+      key,
+      (entry) {
+        entry.value = update(entry.value);
+        _afterNodeAccess(entry);
+        return entry;
+      },
+      ifAbsent: ifAbsent == null ? null : () => _createNewNode(key, ifAbsent.call()),
+    ).value;
   }
 
   @override
@@ -116,7 +119,7 @@ class LruLinkedHashMap<K, V> implements Map<K, V> {
     return entry?.value;
   }
 
-  V? removeLast(){
+  V? removeLast() {
     var entry = _trail;
     if (entry != null) _afterNodeRemove(entry);
     return entry?.value;
@@ -136,10 +139,11 @@ class LruLinkedHashMap<K, V> implements Map<K, V> {
   void _afterNodeRemove(_Entry<K, V> node) {
     _Entry<K, V>? n = node, before = n.before, after = n.after;
     n.before = n.after = null;
-    if (before == null)
+    if (before == null) {
       _head = after;
-    else
+    } else {
       before.after = after;
+    }
 
     if (after == null) {
       _trail = before;

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:yuro/yuro_core/yuro_core.dart';
 import 'package:yuro/yuro_extension/src/list.dart';
 
 class YuroWidgetsBindingObserver with WidgetsBindingObserver {

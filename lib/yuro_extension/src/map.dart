@@ -1,7 +1,7 @@
 extension MapExt<K, V> on Map<K, V> {
   String signStr() {
     var sb = StringBuffer();
-    this.forEach((key, value) {
+    forEach((key, value) {
       sb
         ..write(key)
         ..write('=')

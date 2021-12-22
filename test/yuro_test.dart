@@ -8,7 +8,7 @@ void main() {
   Future<bool> futureFunc() async{
     final completer = Completer<bool>();
     final random = Random().nextInt(10);
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
     if (random.isOdd) {
       completer.complete(true);
     } else {

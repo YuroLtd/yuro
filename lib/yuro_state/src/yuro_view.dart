@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import 'yuro_controller.dart';
 
 abstract class YuroView<T extends YuroController> extends StatelessWidget {
+  const YuroView({Key? key}) : super(key: key);
+
   T createController();
 
   Widget builder(BuildContext context, T controller);

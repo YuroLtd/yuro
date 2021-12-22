@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import 'yuro_controller.dart';
 
 abstract class YuroStateView<T extends YuroController> extends StatefulWidget {
+  const YuroStateView({Key? key}) : super(key: key);
+
   T createController();
 
   bool get wantKeepAlive => false;

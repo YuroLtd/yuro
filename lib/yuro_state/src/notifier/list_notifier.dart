@@ -11,7 +11,7 @@ class ListNotifier<E> extends _ListListenable<E> {
   ListNotifier(List<E> list) : super(list);
 
   set value(List<E> list) {
-    if (DeepCollectionEquality().equals(value, list)) return;
+    if (const DeepCollectionEquality().equals(value, list)) return;
     _value = list;
     notifyListeners();
   }
@@ -272,13 +272,13 @@ class IterableListenable<T extends Iterable<E>, E> extends ChangeNotifier implem
   bool every(bool Function(E element) test) => _value.every(test);
 
   @override
-  Iterable<T> expand<T>(Iterable<T> Function(E element) f) => _value.expand(f);
+  Iterable<S> expand<S>(Iterable<S> Function(E element) f) => _value.expand(f);
 
   @override
   E firstWhere(bool Function(E element) test, {E Function()? orElse}) => _value.firstWhere(test, orElse: orElse);
 
   @override
-  T fold<T>(T initialValue, T Function(T previousValue, E element) combine) => _value.fold(initialValue, combine);
+  S fold<S>(S initialValue, S Function(S previousValue, E element) combine) => _value.fold(initialValue, combine);
 
   @override
   Iterable<E> followedBy(Iterable<E> other) => _value.followedBy(other);
@@ -293,7 +293,7 @@ class IterableListenable<T extends Iterable<E>, E> extends ChangeNotifier implem
   E lastWhere(bool Function(E element) test, {E Function()? orElse}) => _value.lastWhere(test, orElse: orElse);
 
   @override
-  Iterable<T> map<T>(T Function(E e) f) => _value.map(f);
+  Iterable<S> map<S>(S Function(E e) f) => _value.map(f);
 
   @override
   E reduce(E Function(E value, E element) combine) => _value.reduce(combine);
@@ -308,7 +308,7 @@ class IterableListenable<T extends Iterable<E>, E> extends ChangeNotifier implem
   Iterable<E> where(bool Function(E element) test) => _value.where(test);
 
   @override
-  Iterable<T> whereType<T>() => _value.whereType<T>();
+  Iterable<S> whereType<S>() => _value.whereType<S>();
 
   @override
   Iterable<E> skip(int count) => _value.skip(count);

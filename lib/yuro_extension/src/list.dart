@@ -1,7 +1,7 @@
 extension IterableExt<T> on Iterable<T> {
-  T? get firstOrNull => this.isNotEmpty ? this.first : null;
+  T? get firstOrNull => isNotEmpty ? first : null;
 
-  T? get lastOrNull => this.isNotEmpty ? this.last : null;
+  T? get lastOrNull => isNotEmpty ? last : null;
 }
 
 extension ListExt<T> on List<T> {

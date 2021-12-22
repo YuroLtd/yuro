@@ -25,7 +25,7 @@ class _ToastContainerState extends State<_ToastContainer> with WidgetsBindingObs
   void initState() {
     super.initState();
     WidgetsBinding.instance?.addObserver(this);
-    Future.delayed(Duration(milliseconds: 30), () => _animTo(1.0));
+    Future.delayed(const Duration(milliseconds: 30), () => _animTo(1.0));
   }
 
   @override

@@ -15,6 +15,7 @@ class YuroAppController extends YuroController {
 
 class YuroApp extends YuroView<YuroAppController> {
   YuroApp({
+    Key? key,
     //
     required this.title,
     this.onGenerateTitle,
@@ -47,7 +48,7 @@ class YuroApp extends YuroView<YuroAppController> {
     this.showSemanticsDebugger = false,
     this.shortcuts,
     this.actions,
-  }) {
+  }) : super(key: key) {
     if (navigatorKey != null) {
       Yuro.navigatorKey = navigatorKey!;
     }

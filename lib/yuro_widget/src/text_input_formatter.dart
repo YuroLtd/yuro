@@ -31,7 +31,7 @@ class _MoneyTextInputFormatter extends TextInputFormatter {
 
     // 起始输入小数点时自动补上整数部分
     if (oldValue.text.isEmpty && newValue.text == '.') {
-      return TextEditingValue(text: '0.', selection: TextSelection.collapsed(offset: 2));
+      return const TextEditingValue(text: '0.', selection: TextSelection.collapsed(offset: 2));
     }
 
     // 限制整数部分长度不超过给定值

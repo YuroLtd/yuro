@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 
 /// 不能用在slivers中作为第一个子widget,否则会报错
 class SliverPersistentHeaderBuilder extends StatelessWidget {
-  SliverPersistentHeaderBuilder({
+  const SliverPersistentHeaderBuilder({
+    Key? key,
     required this.builder,
     required this.maxHeight,
     this.minHeight,
     this.rebuild,
     this.pinned = false,
     this.floating = false,
-  });
+  }) : super(key: key);
 
   final Widget Function(BuildContext context, double shrinkOffset, bool overlapsContent) builder;
   final double maxHeight;

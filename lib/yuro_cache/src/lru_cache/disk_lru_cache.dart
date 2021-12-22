@@ -66,12 +66,12 @@ class DiskLruCache {
   }
 
   DiskLruCache._(Directory directory, int maxSize) {
-    this._directory = directory;
-    this._journalFile = File('${directory.path}/$JOURNAL_FILE');
-    this._journalTempFile = File('${directory.path}/$JOURNAL_FILE_TEMP');
-    this._journalBackupFile = File('${directory.path}/$JOURNAL_FILE_BACKUP');
-    this._maxSize = maxSize * 1000 * 1000;
-    this._journalWriter = _journalFile.openWrite(mode: FileMode.append);
+    _directory = directory;
+    _journalFile = File('${directory.path}/$JOURNAL_FILE');
+    _journalTempFile = File('${directory.path}/$JOURNAL_FILE_TEMP');
+    _journalBackupFile = File('${directory.path}/$JOURNAL_FILE_BACKUP');
+    _maxSize = maxSize * 1000 * 1000;
+    _journalWriter = _journalFile.openWrite(mode: FileMode.append);
   }
 
   late Directory _directory;
@@ -83,8 +83,8 @@ class DiskLruCache {
 
   int _size = 0;
   int _redundantOpCount = 0;
-  LruLinkedHashMap<String, Entry> _lruEntries = LruLinkedHashMap();
-  Lock _lock = Lock(reentrant: true);
+  final LruLinkedHashMap<String, Entry> _lruEntries = LruLinkedHashMap();
+  final Lock _lock = Lock(reentrant: true);
 
   /// 读取日志
   void _readJournal() {
@@ -349,7 +349,7 @@ class Entry {
   bool get readable => editor == null;
 
   // 缓存是否过期
-  bool isExpire() => DateTime.now().millisecondsSinceEpoch >= (expire ?? int_infinity);
+  bool isExpire() => DateTime.now().millisecondsSinceEpoch >= (expire ?? double.infinity.toInt());
 
   File getCleanFile() => File('${directory.path}/$key');
 

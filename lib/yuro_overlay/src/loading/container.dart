@@ -1,11 +1,11 @@
 part of 'loading.dart';
 
 class _LoadingContainer extends StatefulWidget {
-  final UniqueKey key;
+  final UniqueKey uniqueKey;
   final LoadingTheme theme;
   final VoidCallback? onDismiss;
 
-  const _LoadingContainer(this.key, this.theme, this.onDismiss);
+  const _LoadingContainer(this.uniqueKey, this.theme, this.onDismiss);
 
   @override
   __LoadingContainerState createState() => __LoadingContainerState();
@@ -23,7 +23,7 @@ class __LoadingContainerState extends State<_LoadingContainer> {
 
   void dismiss() {
     widget.onDismiss?.call();
-    Yuro.dismissLoading(widget.key);
+    Yuro.dismissLoading(widget.uniqueKey);
   }
 
   @override
