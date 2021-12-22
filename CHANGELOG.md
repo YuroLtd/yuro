@@ -1,8 +1,18 @@
+## 0.4.0
+
+* 基础logger功能
+* overlay widget
+    * Toast
+    * Loading
+
+## 0.3.0
+
+* 重构项目
+
 ## 0.2.0
 
 * 使用`Provider`管理状态.
 * 使用`shared_preferences`管理缓存.
-* 代码重构.
 
 ## 0.1.2
 
