@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:yuro/yuro_cache/src/lru_cache/lru_map.dart';
+import 'package:yuro/yuro_cache/lru_cache/lru_map.dart';
 
 void main() {
   Future<bool> futureFunc() async{

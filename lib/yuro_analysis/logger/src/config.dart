@@ -6,9 +6,9 @@ import 'printer.dart';
 
 class LogConfig {
   final bool enable;
-  late final LogFilter filter;
-  late final LogPrinter printer;
-  late final LogOutput output;
+  final LogFilter filter;
+  final LogPrinter printer;
+  final LogOutput output;
 
   /// [filter] 日志过滤器,默认情况下
   ///  * [enable]是否启用日志打印,默认为true
@@ -17,12 +17,16 @@ class LogConfig {
   ///  在debug模式下打印[LogLevel.verbose]及以上等级的日志
   LogConfig({
     this.enable = true,
-    LogFilter? logFilter,
-    LogPrinter? logPrinter,
-    LogOutput? logOutput,
-  }) {
-    filter = logFilter ?? (kReleaseMode ? LogFilter.release() : LogFilter.dev());
-    printer = logPrinter ?? SimplePrinter();
-    output = logOutput ?? ConsoleOutput();
-  }
+    required this.filter,
+    required this.printer,
+    required this.output,
+  });
+
+  // ignore: non_constant_identifier_names
+  static LogConfig get DEFAULT => LogConfig(
+        enable: true,
+        filter: kReleaseMode ? LogFilter.release() : LogFilter.dev(),
+        printer: SimplePrinter(),
+        output: ConsoleOutput(),
+      );
 }

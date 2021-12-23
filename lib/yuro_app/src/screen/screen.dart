@@ -4,19 +4,13 @@ import 'dart:ui' as ui show window;
 import 'package:flutter/widgets.dart';
 
 class Screen {
-  late double _devicePixelRatio;
-  late double _textScaleFactor;
+  static Screen? _instance;
 
-  late double _width;
-  late double _height;
+  static Screen get instance => _instance ?? Screen._();
 
-  late double _statusBarHeight;
-  late double _bottomBarHeight;
+  static void changeDesignSize(double width, double height) => _instance = Screen._(width: width, height: height);
 
-  late double _scaleWidth;
-  late double _scaleHeight;
-
-  Screen(double uiWidth, double uiHeight) {
+  Screen._({double? width, double? height}) {
     final window = MediaQueryData.fromWindow(ui.window);
     _devicePixelRatio = window.devicePixelRatio;
     _textScaleFactor = window.textScaleFactor;
@@ -27,9 +21,21 @@ class Screen {
     _statusBarHeight = window.padding.top;
     _bottomBarHeight = window.padding.bottom;
 
-    _scaleWidth = _width / uiWidth;
-    _scaleHeight = _height / uiHeight;
+    _scaleWidth = _width / (width ?? _width);
+    _scaleHeight = _height / (height ?? _height);
   }
+
+  late final double _devicePixelRatio;
+  late final double _textScaleFactor;
+
+  late final double _width;
+  late final double _height;
+
+  late final double _statusBarHeight;
+  late final double _bottomBarHeight;
+
+  late final double _scaleWidth;
+  late final double _scaleHeight;
 
   /// 屏幕宽度
   double get width => _width;
@@ -57,4 +63,16 @@ class Screen {
 
   /// 字体适配
   double setSP(num fontSize) => fontSize * min(_scaleWidth, _scaleHeight);
+}
+
+extension ScreenNumExt on num {
+  double get w => Screen.instance.setWidth(this);
+
+  double get h => Screen.instance.setHeight(this);
+
+  double get sw => Screen.instance.width * this;
+
+  double get sh => Screen.instance.height * this;
+
+  double get sp => Screen.instance.setSP(this);
 }
