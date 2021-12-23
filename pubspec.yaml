@@ -24,7 +24,6 @@ dependencies:
   shared_preferences: ^2.0.7    # https://pub.dev/packages/shared_preferences
   permission_handler: ^8.1.6    # https://pub.dev/packages/permission_handler
   equatable: ^2.0.3             # https://pub.flutter-io.cn/packages/equatable
-
   yuro_plugin: ^0.0.1
 
 dev_dependencies:

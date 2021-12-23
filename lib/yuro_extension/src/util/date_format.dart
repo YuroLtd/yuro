@@ -1,4 +1,4 @@
-class DateTimeFormats {
+class DateFormats {
   static const String DEFAULT = 'yyyy-MM-dd HH:mm:ss';
   static const String DATE = 'yyyy-MM-dd';
   static const String TIME = 'HH:mm:ss';

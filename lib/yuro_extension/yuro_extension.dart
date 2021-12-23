@@ -10,4 +10,4 @@ export 'src/path.dart';
 export 'src/string.dart';
 export 'src/list.dart';
 
-export 'src/util/datetime_format.dart';
+export 'src/util/date_format.dart';

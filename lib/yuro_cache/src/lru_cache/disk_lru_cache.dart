@@ -235,7 +235,7 @@ class DiskLruCache {
   Future<Editor> edit(String key, [Duration? expire]) => _lock.synchronized<Editor>(() async {
         Entry entry = _lruEntries[key] ??= Entry(key, _directory);
         if (expire != null) {
-          entry.expire = Yuro.currentMilliSeconds + expire.inMilliseconds;
+          entry.expire = Yuro.currentTimeStamp + expire.inMilliseconds;
         }
         if (entry.editor == null) {
           entry.editor = Editor(entry, this);

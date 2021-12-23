@@ -1,7 +1,3 @@
-import 'num.dart';
-import 'datetime.dart';
-import 'util/datetime_format.dart';
-
 extension StringExt on String {
   int? toInt() => int.tryParse(this);
 
@@ -15,16 +11,6 @@ extension StringExt on String {
   /// 判断字符串是否是Url
   bool isUrl() =>
       RegExp(r'^((ht|f)tps?):\/\/[\w\-]+(\.[\w\-]+)+([\w\-\.,@?^=%&:\/~\+#]*[\w\-\@?^=%&\/~\+#])?$').hasMatch(this);
-
-  DateTime? parseToDateTime() => DateTime.tryParse(this);
-
-  String formatMilliSeconds([String format = DateTimeFormats.DEFAULT]) {
-    try {
-      return int.parse(this).parseToDateTime().format(format);
-    } on FormatException catch (_) {
-      return '';
-    }
-  }
 }
 
 extension String2Ext on String? {

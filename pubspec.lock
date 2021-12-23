@@ -418,13 +418,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.2.0"
-  yuro_annotation:
-    dependency: "direct main"
-    description:
-      name: yuro_annotation
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.1.0"
   yuro_plugin:
     dependency: "direct main"
     description:

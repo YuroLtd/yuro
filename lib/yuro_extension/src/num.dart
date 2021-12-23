@@ -21,10 +21,6 @@ extension NumExt on num {
   }
 }
 
-extension IntExt on int {
-  DateTime parseToDateTime([bool isUtc = false]) => DateTime.fromMillisecondsSinceEpoch(this, isUtc: isUtc);
-}
-
 extension DurationForIntExt on int {
   Duration get day => Duration(days: this);
 
