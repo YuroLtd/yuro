@@ -1,12 +1,12 @@
 part of 'loading.dart';
 
 class LoadingTheme {
-  final Widget loadingWidget;
   final Color barrierColor;
+  final Widget child;
 
   LoadingTheme({
-    this.loadingWidget = const DefaultLoading(),
     this.barrierColor = Colors.black54,
+    this.child = const DefaultLoading(),
   });
 }
 

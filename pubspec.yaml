@@ -13,20 +13,26 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
-  dio: ^4.0.0                   # https://pub.dev/packages/dio
-  uuid: ^3.0.4                  # https://pub.dev/packages/uuid
+  dio: ^4.0.4                   # https://pub.dev/packages/dio
+  uuid: ^3.0.5                  # https://pub.dev/packages/uuid
   crypto: ^3.0.1                # https://pub.dev/packages/crypto
   convert: ^3.0.1               # https://pub.dev/packages/convert
   collection: ^1.15.0           # https://pub.dev/packages/collection
   synchronized: ^3.0.0          # https://pub.dev/packages/synchronized
-  provider: ^6.0.0              # https://pub.dev/packages/provider
-  path_provider: ^2.0.3         # https://pub.dev/packages/path_provider
-  shared_preferences: ^2.0.7    # https://pub.dev/packages/shared_preferences
+  provider: ^6.0.1              # https://pub.dev/packages/provider
+  path: ^1.8.0
+  path_provider: ^2.0.8         # https://pub.dev/packages/path_provider
+  shared_preferences: ^2.0.11    # https://pub.dev/packages/shared_preferences
   permission_handler: ^8.1.6    # https://pub.dev/packages/permission_handler
   equatable: ^2.0.3             # https://pub.flutter-io.cn/packages/equatable
+  drift: ^1.1.1
+  sqlite3_flutter_libs: ^0.5.0
+
   yuro_plugin: ^0.0.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^1.0.0
+  build_runner: ^2.1.7
+  drift_dev: ^1.1.1

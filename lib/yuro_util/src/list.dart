@@ -9,5 +9,5 @@ extension ListExt<T> on List<T> {
 }
 
 extension List2Ext<T> on List<T>? {
-  bool isNullOrEmpty() => this == null || this!.isEmpty;
+  bool get isNullOrEmpty => this == null || this!.isEmpty;
 }

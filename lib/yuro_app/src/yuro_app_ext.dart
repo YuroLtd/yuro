@@ -64,9 +64,6 @@ extension YuroAppExt on YuroInterface {
   TextTheme get textTheme => theme.textTheme;
 
   //
-  Screen get screen => Screen.instance;
-
-  //
   void reload() => currentContext.read<YuroAppController>().reload();
 
   static late AppInfo _appInfo;

@@ -50,7 +50,7 @@ extension StringExt on String {
 }
 
 extension String2Ext on String? {
-  bool isNullOrEmpty() => this == null || this!.isEmpty;
+  bool get isNullOrEmpty => this == null || this!.isEmpty;
 
-  bool isNullOrBlank() => this == null || this!.trim().isEmpty;
+  bool get isNullOrBlank => this == null || this!.trim().isEmpty;
 }

@@ -36,6 +36,6 @@ class __LoadingContainerState extends State<_LoadingContainer> {
   Widget build(BuildContext context) => Container(
         color: widget.theme.barrierColor,
         alignment: Alignment.center,
-        child: widget.theme.loadingWidget,
+        child: widget.theme.child,
       );
 }

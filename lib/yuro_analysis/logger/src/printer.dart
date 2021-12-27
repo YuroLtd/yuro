@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:yuro/yuro_extension/src/string.dart';
+import 'package:yuro/yuro_util/src/string.dart';
 
 import 'level.dart';
 
@@ -40,7 +40,7 @@ class SimplePrinter extends LogPrinter {
   List<String> log(String? tag, LogEvent event) {
     final timeStr = printTime ? '${DateTime.now().toIso8601String()} ' : '';
     final levelStr = printLevel ? '[${event.level.simpleStr}]' : '';
-    final tagStr = tag.isNullOrEmpty() ? '' : '$tag: ';
+    final tagStr = tag.isNullOrEmpty ? '' : '$tag: ';
     final message = stringifyMessage(event.message);
     return ['$timeStr$levelStr$tagStr$message'];
   }

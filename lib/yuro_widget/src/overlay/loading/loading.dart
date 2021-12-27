@@ -10,7 +10,7 @@ part 'container.dart';
 extension YuroLoadingExt on YuroInterface {
   static LoadingTheme _loadingTheme = LoadingTheme();
 
-  set loadingTheme(LoadingTheme newTheme) => _loadingTheme = newTheme;
+  void changeLoadingTheme(LoadingTheme newTheme) => _loadingTheme = newTheme;
 
   static OverlayEntry? _loadingEntry;
 

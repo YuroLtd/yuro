@@ -11,7 +11,7 @@ part 'theme.dart';
 extension YuroToastExt on YuroInterface {
   static ToastTheme _toastTheme = ToastTheme();
 
-  set toastTheme(ToastTheme newTheme) => _toastTheme = newTheme;
+  void changeToastTheme(ToastTheme newTheme) => _toastTheme = newTheme;
 
   void showToast(String text, {ToastTheme? theme}) {
     final currentTheme = theme ?? _toastTheme;

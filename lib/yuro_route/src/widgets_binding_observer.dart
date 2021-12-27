@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:yuro/yuro_extension/src/list.dart';
+import 'package:yuro/yuro_util/src/list.dart';
 
 class YuroWidgetsBindingObserver with WidgetsBindingObserver {
-  final _popRouteListeners = <UniqueKey, ValueGetter<bool>>{};
-
   static final YuroWidgetsBindingObserver _instance = YuroWidgetsBindingObserver._();
+
+  factory YuroWidgetsBindingObserver() => _instance;
 
   YuroWidgetsBindingObserver._() {
     WidgetsBinding.instance!.addObserver(this);
   }
 
-  factory YuroWidgetsBindingObserver() => _instance;
+  final _popRouteListeners = <UniqueKey, ValueGetter<bool>>{};
 
   void addPopRouteListener(UniqueKey key, ValueGetter<bool> listener) => _popRouteListeners[key] = listener;
 

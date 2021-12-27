@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import 'package:yuro/yuro_cache/yuro_cache.dart';
 import 'package:yuro/yuro_core/yuro_core.dart';
 import 'package:yuro/yuro_route/yuro_route.dart';
 import 'package:yuro/yuro_state/yuro_state.dart';
 import 'package:yuro/yuro_widget/yuro_widget.dart';
 
+import 'package:yuro_plugin/yuro_plugin.dart';
+
 import 'yuro_app_ext.dart';
 
-class YuroAppController extends YuroController {
-  final _uniqueKey = ValueNotifier(UniqueKey());
-
-  void reload() => _uniqueKey.value = UniqueKey();
-}
+part 'yuro_app.g.dart';
 
 class YuroApp extends YuroView<YuroAppController> {
   YuroApp({

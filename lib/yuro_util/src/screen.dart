@@ -2,6 +2,7 @@ import 'dart:math';
 import 'dart:ui' as ui show window;
 
 import 'package:flutter/widgets.dart';
+import 'package:yuro/yuro_core/src/interface.dart';
 
 class Screen {
   static Screen? _instance;
@@ -75,4 +76,8 @@ extension ScreenNumExt on num {
   double get sh => Screen.instance.height * this;
 
   double get sp => Screen.instance.setSP(this);
+}
+
+extension ScreenExt on YuroInterface {
+  Screen get screen => Screen.instance;
 }
