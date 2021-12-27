@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:yuro/yuro_app/yuro_app.dart';
 import 'package:yuro/yuro_core/yuro_core.dart';
+import 'package:yuro/yuro_route/yuro_route.dart';
 
 part 'container.dart';
 

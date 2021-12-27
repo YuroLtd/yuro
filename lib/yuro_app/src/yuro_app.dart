@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yuro_plugin/yuro_plugin.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:yuro/yuro_cache/yuro_cache.dart';
@@ -6,10 +7,7 @@ import 'package:yuro/yuro_core/yuro_core.dart';
 import 'package:yuro/yuro_route/yuro_route.dart';
 import 'package:yuro/yuro_state/yuro_state.dart';
 import 'package:yuro/yuro_widget/yuro_widget.dart';
-
-import 'package:yuro_plugin/yuro_plugin.dart';
-
-import 'yuro_app_ext.dart';
+import 'package:yuro/yuro_analysis/crashlytics/crashlytics.dart';
 
 part 'yuro_app.g.dart';
 
@@ -52,7 +50,6 @@ class YuroApp extends YuroView<YuroAppController> {
     if (navigatorKey != null) {
       Yuro.navigatorKey = navigatorKey!;
     }
-    Yuro.addTranslations(translations);
   }
 
   final String title;
@@ -75,6 +72,7 @@ class YuroApp extends YuroView<YuroAppController> {
   //
   final Locale fallbackLocale;
   final Map<String, Map<String, String>> translations;
+
   final Iterable<LocalizationsDelegate<dynamic>>? localizationsDelegates;
   final LocaleListResolutionCallback? localeListResolutionCallback;
   final LocaleResolutionCallback? localeResolutionCallback;
@@ -93,7 +91,7 @@ class YuroApp extends YuroView<YuroAppController> {
   final Map<Type, Action<Intent>>? actions;
 
   @override
-  YuroAppController createController() => YuroAppController();
+  YuroAppController createController() => YuroAppController(fallbackLocale, translations);
 
   @override
   Widget builder(context, controller) => Obs<UniqueKey>(
@@ -113,7 +111,7 @@ class YuroApp extends YuroView<YuroAppController> {
             darkTheme: darkTheme,
             highContrastTheme: highContrastTheme,
             highContrastDarkTheme: highContrastDarkTheme,
-            themeMode: Yuro.themeMode,
+            themeMode: controller.themeMode,
 
             //
             initialRoute: routes.initialRoute,
@@ -121,7 +119,7 @@ class YuroApp extends YuroView<YuroAppController> {
             onUnknownRoute: routes.onUnknownRoute,
 
             // 语言
-            locale: Yuro.locale,
+            locale: controller.locale,
             supportedLocales: supportedLocales ?? const <Locale>[Locale('zh', 'CN')],
             localizationsDelegates: localizationsDelegates ??
                 const [

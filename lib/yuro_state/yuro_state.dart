@@ -5,8 +5,6 @@ export 'src/yuro_state_view.dart';
 export 'src/yuro_view.dart';
 export 'src/yuro_widget.dart';
 
-export 'src/notifier/list_notifier.dart';
-
 export 'src/observer/obs_value.dart';
 export 'src/observer/obs_list.dart';
 export 'src/observer/obn_value.dart';

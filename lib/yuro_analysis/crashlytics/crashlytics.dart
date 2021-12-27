@@ -1,11 +1,12 @@
 import 'dart:isolate';
 
 import 'package:dio/dio.dart';
-import 'package:drift/drift.dart';
 import 'package:flutter/foundation.dart';
-import 'package:stack_trace/stack_trace.dart';
+import 'package:yuro/yuro_app/yuro_app.dart';
+import 'package:yuro/yuro_core/yuro_core.dart';
+import 'package:yuro/yuro_util/yuro_util.dart';
 
-import '../drift/analysis_database.dart';
+import '../database/analysis.dart';
 
 class YuroCrashlytics {
   static YuroCrashlytics? _instance;
@@ -38,7 +39,13 @@ class YuroCrashlytics {
     Iterable<DiagnosticsNode> information = const [],
     bool? printDetails,
     bool fatal = false,
-  }) {
+  }) async {
+    // 屏蔽掉DioError的一般连接错误
+    if (exception is DioError) {
+      if (exception.type != DioErrorType.other) return;
+      stackTrace = exception.stackTrace;
+      exception = exception.message;
+    }
     final _information = information.isEmpty ? '' : (StringBuffer()..writeAll(information, '\n')).toString();
     if (printDetails ?? kDebugMode) {
       print('--------------------------------------CRASHLYTICS--------------------------------------');
@@ -54,28 +61,42 @@ class YuroCrashlytics {
       }
       print('---------------------------------------------------------------------------------------');
     }
-    if (exception is DioError) {
-      stackTrace = exception.stackTrace;
-      exception = exception.message;
-    }
-    String? location;
-    if (stackTrace != null) {
-      final trace = Trace.parseVM(stackTrace.toString()).terse;
-      if (trace.frames.isNotEmpty) {
-        final frame = trace.frames.first;
-        location = '${frame.member} (${frame.location})';
-      }
-    }
-    final companion = CrashTableCompanion.insert(
-      message: exception.toString(),
-      stackTrace: stackTrace.toString(),
-      location: location == null ? const Value.absent() : Value(location),
-      createTime: DateTime.now(),
-    );
-    AnalysisDatabase.instance.crashDao.add(companion);
+    final crashlytics = Crashlytics(
+        message: exception.toString(),
+        stackTrace: stackTrace.toString(),
+        signature: '${Yuro.versionName}&&$exception&&$stackTrace'.toMd5(),
+        appVersion: Yuro.versionName,
+        createTime: DateTime.now());
+    AnalysisDatabase.instance.putCrashlytics(crashlytics);
   }
 
-  void upload(){
-
+  void upload() async {
+    // 如果没有配置崩溃上传地址,则中断操作
+    final appId = Yuro.appConfig.appId;
+    if (appId.isNullOrBlank || Yuro.appConfig.crashlyticsDomain.isNullOrBlank) return;
+    final noneUploadList = AnalysisDatabase.instance.notUploadCrashlytics();
+    if (noneUploadList.isEmpty) return;
+    final waitUpload = noneUploadList
+        .map((e) => {
+              'appId': appId,
+              'message': e.message,
+              'stackTrace': e.stackTrace,
+              'signature': e.signature,
+              'versionName': e.appVersion,
+              'count': e.count,
+              'updateTime': e.updateTime?.millisecondsSinceEpoch,
+              'createTime': e.createTime.millisecondsSinceEpoch,
+            })
+        .toList();
+    final response = await Dio().requestUri(
+      Uri.parse(Yuro.appConfig.crashlyticsDomain!),
+      data: waitUpload,
+      options: Options(method: 'POST'),
+    );
+    if (response.statusCode == 200 && response.data['code'] == 200) {
+      final ids = noneUploadList.map((e) => e.id).toList();
+      AnalysisDatabase.instance.batchDeleteCrashlytics(ids);
+      Yuro.tag('Crashlytics').i('crashlytics was uploaded.');
+    }
   }
 }

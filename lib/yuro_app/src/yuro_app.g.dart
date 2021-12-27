@@ -5,10 +5,50 @@ class YuroAppController extends YuroController {
   static const String KEY_THEME_MODE = 'key_theme_mode';
 
   final _uniqueKey = ValueNotifier(UniqueKey());
+
+  YuroAppController(
+    this._fallbackLocale,
+    this._translations,
+  );
+
+  // theme mode
   ThemeMode _themeMode = ThemeMode.system;
+
+  ThemeMode get themeMode => _themeMode;
+
+  set themeMode(ThemeMode newThemeMode) {
+    if (_themeMode == newThemeMode) return;
+    _themeMode = newThemeMode;
+    Yuro.sp.setInt(KEY_THEME_MODE, newThemeMode.index);
+    reload();
+  }
+
+  // locale
   Locale? _locale;
 
+  Locale? get locale => _locale;
+
+  set locale(Locale? locale) {
+    if (_locale == locale) return;
+    _locale = locale;
+    Yuro.sp.setString(KEY_LOCALE, '${_locale?.languageCode}_${_locale?.countryCode}');
+    reload();
+  }
+
+  // fallback locale
+  final Locale _fallbackLocale;
+
+  Locale get fallbackLocale => _fallbackLocale;
+
+  // translations
+  final Map<String, Map<String, String>> _translations;
+
+  Map<String, Map<String, String>> get translations => _translations;
+
+  // app info
   late final AppInfo _appInfo;
+
+  AppInfo get appInfo => _appInfo;
 
   @override
   void onInit() {
@@ -32,6 +72,8 @@ class YuroAppController extends YuroController {
     super.onReady();
     // 加载应用信息
     _appInfo = await YuroPlugin().app.appInfo();
+    // 上传应用错误记录
+    YuroCrashlytics.instance.upload();
   }
 
   void reload() => _uniqueKey.value = UniqueKey();

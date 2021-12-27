@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/single_child_widget.dart';
 
+import 'yuro_analysis/database/analysis.dart';
 import 'yuro_analysis/yuro_analysis.dart';
 import 'yuro_app/yuro_app.dart';
 import 'yuro_cache/yuro_cache.dart';
@@ -42,6 +43,8 @@ void runYuroApp({
         FlutterError.onError = YuroCrashlytics.instance.recordFlutterError;
         // 初始化SharedPreferences
         await Yuro.initSharedPreferences();
+        // 初始化分析数据库
+        await AnalysisDatabase.init();
         await onInit?.call();
         await _loadConfig(config);
         // 绑定全局路由监听
@@ -56,20 +59,6 @@ void runYuroApp({
     );
 
 Future<void> _loadConfig(AppConfig config) async {
-  //加载ThemeMode
-  var themeModeIndex = Yuro.sp.getInt(KEY_THEME_MODE);
-  if (themeModeIndex != null) {
-    Yuro.themeMode = ThemeMode.values[themeModeIndex];
-  }
-
-  //加载Locale
-  var localeCache = Yuro.sp.getString(KEY_LOCALE);
-  if (localeCache != null) {
-    var config = localeCache.split('_');
-    var locale = Locale(config[0], config.length == 2 ? config[1] : null);
-    Yuro.locale = locale;
-  }
-
   if (config.errorWidgetBuilder != null) {
     ErrorWidget.builder = config.errorWidgetBuilder!;
   }

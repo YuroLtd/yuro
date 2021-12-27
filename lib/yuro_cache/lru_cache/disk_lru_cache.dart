@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:synchronized/synchronized.dart';
 import 'package:yuro/yuro_core/yuro_core.dart';
-import 'package:yuro/yuro_analysis/yuro_analysis.dart' show LoggerExt;
 import 'package:yuro/yuro_util/yuro_util.dart';
 
 import 'iosink_proxy.dart';
