@@ -72,8 +72,8 @@ class YuroAppController extends YuroController {
     super.onReady();
     // 加载应用信息
     _appInfo = await YuroPlugin().app.appInfo();
-    // 上传应用错误记录
-    YuroCrashlytics.instance.upload();
+    // 在非调试模式下,上传应用错误记录
+    if(kReleaseMode) YuroCrashlytics.instance.upload();
   }
 
   void reload() => _uniqueKey.value = UniqueKey();
