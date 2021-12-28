@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:yuro/yuro_core/yuro_core.dart';
-import 'package:yuro/yuro_overlay/src/loading/loading.dart';
+import 'package:yuro/yuro_widget/yuro_widget.dart' show YuroLoadingExt;
 
 class Observer<T> {
   final Future<T> _fetchData;

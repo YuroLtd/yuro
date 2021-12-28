@@ -1,5 +1,5 @@
 import 'package:flutter/services.dart';
-import 'package:yuro/yuro_extension/yuro_extension.dart';
+import 'package:yuro/yuro_util/yuro_util.dart';
 
 extension TextInputFormatters on TextInputFormatter {
   static List<TextInputFormatter> money({int integer = 6, int decimal = 2}) =>

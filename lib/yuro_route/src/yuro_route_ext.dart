@@ -12,6 +12,7 @@ extension YuroRouteExt on YuroInterface {
 
   NavigatorState get currentState => navigatorKey.currentState!;
 
+
   Future<T?> push<T>(Route<T> route) {
     return currentState.push(route);
   }
