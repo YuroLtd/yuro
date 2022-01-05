@@ -13,8 +13,9 @@ class AnalysisDatabase {
 
   static Future<void> init() async {
     final root = await Yuro.temporaryDirectory.then((dir) => dir.parent);
-    final dbFile = File(root.path.join('databases/analysis'));
-    _store = await openStore(directory: dbFile.path);
+    final dbDir = Directory(root.path.join('databases/analysis/'));
+    if (!dbDir.existsSync()) dbDir.createSync(recursive: true);
+    _store = await openStore(directory: dbDir.path);
   }
 
   static AnalysisDatabase? _instance;

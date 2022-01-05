@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
+import 'package:yuro/yuro_util/src/string.dart';
 
 extension DioExt on Dio {
   set baseUrl(String url) {
@@ -66,7 +67,7 @@ extension DioExt on Dio {
 
   /// eg. 192.168.0.1:8888
   set openProxy(String? proxy) {
-    if (proxy == null) return;
+    if (proxy.isNullOrBlank) return;
     (httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
       client.findProxy = (uri) => "PROXY $proxy";
     };
