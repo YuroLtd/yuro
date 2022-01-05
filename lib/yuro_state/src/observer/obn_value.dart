@@ -26,7 +26,7 @@ typedef NValueWidgetBuilder<T> = Widget Function(BuildContext context, T? value,
 class Obn<T> extends StatefulWidget {
   const Obn({Key? key, required this.valueListenable, required this.builder, this.child}) : super(key: key);
 
-  final NValueListenable<T> valueListenable;
+  final NValueNotifier<T> valueListenable;
 
   final NValueWidgetBuilder<T> builder;
 
