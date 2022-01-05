@@ -1,3 +1,7 @@
+## 0.4.1+2
+
+* 修复`AnalysisDatabase.init()`中创建`analysis`数据库的bug.
+
 ## 0.4.1+1
 
 * 修改日志上传时机
