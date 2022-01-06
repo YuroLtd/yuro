@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/single_child_widget.dart';
 
-import 'yuro_analysis/database/analysis.dart';
 import 'yuro_analysis/yuro_analysis.dart';
 import 'yuro_app/yuro_app.dart';
 import 'yuro_cache/yuro_cache.dart';
@@ -40,15 +39,15 @@ void runYuroApp({
     runZonedGuarded(
       () async {
         WidgetsFlutterBinding.ensureInitialized();
-        FlutterError.onError = YuroCrashlytics.instance.recordFlutterError;
         // 初始化SharedPreferences
         await Yuro.initSharedPreferences();
-        // 初始化分析数据库
-        await AnalysisDatabase.init();
+        // 初始化hive数据库
+        await Yuro.initHive();
         await onInit?.call();
         await _loadConfig(config);
         // 绑定全局路由监听
         YuroWidgetsBindingObserver();
+        FlutterError.onError = YuroCrashlytics.instance.recordFlutterError;
         // 启动app
         runApp(MultiProvider(
           providers: [...providers, Provider.value(value: config)],

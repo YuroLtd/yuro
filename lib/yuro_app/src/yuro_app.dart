@@ -8,9 +8,9 @@ import 'package:yuro/yuro_core/yuro_core.dart';
 import 'package:yuro/yuro_route/yuro_route.dart';
 import 'package:yuro/yuro_state/yuro_state.dart';
 import 'package:yuro/yuro_widget/yuro_widget.dart';
-import 'package:yuro/yuro_analysis/crashlytics/crashlytics.dart';
+import 'package:yuro/yuro_analysis/yuro_analysis.dart';
 
-part 'yuro_app.g.dart';
+part 'yuro_app_controller.dart';
 
 class YuroApp extends YuroView<YuroAppController> {
   YuroApp({

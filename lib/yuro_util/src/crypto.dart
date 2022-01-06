@@ -15,4 +15,16 @@ extension CryptoExt on String {
   String toBase64() => base64Encode(utf8.encode(this));
 
   String fromBase64() => utf8.decode(base64Decode(this));
+
+  List<int> fromHex() => hex.decode(this);
+
+  Map<String,dynamic> fromJsonStr()=> json.decode(this);
+}
+
+extension ListIntExt on List<int> {
+  String toHex() => hex.encode(this);
+}
+
+extension ObjectExt on Object {
+  String toJsonStr() => json.encode(this);
 }
