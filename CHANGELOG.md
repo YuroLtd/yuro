@@ -1,3 +1,8 @@
+## 0.4.2
+
+* 修复分析数据库创建的bug
+* 替换crash收集数据库为hive
+
 ## 0.4.1+2
 
 * 修复`AnalysisDatabase.init()`中创建`analysis`数据库的bug.
