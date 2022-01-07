@@ -1,4 +1,4 @@
-import 'dart:convert';
+
 import 'package:yuro/yuro_util/src/string.dart';
 
 import 'level.dart';
@@ -20,7 +20,7 @@ abstract class LogPrinter {
   String stringifyMessage(dynamic message) {
     final finalMessage = message is Function ? message.call() : message;
     if (finalMessage is Map || finalMessage is Iterable) {
-      return json.encode(finalMessage);
+      return finalMessage.toJsonStr();
     } else {
       return finalMessage.toString();
     }

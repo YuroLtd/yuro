@@ -28,18 +28,14 @@ extension LocaleExt on String {
   }
 }
 
-extension UUIDExt on String {
-  String uuid5() => const Uuid().v5(Uuid.NAMESPACE_OID, this);
-
-//todo 不全其它uuid方法
-}
-
 extension StringExt on String {
   int? toInt() => int.tryParse(this);
 
   bool isDigit() => int.tryParse(this) != null;
 
   double? toDouble() => double.tryParse(this);
+
+  String uuid5() => const Uuid().v5(Uuid.NAMESPACE_OID, this);
 
   /// 判断字符串是否是手机号
   bool isPhone() => RegExp(r'^1(3|4|5|6|7|8|9)\d{9}$').hasMatch(this);
@@ -49,7 +45,7 @@ extension StringExt on String {
       RegExp(r'^((ht|f)tps?):\/\/[\w\-]+(\.[\w\-]+)+([\w\-\.,@?^=%&:\/~\+#]*[\w\-\@?^=%&\/~\+#])?$').hasMatch(this);
 }
 
-extension String2Ext on String? {
+extension NullStringExt on String? {
   bool get isNullOrEmpty => this == null || this!.isEmpty;
 
   bool get isNullOrBlank => this == null || this!.trim().isEmpty;

@@ -10,7 +10,6 @@ export 'src/map.dart';
 export 'src/path.dart';
 export 'src/string.dart';
 export 'src/list.dart';
-export 'src/convert.dart';
 export 'src/crypto.dart';
 
 export 'src/util/date_format.dart';

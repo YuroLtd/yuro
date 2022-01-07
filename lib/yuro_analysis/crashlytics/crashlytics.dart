@@ -1,12 +1,14 @@
+import 'dart:convert';
 import 'dart:isolate';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:yuro/yuro_app/yuro_app.dart';
+import 'package:yuro/yuro_app/src/yuro_app_ext.dart';
+import 'package:yuro/yuro_cache/yuro_cache.dart';
 import 'package:yuro/yuro_core/yuro_core.dart';
 import 'package:yuro/yuro_util/yuro_util.dart';
 
-import '../database/analysis.dart';
+import 'crash_info.dart';
 
 class YuroCrashlytics {
   static YuroCrashlytics? _instance;
@@ -14,6 +16,7 @@ class YuroCrashlytics {
   static YuroCrashlytics get instance => _instance ??= YuroCrashlytics._();
 
   YuroCrashlytics._() {
+    Yuro.registerHiveAdapter(CrashInfoAdapter());
     Isolate.current.addErrorListener(RawReceivePort((pair) {
       final errorAndStackTrace = pair as List<dynamic>;
       recordError(errorAndStackTrace.first, errorAndStackTrace.last);
@@ -61,42 +64,47 @@ class YuroCrashlytics {
       }
       print('---------------------------------------------------------------------------------------');
     }
-    final crashlytics = Crashlytics(
-        message: exception.toString(),
-        stackTrace: stackTrace.toString(),
-        signature: '${Yuro.versionName}&&$exception&&$stackTrace'.toMd5(),
-        appVersion: Yuro.versionName,
-        createTime: DateTime.now());
-    AnalysisDatabase.instance.putCrashlytics(crashlytics);
+
+    final signature = '${Yuro.versionName}&&$exception&&$stackTrace'.toMd5();
+    Hive.run<CrashInfo>((box) async {
+      final origin = box.values.where((element) => element.signature == signature).firstOrNull;
+      if (origin != null) {
+        origin
+          ..count += 1
+          ..updateTime = DateTime.now();
+        await origin.save();
+        Yuro.tag('Crashlytics').i('update ${origin.signature}, count: ${origin.count}');
+      } else {
+        await box.add(CrashInfo(
+            message: exception.toString(),
+            stackTrace: stackTrace.toString(),
+            signature: signature,
+            versionName: Yuro.versionName,
+            createTime: DateTime.now()));
+        Yuro.tag('Crashlytics').i('add $signature');
+      }
+    });
   }
 
   void upload() async {
-    // 如果没有配置崩溃上传地址,则中断操作
     final appId = Yuro.appConfig.appId;
-    if (appId.isNullOrBlank || Yuro.appConfig.crashlyticsDomain.isNullOrBlank) return;
-    final noneUploadList = AnalysisDatabase.instance.notUploadCrashlytics();
-    if (noneUploadList.isEmpty) return;
-    final waitUpload = noneUploadList
-        .map((e) => {
-              'appId': appId,
-              'message': e.message,
-              'stackTrace': e.stackTrace,
-              'signature': e.signature,
-              'versionName': e.appVersion,
-              'count': e.count,
-              'updateTime': e.updateTime?.millisecondsSinceEpoch,
-              'createTime': e.createTime.millisecondsSinceEpoch,
-            })
-        .toList();
-    final response = await Dio().requestUri(
-      Uri.parse(Yuro.appConfig.crashlyticsDomain!),
-      data: waitUpload,
-      options: Options(method: 'POST'),
-    );
-    if (response.statusCode == 200 && response.data['code'] == 200) {
-      final ids = noneUploadList.map((e) => e.id).toList();
-      AnalysisDatabase.instance.batchDeleteCrashlytics(ids);
-      Yuro.tag('Crashlytics').i('crashlytics was uploaded.');
-    }
+    final domain = Yuro.appConfig.crashlyticsDomain;
+    if (appId.isNullOrBlank || domain.isNullOrBlank) return;
+    Hive.run<CrashInfo>((box) async {
+      if (box.values.isNotEmpty) {
+        final waitUpload = box.values.map((e) => e.toJson()..putIfAbsent('appId', () => appId)).toList();
+        final response = await Dio().requestUri(
+          Uri.parse(Yuro.appConfig.crashlyticsDomain!),
+          options: Options(method: 'POST'),
+          data: waitUpload,
+        );
+        if (response.statusCode == 200 && response.data['code'] == 200) {
+          await box.clear();
+          Yuro.tag('Crashlytics').i('upload success.');
+        } else {
+          Yuro.tag('Crashlytics').i('upload failed.');
+        }
+      }
+    });
   }
 }
