@@ -2,7 +2,7 @@ name: yuro
 description: A Flutter package.
 version: 0.4.2
 publish_to: https://pub.dev/
-homepage: https://github.com/YuroLtd/yuro_kit.git
+homepage: https://github.com/YuroLtd/yuro.git
 
 environment:
   sdk: ">=2.12.0 <3.0.0"

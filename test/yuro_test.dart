@@ -25,7 +25,7 @@ void main() {
   });
 
   test("YuroCache", () async {
-    var map = LruLinkedHashMap<String, int>();
+    var map = LruMap<String, int>();
     map['a'] = 1;
     map['b'] = 2;
     map['c'] = 3;

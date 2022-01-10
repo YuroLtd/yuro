@@ -12,6 +12,7 @@ export 'package:hive/hive.dart';
 export 'package:hive_flutter/hive_flutter.dart';
 
 export 'lru_cache/disk_lru_cache.dart';
+export 'lru_cache/lru_map.dart';
 
 extension YuroCacheExt on YuroInterface {
   static late SharedPreferences _sp;
@@ -39,15 +40,15 @@ extension YuroCacheExt on YuroInterface {
     await Hive.initFlutter(dir);
   }
 
-  Future<Box<T>> openHiveBox<T>([String? boxName]) async => await Hive.openBox<T>(
-        boxName ?? T.toString(),
-        encryptionCipher: HiveAesCipher(_hiveKey),
-      );
+  Future<Box<T>> openHiveBox<T>([String? boxName]) async =>
+      await Hive.openBox<T>(boxName ?? T.toString(), encryptionCipher: HiveAesCipher(_hiveKey));
 
-  Future<LazyBox<T>> openLazyHiveBox<T>([String? boxName]) async => await Hive.openLazyBox<T>(
-        boxName ?? T.toString(),
-        encryptionCipher: HiveAesCipher(_hiveKey),
-      );
+  Future<LazyBox<T>> openHiveLazyBox<T>([String? boxName]) async =>
+      await Hive.openLazyBox<T>(boxName ?? T.toString(), encryptionCipher: HiveAesCipher(_hiveKey));
+
+  Box<T> hiveBox<T>([String? boxName]) => Hive.box<T>(boxName ?? T.toString());
+
+  LazyBox<T> hiveLazyBox<T>([String? boxName]) => Hive.lazyBox<T>(boxName ?? T.toString());
 
   void registerHiveAdapter<T>(TypeAdapter<T> adapter) => Hive.registerAdapter<T>(adapter);
 }
@@ -60,7 +61,7 @@ extension HiveExt on HiveInterface {
   }
 
   Future<void> runLazy<T>(void Function(LazyBox<T> lazyBox) run) async {
-    final lazyBox = await Yuro.openLazyHiveBox<T>();
+    final lazyBox = await Yuro.openHiveLazyBox<T>();
     await Future(() => run.call(lazyBox));
     lazyBox.compact();
   }

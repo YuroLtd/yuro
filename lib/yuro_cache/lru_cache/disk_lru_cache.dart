@@ -83,7 +83,7 @@ class DiskLruCache {
 
   int _size = 0;
   int _redundantOpCount = 0;
-  final LruLinkedHashMap<String, Entry> _lruEntries = LruLinkedHashMap();
+  final LruMap<String, Entry> _lruEntries = LruMap();
   final Lock _lock = Lock(reentrant: true);
 
   /// 读取日志

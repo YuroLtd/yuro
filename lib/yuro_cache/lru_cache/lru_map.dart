@@ -1,5 +1,5 @@
-class LruLinkedHashMap<K, V> implements Map<K, V> {
-  LruLinkedHashMap();
+class LruMap<K, V> implements Map<K, V> {
+  LruMap();
 
   final Map<K, _Entry<K, V>> _lruMap = {};
 
