@@ -1,8 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/adapter.dart';
-import 'package:dio/dio.dart';
-import 'package:yuro/yuro_util/src/string.dart';
+import 'package:yuro/yuro.dart';
 
 extension DioExt on Dio {
   set baseUrl(String url) {
@@ -65,14 +64,6 @@ extension DioExt on Dio {
     options.responseDecoder = responseDecoder;
   }
 
-  /// eg. 192.168.0.1:8888
-  set openProxy(String? proxy) {
-    if (proxy.isNullOrBlank) return;
-    (httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
-      client.findProxy = (uri) => "PROXY $proxy";
-    };
-  }
-
   void addInterceptor(Interceptor interceptor) {
     interceptors.add(interceptor);
   }
@@ -90,6 +81,14 @@ extension DioExt on Dio {
   void setCertificateFile(File file) {
     (httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
       return HttpClient(context: SecurityContext()..setTrustedCertificates(file.path));
+    };
+  }
+
+  /// eg. 192.168.0.1:8888
+  void openProxy(String? proxy) {
+    if (proxy.isNullOrBlank) return;
+    (httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
+      client.findProxy = (uri) => "PROXY $proxy";
     };
   }
 

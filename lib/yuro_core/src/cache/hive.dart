@@ -1,26 +1,16 @@
-library yuro_cache;
-
-import 'dart:async';
 import 'dart:io';
 
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:yuro/yuro_core/yuro_core.dart';
 import 'package:yuro/yuro_util/yuro_util.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 export 'package:hive/hive.dart';
 export 'package:hive_flutter/hive_flutter.dart';
 
-export 'lru_cache/disk_lru_cache.dart';
-export 'lru_cache/lru_map.dart';
+import '../interface.dart';
+import 'shared_preferences.dart';
 
-extension YuroCacheExt on YuroInterface {
-  static late SharedPreferences _sp;
+extension YuroHiveExt on YuroInterface {
   static late List<int> _hiveKey;
-
-  Future<void> initSharedPreferences() async => _sp = await SharedPreferences.getInstance();
-
-  SharedPreferences get sp => _sp;
 
   /// * [dir] 存储路径
   Future<void> initHive({String? dir}) async {
@@ -30,10 +20,10 @@ extension YuroCacheExt on YuroInterface {
       if (!dbDir.existsSync()) dbDir.createSync(recursive: true);
       dir = dbDir.path;
     }
-    final hiveKey = sp.getString('hiveKey');
+    final hiveKey = Yuro.sp.getString('hiveKey');
     if (hiveKey == null) {
       _hiveKey = Hive.generateSecureKey();
-      await sp.setString('hiveKey', _hiveKey.toHex());
+      await Yuro.sp.setString('hiveKey', _hiveKey.toHex());
     } else {
       _hiveKey = hiveKey.fromHex();
     }
@@ -51,16 +41,16 @@ extension YuroCacheExt on YuroInterface {
   LazyBox<T> hiveLazyBox<T>([String? boxName]) => Hive.lazyBox<T>(boxName ?? T.toString());
 
   void registerHiveAdapter<T>(TypeAdapter<T> adapter) => Hive.registerAdapter<T>(adapter);
-}
 
-extension HiveExt on HiveInterface {
-  Future<void> run<T>(void Function(Box<T> box) run) async {
+  bool isHiveAdapterRegistered<T>(int typeId) => Hive.isAdapterRegistered(typeId);
+
+  Future<void> hive<T>(void Function(Box<T> box) run) async {
     final box = await Yuro.openHiveBox<T>();
     await Future(() => run.call(box));
     box.compact();
   }
 
-  Future<void> runLazy<T>(void Function(LazyBox<T> lazyBox) run) async {
+  Future<void> lazyHive<T>(void Function(LazyBox<T> lazyBox) run) async {
     final lazyBox = await Yuro.openHiveLazyBox<T>();
     await Future(() => run.call(lazyBox));
     lazyBox.compact();

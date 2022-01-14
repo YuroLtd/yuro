@@ -1,10 +1,8 @@
-import 'dart:convert';
 import 'dart:isolate';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:yuro/yuro_app/src/yuro_app_ext.dart';
-import 'package:yuro/yuro_cache/yuro_cache.dart';
 import 'package:yuro/yuro_core/yuro_core.dart';
 import 'package:yuro/yuro_util/yuro_util.dart';
 
@@ -66,7 +64,7 @@ class YuroCrashlytics {
     }
 
     final signature = '${Yuro.versionName}&&$exception&&$stackTrace'.toMd5();
-    Hive.run<CrashInfo>((box) async {
+    await Yuro.hive<CrashInfo>((box) async {
       final origin = box.values.where((element) => element.signature == signature).firstOrNull;
       if (origin != null) {
         origin
@@ -90,7 +88,7 @@ class YuroCrashlytics {
     final appId = Yuro.appConfig.appId;
     final domain = Yuro.appConfig.crashlyticsDomain;
     if (appId.isNullOrBlank || domain.isNullOrBlank) return;
-    Hive.run<CrashInfo>((box) async {
+    await Yuro.hive<CrashInfo>((box) async {
       if (box.values.isNotEmpty) {
         final waitUpload = box.values.map((e) => e.toJson()..putIfAbsent('appId', () => appId)).toList();
         final response = await Dio().requestUri(

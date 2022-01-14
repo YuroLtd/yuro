@@ -19,7 +19,6 @@ dependencies:
   crypto: ^3.0.1                # https://pub.dev/packages/crypto
   convert: ^3.0.1               # https://pub.dev/packages/convert
   collection: ^1.15.0           # https://pub.dev/packages/collection
-  synchronized: ^3.0.0          # https://pub.dev/packages/synchronized
   provider: ^6.0.1              # https://pub.dev/packages/provider
   path: ^1.8.0
   path_provider: ^2.0.8         # https://pub.dev/packages/path_provider

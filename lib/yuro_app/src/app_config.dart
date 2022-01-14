@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:yuro/yuro_core/logger/logger.dart';
+import 'package:yuro/yuro_core/yuro_core.dart';
 import 'package:yuro/yuro_widget/src/overlay/loading/loading.dart';
 import 'package:yuro/yuro_widget/src/overlay/toast/toast.dart';
 

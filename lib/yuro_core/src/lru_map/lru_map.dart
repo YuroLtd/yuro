@@ -8,7 +8,7 @@ class LruMap<K, V> implements Map<K, V> {
 
   @override
   V? operator [](Object? key) {
-    _Entry<K, V>? node = _lruMap[key];
+    final node = _lruMap[key];
     if (node == null) return null;
     _afterNodeAccess(node);
     return node.value;
@@ -33,7 +33,7 @@ class LruMap<K, V> implements Map<K, V> {
 
   @override
   void operator []=(K key, V value) {
-    var entry = _lruMap[key];
+    final entry = _lruMap[key];
     if (entry != null) {
       _afterNodeAccess(entry..value = value);
     } else {
@@ -42,7 +42,7 @@ class LruMap<K, V> implements Map<K, V> {
   }
 
   _Entry<K, V> _createNewNode(K key, V value) {
-    var entry = _Entry(key, value);
+    final entry = _Entry(key, value);
     if (_head != null) {
       _head!.before = entry..after = _head;
       _head = entry;
@@ -54,7 +54,7 @@ class LruMap<K, V> implements Map<K, V> {
 
   @override
   Iterable<K> get keys {
-    var keys = <K>[];
+    final keys = <K>[];
     for (_Entry<K, V>? e = _head; e != null; e = e.after) {
       keys.add(e.key);
     }
@@ -63,7 +63,7 @@ class LruMap<K, V> implements Map<K, V> {
 
   @override
   Iterable<V> get values {
-    var values = <V>[];
+    final values = <V>[];
     for (_Entry<K, V>? e = _head; e != null; e = e.after) {
       values.add(e.value);
     }
@@ -72,7 +72,7 @@ class LruMap<K, V> implements Map<K, V> {
 
   @override
   Iterable<MapEntry<K, V>> get entries {
-    var entries = <MapEntry<K, V>>[];
+    final entries = <MapEntry<K, V>>[];
     for (_Entry<K, V>? e = _head; e != null; e = e.after) {
       entries.add(MapEntry(e.key, e.value));
     }
@@ -114,13 +114,13 @@ class LruMap<K, V> implements Map<K, V> {
 
   @override
   V? remove(Object? key) {
-    var entry = _lruMap[key];
+    final entry = _lruMap[key];
     if (entry != null) _afterNodeRemove(entry);
     return entry?.value;
   }
 
   V? removeLast() {
-    var entry = _trail;
+    final entry = _trail;
     if (entry != null) _afterNodeRemove(entry);
     return entry?.value;
   }

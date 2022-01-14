@@ -66,7 +66,7 @@ CrashInfo _$CrashInfoFromJson(Map<String, dynamic> json) => CrashInfo(
       message: json['message'] as String,
       stackTrace: json['stackTrace'] as String,
       signature: json['signature'] as String,
-  versionName: json['versionName'] as String,
+      versionName: json['versionName'] as String,
       count: json['count'] as int? ?? 1,
       updateTime: json['updateTime'] == null
           ? null
