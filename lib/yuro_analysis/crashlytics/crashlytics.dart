@@ -2,6 +2,7 @@ import 'dart:isolate';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:yuro/yuro_app/src/yuro_app_ext.dart';
 import 'package:yuro/yuro_core/yuro_core.dart';
 import 'package:yuro/yuro_util/yuro_util.dart';
@@ -46,7 +47,13 @@ class YuroCrashlytics {
       if (exception.type != DioErrorType.other) return;
       stackTrace = exception.stackTrace;
       exception = exception.message;
+    } else if (exception is PlatformException) {
+      if (exception.stacktrace != null) {
+        stackTrace = StackTrace.fromString(exception.stacktrace!);
+      }
+      exception = exception.message;
     }
+
     final _information = information.isEmpty ? '' : (StringBuffer()..writeAll(information, '\n')).toString();
     if (printDetails ?? kDebugMode) {
       print('--------------------------------------CRASHLYTICS--------------------------------------');
