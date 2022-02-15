@@ -77,6 +77,7 @@ extension DioExt on Dio {
   void setCertificate(String pem) {
     (httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
       client.badCertificateCallback = (cert, host, port) => cert.pem == pem;
+      return client;
     };
   }
 
@@ -91,6 +92,7 @@ extension DioExt on Dio {
     if (proxy.isNullOrBlank) return;
     (httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
       client.findProxy = (uri) => "PROXY $proxy";
+      return client;
     };
   }
 
