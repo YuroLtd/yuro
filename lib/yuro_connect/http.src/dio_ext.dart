@@ -116,48 +116,52 @@ extension DioExt on Dio {
     Map<String, dynamic>? queryParameters,
     required ProgressCallback? onProgress,
     VoidCallback? onDone,
-    void Function(DioError)? onError,
+    void Function(dynamic err)? onError,
   }) async {
     int start = 0;
     final file = File(savePath);
     if (file.existsSync()) start = file.lengthSync();
     final cancelToken = CancelToken();
     // 通过head请求获取文件长度
-    final response = await get<ResponseBody>(
-      url,
-      queryParameters: queryParameters,
-      options: Options(
-        responseType: ResponseType.stream,
-        followRedirects: false,
-        headers: {'range': 'bytes=$start-'},
-      ),
-    );
-    final raf = file.openSync(mode: FileMode.append);
-    int received = start;
-    final rangHeader = response.headers.value(HttpHeaders.contentRangeHeader);
-    int total = int.tryParse(rangHeader!.split('/').last) ?? 0;
+    try {
+      final response = await get<ResponseBody>(
+        url,
+        queryParameters: queryParameters,
+        options: Options(
+          responseType: ResponseType.stream,
+          followRedirects: false,
+          headers: {'range': 'bytes=$start-'},
+        ),
+      );
+      final raf = file.openSync(mode: FileMode.append);
+      int received = start;
+      final rangHeader = response.headers.value(HttpHeaders.contentRangeHeader);
+      int total = int.tryParse(rangHeader!.split('/').last) ?? 0;
 
-    final stream = response.data!.stream;
-    final subscription = stream.listen(
-      (data) {
-        raf.writeFromSync(data);
-        received += data.length;
-        onProgress?.call(received, total);
-      },
-      onDone: () async {
+      final stream = response.data!.stream;
+      final subscription = stream.listen(
+        (data) {
+          raf.writeFromSync(data);
+          received += data.length;
+          onProgress?.call(received, total);
+        },
+        onDone: () async {
+          await raf.close();
+          onDone?.call();
+        },
+        onError: (err) async {
+          await raf.close();
+          onError?.call(err);
+        },
+        cancelOnError: true,
+      );
+      cancelToken.whenCancel.then((_) async {
+        await subscription.cancel();
         await raf.close();
-        onDone?.call();
-      },
-      onError: (err) async {
-        await raf.close();
-        onError?.call(err);
-      },
-      cancelOnError: true,
-    );
-    cancelToken.whenCancel.then((_) async {
-      await subscription.cancel();
-      await raf.close();
-    });
+      });
+    } on Exception catch (err) {
+      onError?.call(err);
+    }
     return cancelToken;
   }
 }
