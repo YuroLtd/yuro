@@ -22,8 +22,8 @@ class CrashInfoAdapter extends TypeAdapter<CrashInfo> {
       signature: fields[2] as String,
       versionName: fields[3] as String,
       count: fields[4] as int,
-      updateTime: fields[5] as DateTime?,
-      createTime: fields[6] as DateTime,
+      updateTime: fields[5] as String?,
+      createTime: fields[6] as String,
     );
   }
 
@@ -68,10 +68,8 @@ CrashInfo _$CrashInfoFromJson(Map<String, dynamic> json) => CrashInfo(
       signature: json['signature'] as String,
       versionName: json['versionName'] as String,
       count: json['count'] as int? ?? 1,
-      updateTime: json['updateTime'] == null
-          ? null
-          : DateTime.parse(json['updateTime'] as String),
-      createTime: DateTime.parse(json['createTime'] as String),
+      updateTime: json['updateTime'] as String?,
+      createTime: json['createTime'] as String,
     );
 
 Map<String, dynamic> _$CrashInfoToJson(CrashInfo instance) => <String, dynamic>{
@@ -80,6 +78,6 @@ Map<String, dynamic> _$CrashInfoToJson(CrashInfo instance) => <String, dynamic>{
       'signature': instance.signature,
       'versionName': instance.versionName,
       'count': instance.count,
-      'updateTime': instance.updateTime?.toIso8601String(),
-      'createTime': instance.createTime.toIso8601String(),
+      'updateTime': instance.updateTime,
+      'createTime': instance.createTime,
     };

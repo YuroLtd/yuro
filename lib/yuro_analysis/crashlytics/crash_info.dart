@@ -22,10 +22,10 @@ class CrashInfo extends HiveObject {
   int count;
 
   @HiveField(5)
-  DateTime? updateTime;
+  String? updateTime;
 
   @HiveField(6)
-  final DateTime createTime;
+  final String createTime;
 
   CrashInfo({
     required this.message,

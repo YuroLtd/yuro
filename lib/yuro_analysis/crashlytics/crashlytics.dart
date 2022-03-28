@@ -76,7 +76,7 @@ class YuroCrashlytics {
       if (origin != null) {
         origin
           ..count += 1
-          ..updateTime = DateTime.now();
+          ..updateTime = DateTime.now().format();
         await origin.save();
         Yuro.tag('Crashlytics').i('update ${origin.signature}, count: ${origin.count}');
       } else {
@@ -85,7 +85,7 @@ class YuroCrashlytics {
             stackTrace: stackTrace.toString(),
             signature: signature,
             versionName: Yuro.versionName,
-            createTime: DateTime.now()));
+            createTime: DateTime.now().format()));
         Yuro.tag('Crashlytics').i('add $signature');
       }
     });
