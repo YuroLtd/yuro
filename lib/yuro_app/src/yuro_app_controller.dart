@@ -71,7 +71,7 @@ class YuroAppController extends YuroController {
   void onReady() async {
     super.onReady();
     // 加载应用信息
-    _appInfo = await YuroPlugin().app.appInfo();
+    _appInfo = await YuroPlugin().appInfo();
     // 在非调试模式下,上传应用错误记录
     YuroCrashlytics.instance.upload();
   }
