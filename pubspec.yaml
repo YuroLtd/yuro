@@ -27,7 +27,7 @@ dependencies:
   json_annotation: ^4.4.0       # https://pub.flutter-io.cn/packages/json_annotation
   hive: ^2.0.5                  # https://pub.flutter-io.cn/packages/hive
   hive_flutter: ^1.1.0          # https://pub.flutter-io.cn/packages/hive_flutter
-  yuro_plugin: ^0.1.0+1
+  yuro_plugin: ^0.1.0+2
 
 dev_dependencies:
   flutter_test:
