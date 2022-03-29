@@ -1,3 +1,7 @@
+## 0.4.6+1
+
+* 修复yuro_plugin的错误
+
 ## 0.4.6
 
 * 更新yuro_plugin版本以解决FileProvider的授权问题

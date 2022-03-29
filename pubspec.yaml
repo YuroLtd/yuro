@@ -1,6 +1,6 @@
 name: yuro
 description: A Flutter package.
-version: 0.4.6
+version: 0.4.6+1
 homepage: https://github.com/YuroLtd/yuro.git
 
 environment:
@@ -27,7 +27,7 @@ dependencies:
   json_annotation: ^4.4.0       # https://pub.flutter-io.cn/packages/json_annotation
   hive: ^2.0.5                  # https://pub.flutter-io.cn/packages/hive
   hive_flutter: ^1.1.0          # https://pub.flutter-io.cn/packages/hive_flutter
-  yuro_plugin: ^0.1.0
+  yuro_plugin: ^0.1.0+1
 
 dev_dependencies:
   flutter_test:
