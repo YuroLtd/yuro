@@ -45,11 +45,6 @@ class YuroAppController extends YuroController {
 
   Map<String, Map<String, String>> get translations => _translations;
 
-  // app info
-  late final AppInfo _appInfo;
-
-  AppInfo get appInfo => _appInfo;
-
   @override
   void onInit() {
     //加载ThemeMode
@@ -71,9 +66,10 @@ class YuroAppController extends YuroController {
   void onReady() async {
     super.onReady();
     // 加载应用信息
-    _appInfo = await YuroPlugin().appInfo();
+    await Yuro.loadPackageInfo();
+    await Yuro.loadUserAgent();
     // 在非调试模式下,上传应用错误记录
-    YuroCrashlytics.instance.upload();
+    if (kReleaseMode) YuroCrashlytics.instance.upload();
   }
 
   void reload() => _uniqueKey.value = UniqueKey();

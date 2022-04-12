@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:yuro_plugin/yuro_plugin.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:yuro/yuro_core/yuro_core.dart';
@@ -8,6 +7,7 @@ import 'package:yuro/yuro_route/yuro_route.dart';
 import 'package:yuro/yuro_state/yuro_state.dart';
 import 'package:yuro/yuro_widget/yuro_widget.dart';
 import 'package:yuro/yuro_analysis/yuro_analysis.dart';
+import 'package:yuro/yuro_util/yuro_util.dart';
 
 part 'yuro_app_controller.dart';
 

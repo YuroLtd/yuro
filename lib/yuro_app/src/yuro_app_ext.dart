@@ -33,24 +33,6 @@ extension YuroAppExt on YuroInterface {
   /// 获取应用配置
   AppConfig get appConfig => currentContext.read<AppConfig>();
 
-  /// 获取应用名称
-  String get appName => _appController.appInfo.appName;
-
-  /// 获取应用包名
-  String get packageName => _appController.appInfo.packageName;
-
-  /// 获取应用版本
-  String get versionName => _appController.appInfo.versionName;
-
-  /// 获取应用数字版本号
-  int get versionCode => _appController.appInfo.versionCode;
-
-  /// 获取androidId
-  String? get androidId => _appController.appInfo.androidId;
-
-  /// 获取userAgent
-  String get userAgent => _appController.appInfo.userAgent;
-
   /// 应用重新载入
   void reload() => _appController.reload();
 }

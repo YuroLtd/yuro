@@ -7,7 +7,9 @@ extension StreamBusExt on YuroInterface {
 
   Stream<T> streamOn<T>() => _streamController.stream.where((event) => event is T).cast<T>();
 
-  void sendStream(dynamic event) => _streamController.add(event);
+  void postEvent(dynamic event) => _streamController.add(event);
+
+  void post(int code, [String? msg, dynamic extra]) => _streamController.add(StreamEvent(code, msg: msg, extra: extra));
 
   Stream<StreamEvent> streamEventOn([List<int> codes = const []]) => _streamController.stream
       .where((event) => event is StreamEvent)
@@ -21,8 +23,6 @@ class StreamEvent {
   final dynamic extra;
 
   StreamEvent(this.code, {this.msg, this.extra});
-}
 
-extension StreamEventExt on StreamEvent {
-  void post() => Yuro.sendStream(this);
+  void post() => Yuro.postEvent(this);
 }

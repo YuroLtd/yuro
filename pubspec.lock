@@ -135,12 +135,12 @@ packages:
     source: hosted
     version: "4.1.0"
   collection:
-    dependency: "direct main"
+    dependency: "direct overridden"
     description:
       name: collection
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.15.0"
+    version: "1.16.0"
   convert:
     dependency: "direct main"
     description:
@@ -226,6 +226,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_user_agentx:
+    dependency: "direct main"
+    description:
+      name: flutter_user_agentx
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.2.4"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -258,7 +265,7 @@ packages:
       name: hive
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.0.5"
+    version: "2.1.0"
   hive_flutter:
     dependency: "direct main"
     description:
@@ -273,6 +280,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.1.2"
+  http:
+    dependency: transitive
+    description:
+      name: http
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.13.4"
   http_multi_server:
     dependency: transitive
     description:
@@ -321,7 +335,7 @@ packages:
       name: json_serializable
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "6.1.4"
+    version: "6.1.5"
   lints:
     dependency: transitive
     description:
@@ -378,13 +392,55 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.0.2"
-  path:
+  package_info_plus:
     dependency: "direct main"
+    description:
+      name: package_info_plus
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.4.2"
+  package_info_plus_linux:
+    dependency: transitive
+    description:
+      name: package_info_plus_linux
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.5"
+  package_info_plus_macos:
+    dependency: transitive
+    description:
+      name: package_info_plus_macos
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.3.0"
+  package_info_plus_platform_interface:
+    dependency: transitive
+    description:
+      name: package_info_plus_platform_interface
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.2"
+  package_info_plus_web:
+    dependency: transitive
+    description:
+      name: package_info_plus_web
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.5"
+  package_info_plus_windows:
+    dependency: transitive
+    description:
+      name: package_info_plus_windows
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.5"
+  path:
+    dependency: "direct overridden"
     description:
       name: path
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.8.0"
+    version: "1.8.1"
   path_provider:
     dependency: "direct main"
     description:
@@ -698,13 +754,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.1.0"
-  yuro_plugin:
-    dependency: "direct main"
-    description:
-      name: yuro_plugin
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.1.0+2"
 sdks:
   dart: ">=2.15.0 <3.0.0"
   flutter: ">=2.8.0"
