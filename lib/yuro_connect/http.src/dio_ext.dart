@@ -1,8 +1,7 @@
 import 'dart:io';
 
-import 'package:dio/dio.dart';
 import 'package:dio/adapter.dart';
-import 'package:yuro/yuro_util/src/string.dart';
+import 'package:yuro/yuro.dart';
 import 'package:flutter/material.dart';
 
 extension DioExt on Dio {
@@ -122,9 +121,12 @@ extension DioExt on Dio {
   }) async {
     int start = 0;
     final file = File(savePath);
-    if (file.existsSync()) start = file.lengthSync();
+    if (file.existsSync()) {
+      start = file.lengthSync();
+    } else {
+      file.createIfNotExists(recursive: true);
+    }
     final cancelToken = CancelToken();
-    // 通过head请求获取文件长度
     try {
       final response = await get<ResponseBody>(
         url,
@@ -137,8 +139,10 @@ extension DioExt on Dio {
       );
       final raf = file.openSync(mode: FileMode.append);
       int received = start;
-      final rangHeader = response.headers.value(HttpHeaders.contentRangeHeader);
-      int total = int.tryParse(rangHeader!.split('/').last) ?? 0;
+      var rangHeader = response.headers.value(HttpHeaders.contentRangeHeader) ??
+          response.headers.value(HttpHeaders.contentLengthHeader);
+      if (rangHeader == null) throw Exception('获取文件长度失败!');
+      int total = int.tryParse(rangHeader.split('/').last) ?? 0;
 
       final stream = response.data!.stream;
       final subscription = stream.listen(
