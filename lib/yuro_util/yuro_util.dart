@@ -2,6 +2,7 @@ library yuro_util;
 
 export 'src/build_context.dart';
 export 'src/datetime.dart';
+export 'src/datetime_format.dart';
 export 'src/file.dart';
 export 'src/num.dart';
 export 'src/screen.dart';
