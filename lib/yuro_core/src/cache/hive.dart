@@ -1,13 +1,13 @@
 import 'dart:io';
 
-import 'package:yuro/yuro_util/yuro_util.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-
-export 'package:hive/hive.dart';
-export 'package:hive_flutter/hive_flutter.dart';
+import 'package:yuro/yuro_util/yuro_util.dart';
 
 import '../interface.dart';
 import 'shared_preferences.dart';
+
+export 'package:hive/hive.dart';
+export 'package:hive_flutter/hive_flutter.dart';
 
 extension YuroHiveExt on YuroInterface {
   static late List<int> _hiveKey;
