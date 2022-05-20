@@ -67,7 +67,6 @@ class YuroAppController extends YuroController {
     super.onReady();
     // 加载应用信息
     await Yuro.loadPackageInfo();
-    await Yuro.loadUserAgent();
     // 在非调试模式下,上传应用错误记录
     if (kReleaseMode) YuroCrashlytics.instance.upload();
   }

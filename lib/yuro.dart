@@ -37,6 +37,7 @@ void runYuroApp({
     runZonedGuarded(
       () async {
         WidgetsFlutterBinding.ensureInitialized();
+        await Yuro.loadUserAgent();
         // 初始化SharedPreferences
         await Yuro.initSharedPreferences();
         // 初始化hive数据库
