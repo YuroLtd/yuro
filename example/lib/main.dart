@@ -23,7 +23,6 @@ Future<void> _init() async {
 
   final stringBox = await Yuro.openHiveBox<String>();
   final localeStr = stringBox.get(kLocale);
-  print(localeStr);
   if (localeStr.notNull) {
     final array = localeStr!.split('-');
     Yuro.app.locale = Locale(array[0], array.length == 2 ? array[1] : null);

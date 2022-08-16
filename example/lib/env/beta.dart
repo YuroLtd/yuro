@@ -1,8 +1,7 @@
+import 'package:example/export.dart';
+
+
 // 测试环境配置
-
-
-import 'package:example/env/run.dart';
-
 void main(){
   run();
 }

@@ -1,6 +1,5 @@
 // 生产环境配置
-
-import 'package:example/env/run.dart';
+import 'package:example/export.dart';
 
 void main(){
 
