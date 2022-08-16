@@ -1,0 +1,44 @@
+import 'package:flutter/widgets.dart';
+
+@immutable
+abstract class HotKey extends Intent {
+  const HotKey();
+
+  String get label;
+
+  ShortcutActivator get shortcut;
+}
+
+class HotKeyAction<T extends Intent> extends Action<T> {
+  HotKeyAction(this.onInvoke);
+
+  @protected
+  final OnInvokeCallback<T> onInvoke;
+
+  @override
+  Object? invoke(T intent) => onInvoke(intent);
+}
+
+class HotKeys extends StatelessWidget {
+  final List<HotKey> hotKeys;
+  final Map<Type, Action> hotKeyActions;
+  final Widget child;
+
+  const HotKeys({super.key, required this.hotKeys, required this.hotKeyActions, required this.child});
+
+  Map<ShortcutActivator, Intent> get _shortcuts {
+    final map = <ShortcutActivator, Intent>{};
+    for (final element in hotKeys) {
+      map[element.shortcut] = element;
+    }
+    return map;
+  }
+
+  @override
+  Widget build(BuildContext context) => Shortcuts(
+      shortcuts: _shortcuts,
+      child: Actions(
+        actions: hotKeyActions,
+        child: FocusScope(autofocus: true, child: child),
+      ));
+}

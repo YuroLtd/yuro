@@ -1,0 +1,41 @@
+import 'dart:convert';
+
+import 'package:convert/convert.dart';
+import 'package:crypto/crypto.dart';
+
+extension CryptoExt on String {
+  String toMd5([String salt = '']) => hex.encode(md5.convert(utf8.encode('${this}$salt')).bytes);
+
+  String toSha1() => hex.encode(sha1.convert(utf8.encode(this)).bytes);
+
+  String toSha256() => hex.encode(sha256.convert(utf8.encode(this)).bytes);
+
+  String toSha512() => hex.encode(sha512.convert(utf8.encode(this)).bytes);
+
+  String toBase64() => base64Encode(utf8.encode(this));
+
+  String fromBase64() => utf8.decode(base64Decode(this));
+
+  List<int> fromHex() => hex.decode(this);
+
+  Map<String, dynamic> decodeJson({Object? Function(Object? key, Object? value)? reviver}) =>
+      json.decode(this, reviver: reviver);
+
+  List<int> toBytes() => utf8.encode(this);
+}
+
+extension ListIntExt on List<int> {
+  String toHex() => hex.encode(this);
+
+  String base64() => base64Encode(this);
+
+  String toStr() => utf8.decode(this);
+}
+
+extension ObjectExt on Object? {
+  bool get isNull => this == null;
+
+  bool get notNull => !isNull;
+
+  String toJsonStr({Object? Function(dynamic object)? toEncodable}) => json.encode(this, toEncodable: toEncodable);
+}

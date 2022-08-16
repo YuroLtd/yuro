@@ -1,42 +1,33 @@
 name: yuro
-description: A Flutter package.
-version: 0.4.6+2
+description: Yuro package.
+version: 0.5.0
 homepage: https://github.com/YuroLtd/yuro.git
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.17.0 <3.0.0"
   flutter: ">=1.17.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  flutter_localizations:
-    sdk: flutter
-
-  dio: ^4.0.4                   # https://pub.dev/packages/dio
-  uuid: ^3.0.5                  # https://pub.dev/packages/uuid
-  crypto: ^3.0.1                # https://pub.dev/packages/crypto
-  convert: ^3.0.1               # https://pub.dev/packages/convert
-  provider: ^6.0.2              # https://pub.dev/packages/provider
-  path_provider: ^2.0.8         # https://pub.dev/packages/path_provider
-  shared_preferences: ^2.0.13   # https://pub.dev/packages/shared_preferences
-  permission_handler: ^8.1.6    # https://pub.dev/packages/permission_handler
-  equatable: ^2.0.3             # https://pub.flutter-io.cn/packages/equatable
-  json_annotation: ^4.4.0       # https://pub.flutter-io.cn/packages/json_annotation
-  hive: ^2.1.0                  # https://pub.flutter-io.cn/packages/hive
-  hive_flutter: ^1.1.0          # https://pub.flutter-io.cn/packages/hive_flutter
-#  yuro_plugin: ^0.1.0+2
-  package_info_plus: ^1.4.2
-  flutter_user_agentx: ^1.2.4
-
-dependency_overrides:
+  collection: ^1.16.0
   path: ^1.8.1
-  collection: ^1.16.0           # https://pub.dev/packages/collection
+  hive_flutter: ^1.1.0          # https://pub.flutter-io.cn/packages/hive_flutter
+  shared_preferences: ^2.0.15   # https://pub.dev/packages/shared_preferences
+  path_provider: ^2.0.11        # https://pub.dev/packages/path_provider
+  convert: ^3.0.1               # https://pub.dev/packages/convert
+  crypto: ^3.0.2                # https://pub.dev/packages/crypto
+  stack_trace: ^1.10.0
+  dio: ^4.0.6                   # https://pub.dev/packages/dio
+  mqtt_client: ^9.6.8           # https://pub.dev/packages/mqtt_client
+  equatable: ^2.0.3             # https://pub.dev/packages/equatable
+  buffer: ^1.1.1                # https://pub.dev/packages/buffer
+  crclib: ^3.0.0                # https://pub.dev/packages/crclib
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^1.0.0
-  build_runner: ^2.1.7
-  hive_generator: ^1.1.2      # https://pub.flutter-io.cn/packages/hive_generator/install
-  json_serializable: ^6.1.5
+  flutter_lints: ^2.0.0
+  build_runner: ^2.2.0
+  hive_generator: ^1.1.2      # https://pub.flutter-io.cn/packages/hive_generator
+
