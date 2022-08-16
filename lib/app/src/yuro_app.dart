@@ -131,7 +131,7 @@ class YuroApp extends StatelessWidget {
       highContrastDarkTheme: ThemeData(colorScheme: controller.highContrastDarkTheme),
       themeMode: controller.themeMode,
       //
-      locale: controller.locale ?? locale,
+      locale: controller.locale ??= locale,
       localizationsDelegates: localizationsDelegates,
       localeResolutionCallback: localeResolutionCallback,
       localeListResolutionCallback: localeListResolutionCallback,

@@ -11,7 +11,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get setting => '设置';
 
   @override
-  String get followSystem => '系统';
+  String get followSystem => '跟随系统';
+
+  @override
+  String get system => '系统';
 
   @override
   String get localizations => '简体中文';
@@ -30,4 +33,18 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get settingLocale => '多语言';
+}
+
+/// The translations for Chinese, as used in Hong Kong (`zh_HK`).
+class AppLocalizationsZhHk extends AppLocalizationsZh {
+  AppLocalizationsZhHk(): super('zh_HK');
+
+  @override
+  String get setting => '設置';
+
+  @override
+  String get followSystem => '跟隨系統';
+
+  @override
+  String get system => '系统';
 }

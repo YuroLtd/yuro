@@ -1,6 +1,6 @@
-// generated
 import 'package:flutter/material.dart';
 
+// generated
 export 'generated/app_routes.g.dart';
 export 'generated/build_config.g.dart';
 
@@ -15,15 +15,13 @@ export 'view/root/root.dart';
 export 'view/product.dart';
 
 export 'view/setting/setting.dart';
-export 'view/setting/locale.dart';
-export 'view/setting/theme.dart';
-
 export 'view/socket/socket.dart';
 
 export 'package:yuro/yuro.dart';
 
 const kThemeColor = 'kThemeColor';
 const kThemeMode = 'kThemeMode';
+const kLocale = 'kLocale';
 
 List<Color> get _defaultThemeColor => [
       Colors.red,
@@ -33,12 +31,16 @@ List<Color> get _defaultThemeColor => [
       Colors.orange,
       Colors.cyan,
       Colors.blue,
+      Colors.grey,
+      Colors.teal,
     ];
 
-List<ColorScheme> get defaultColorScheme => _defaultThemeColor.map((e) {
-      return ColorScheme.fromSeed(seedColor: e);
-    }).toList();
+List<ColorScheme> get defaultColorScheme {
+  final list = _defaultThemeColor.map((e) => ColorScheme.fromSeed(seedColor: e)).toList();
+  return [const ColorScheme.light(), ...list];
+}
 
-List<ColorScheme> get defaultDarkColorScheme => _defaultThemeColor.map((e) {
-      return ColorScheme.fromSeed(seedColor: e, brightness: Brightness.dark);
-    }).toList();
+List<ColorScheme> get defaultDarkColorScheme {
+  final list = _defaultThemeColor.map((e) => ColorScheme.fromSeed(seedColor: e, brightness: Brightness.dark)).toList();
+  return [const ColorScheme.dark(), ...list];
+}

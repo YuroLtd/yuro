@@ -15,11 +15,11 @@ class YuroAppController extends AppLifeCycleController {
   UniqueKey? get uniqueKey => _uniqueKey;
 
   // light theme
-  ColorScheme? theme;
+  ColorScheme theme = const ColorScheme.light();
   ColorScheme? highContrastTheme;
 
   // dark theme
-  ColorScheme? darkTheme;
+  ColorScheme darkTheme = const ColorScheme.dark();
   ColorScheme? highContrastDarkTheme;
 
   //

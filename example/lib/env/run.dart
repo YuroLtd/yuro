@@ -20,4 +20,12 @@ Future<void> _init() async {
 
   final themeMode = ThemeMode.values[intBox.get(kThemeMode) ?? ThemeMode.system.index];
   Yuro.app.themeMode = themeMode;
+
+  final stringBox = await Yuro.openHiveBox<String>();
+  final localeStr = stringBox.get(kLocale);
+  print(localeStr);
+  if (localeStr.notNull) {
+    final array = localeStr!.split('-');
+    Yuro.app.locale = Locale(array[0], array.length == 2 ? array[1] : null);
+  }
 }

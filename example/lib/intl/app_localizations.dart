@@ -89,7 +89,8 @@ abstract class AppLocalizations {
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
-    Locale('zh')
+    Locale('zh'),
+    Locale('zh', 'HK')
   ];
 
   /// No description provided for @setting.
@@ -101,8 +102,14 @@ abstract class AppLocalizations {
   /// No description provided for @followSystem.
   ///
   /// In zh, this message translates to:
-  /// **'系统'**
+  /// **'跟随系统'**
   String get followSystem;
+
+  /// No description provided for @system.
+  ///
+  /// In zh, this message translates to:
+  /// **'系统'**
+  String get system;
 
   /// No description provided for @localizations.
   ///
@@ -158,6 +165,15 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
 
 AppLocalizations lookupAppLocalizations(Locale locale) {
 
+  // Lookup logic when language+country codes are specified.
+  switch (locale.languageCode) {
+    case 'zh': {
+  switch (locale.countryCode) {
+    case 'HK': return AppLocalizationsZhHk();
+   }
+  break;
+   }
+  }
 
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {

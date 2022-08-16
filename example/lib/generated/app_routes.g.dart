@@ -21,12 +21,9 @@ class AppRoutes {
   AppRoutes._();
 
   static List<YuroPage> pages = [
-    YuroPage(name: '/', builder: () => Root(), children: [
+    YuroPage(name: '/', builder: () => const Root(), children: [
       YuroPage(name: '/socket', builder: () => const SocketDemo()),
-      YuroPage(name: '/setting', builder: () => SettingPage(), children: [
-        YuroPage(name: '/theme', builder: () => const ThemeSwitchPage()),
-        YuroPage(name: '/locale', builder: () => const LocaleSwitchPage()),
-      ]),
+      YuroPage(name: '/setting', builder: () => const SettingPage()),
     ]),
   ];
 }
