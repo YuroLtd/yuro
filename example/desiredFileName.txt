@@ -5,6 +5,8 @@
     "lightMode",
     "settingDarkMode",
     "settingTheme",
-    "settingLocale"
+    "settingLocale",
+    "widgets",
+    "expandableText"
   ]
 }

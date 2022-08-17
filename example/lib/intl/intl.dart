@@ -1,6 +1,8 @@
 import 'package:example/export.dart';
 import 'package:flutter/material.dart';
 
+export 'app_localizations.dart';
+
 extension AppLocalizationsExt on BuildContext {
   AppLocalizations get localizations => AppLocalizations.of(this)!;
 }

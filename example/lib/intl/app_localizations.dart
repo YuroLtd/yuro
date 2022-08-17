@@ -146,6 +146,18 @@ abstract class AppLocalizations {
   /// In zh, this message translates to:
   /// **'多语言'**
   String get settingLocale;
+
+  /// No description provided for @widgets.
+  ///
+  /// In zh, this message translates to:
+  /// **'小组件'**
+  String get widgets;
+
+  /// No description provided for @expandableText.
+  ///
+  /// In zh, this message translates to:
+  /// **'可折叠文本'**
+  String get expandableText;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

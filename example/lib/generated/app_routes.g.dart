@@ -7,14 +7,14 @@ class AppRouteKeys {
 
   static const root = '/';
 
+  static const widgets = '/widgets';
+  static const widgets_expandable_text = '/widgets/expandable_text';
+
   static const setting = '/setting';
   static const setting_theme = '/setting/theme';
   static const setting_locale = '/setting/locale';
 
   static const socket = '/socket';
-
-  static const home_product = '/home/:pid';
-  static const home_product_component = '/home/:pid/:cid';
 }
 
 class AppRoutes {
@@ -22,7 +22,9 @@ class AppRoutes {
 
   static List<YuroPage> pages = [
     YuroPage(name: '/', builder: () => const Root(), children: [
-      YuroPage(name: '/socket', builder: () => const SocketDemo()),
+      YuroPage(name: '/widgets', builder: () => const WidgetsDemo(), children: [
+        YuroPage(name: '/expandable_text', builder: () => const ExpandableTextDemo()),
+      ]),
       YuroPage(name: '/setting', builder: () => const SettingPage()),
     ]),
   ];

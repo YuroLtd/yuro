@@ -33,6 +33,12 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get settingLocale => '多语言';
+
+  @override
+  String get widgets => '小组件';
+
+  @override
+  String get expandableText => '可折叠文本';
 }
 
 /// The translations for Chinese, as used in Hong Kong (`zh_HK`).

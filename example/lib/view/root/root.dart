@@ -8,6 +8,7 @@ class Root extends StatelessWidget {
   Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(title: const Text('Yuro Demo'), elevation: 0),
       body: ListView(children: [
+        RouteItem(name: context.localizations.widgets, route: AppRouteKeys.widgets),
         RouteItem(name: context.localizations.setting, route: AppRouteKeys.setting),
       ]));
 }

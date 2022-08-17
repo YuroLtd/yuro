@@ -1,6 +1,13 @@
+// keyboard
 export 'keyboard/dismiss_keyboard.dart';
 export 'keyboard/keyboard_listener.dart';
 export 'keyboard/keyboard_safe_area.dart';
-export 'switcher/switcher.dart';
+
+// text_field
 export 'text_field/text_input_formatter.dart';
-export 'collapsible_text/collapsible_text.dart';
+
+// switcher
+export 'switcher/switcher.dart';
+
+// text
+export 'text/expandable_text.dart';
