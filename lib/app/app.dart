@@ -22,9 +22,9 @@ void runYuroApp({FutureVoidCallback? onInit,required YuroApp app}) async {
     Yuro.registerHiveAdapter(LogRecordAdapter());
     await Yuro.initHive();
   }
+  // 调用自定义初始化方法
   await onInit?.call();
-  runApp(app);
 
-  // 透明状态栏
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+  // 启动应用
+  runApp(app);
 }

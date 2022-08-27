@@ -1,15 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:example/export.dart';
 
-void run() => runYuroApp(
-    onInit: _init,
-    app: YuroApp(
-      pages: AppRoutes.pages,
-      initialRoute: AppRouteKeys.root,
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-    ));
-
 Future<void> _init() async {
   Yuro.logLevel = LogLevel.verbose;
   final intBox = await Yuro.openHiveBox<int>();
@@ -28,3 +19,12 @@ Future<void> _init() async {
     Yuro.app.locale = Locale(array[0], array.length == 2 ? array[1] : null);
   }
 }
+
+void run() => runYuroApp(
+    onInit: _init,
+    app: YuroApp(
+      pages: AppRoutes.pages,
+      initialRoute: AppRouteKeys.root,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+    ));

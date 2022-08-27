@@ -29,7 +29,5 @@ mixin YuroLifeCycleMixin {
 
   void onReady() {}
 
-  void dispose() {
-    print('YuroLifeCycleMixin.dispose');
-  }
+  void dispose() {}
 }

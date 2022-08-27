@@ -1,29 +1,20 @@
-import 'package:flutter/widgets.dart';
-import 'package:yuro/util/util.dart';
+import 'package:flutter/material.dart';
 
 import 'binder/binder.dart';
 import 'yuro_controller.dart';
 
-class YuroBuilder<T extends YuroController> extends StatelessWidget {
-  final String? tag;
-  final Widget Function(T controller) builder;
+abstract class YuroView<T extends YuroController> extends StatelessWidget {
+  const YuroView({super.key});
 
-  final T? init;
-  final VoidCallback? initState, dispose, didChangeDependencies;
-  final void Function(Binder<T> oldWidget, BinderElement<T> state)? didUpdateWidget;
+  final String? tag = null;
 
-  const YuroBuilder({
-    super.key,
-    this.tag,
-    this.init,
-    //
-    this.initState,
-    this.didChangeDependencies,
-    this.didUpdateWidget,
-    this.dispose,
-    //
-    required this.builder,
-  });
+  T createController();
+
+  void initState() {}
+
+  void didChangeDependencies() {}
+
+  void didUpdateWidget(Binder<T> oldWidget, BinderElement<T> state) {}
 
   T _controller(BuildContext context) {
     final inheritedElement = context.getElementForInheritedWidgetOfExactType<Binder<T>>() as BinderElement<T>?;
@@ -37,7 +28,7 @@ class YuroBuilder<T extends YuroController> extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Binder<T>(
         tag: tag,
-        init: init.isNull ? null : () => init!,
+        init: createController,
         //
         initState: initState,
         didChangeDependencies: didChangeDependencies,
@@ -46,4 +37,8 @@ class YuroBuilder<T extends YuroController> extends StatelessWidget {
         //
         child: Builder(builder: (context) => builder.call(_controller(context))),
       );
+
+  Widget builder(T controller);
+
+  void dispose() {}
 }
