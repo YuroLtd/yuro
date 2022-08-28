@@ -10,9 +10,7 @@ class RouteTree {
 
   /// 添加一组页面
   void addPages(List<YuroPage> pages) {
-    for (final element in pages) {
-      addPage(element);
-    }
+    pages.forEach((element) => addPage(element));
   }
 
   /// 添加单个页面
@@ -22,9 +20,7 @@ class RouteTree {
     final children = _flattenPage(page);
     if (children.isNullOrEmpty) return;
 
-    for (final element in children!) {
-      addPage(element);
-    }
+    children!.forEach((element) => addPage(element));
   }
 
   // 扁平化子级页面, 拼接父子路径, 继承父页面的中间件

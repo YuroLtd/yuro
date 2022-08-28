@@ -1,8 +1,7 @@
-import 'dart:convert';
-import 'dart:math';
-import 'dart:typed_data';
+// ignore_for_file: avoid_print
 
-import 'package:buffer/buffer.dart';
+import 'dart:math';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:yuro/connect/socket.src/events.dart';
 import 'package:yuro/util/util.dart';
@@ -41,16 +40,14 @@ void main() {
   });
 
   test('split', () {
-    for(int i = 0; i < 10; i++){
+    for (int i = 0; i < 10; i++) {
       final a = List.generate(4, (index) => Random().nextInt(255));
       print(a);
       print(a.map((e) => e.toRadixString(16)).join());
-      final b = a.map((e) => e.toRadixString(2).padLeft(8,'0')).join();
+      final b = a.map((e) => e.toRadixString(2).padLeft(8, '0')).join();
       print(b);
       final c = int.parse(b, radix: 2);
       print(c);
-
-
 
       final maskingKey = [c >> 24, (c & 0x00FF0000) >> 16, (c & 0x0000FF00) >> 8, c & 0x000000FF];
       print(maskingKey);

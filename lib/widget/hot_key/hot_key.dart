@@ -27,11 +27,8 @@ class HotKeys extends StatelessWidget {
   const HotKeys({super.key, required this.hotKeys, required this.hotKeyActions, required this.child});
 
   Map<ShortcutActivator, Intent> get _shortcuts {
-    final map = <ShortcutActivator, Intent>{};
-    for (final element in hotKeys) {
-      map[element.shortcut] = element;
-    }
-    return map;
+    final shortcuts = hotKeys.map((e) => MapEntry(e.shortcut, e)).toList();
+    return Map.fromEntries(shortcuts);
   }
 
   @override

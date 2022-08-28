@@ -176,7 +176,6 @@ class LruMap<K, V> implements Map<K, V> {
   bool containsValue(Object? value) => values.contains(value);
 
   @override
-  // ignore: avoid_function_literals_in_foreach_calls
   void forEach(void Function(K key, V value) action) => entries.forEach((e) => action(e.key, e.value));
 
   @override

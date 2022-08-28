@@ -121,9 +121,7 @@ class YuroInstance {
   }
 
   void deleteAll({bool force = false}) {
-    for (final element in _factories.keys) {
-      delete(key: element, force: force);
-    }
+    _factories.keys.forEach((e) => delete(key: e, force: force));
   }
 
   /// 重载

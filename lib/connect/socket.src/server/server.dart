@@ -34,9 +34,7 @@ abstract class SocketServer extends YuroService {
   }
 
   void close() async {
-    for (final element in _connectionPool.values) {
-       element.close();
-    }
+    _connectionPool.values.forEach((element) => element.close());
     await _serverSocket?.close();
     _serverSocket = null;
     _logger.i('server closed.');
