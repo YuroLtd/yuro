@@ -223,11 +223,11 @@ class YuroRouteDelegate extends RouterDelegate<RouteDecoder>
     return result;
   }
 
-  bool get canPop => _activePages.length > 1;
+  bool canPop() => _activePages.length > 1;
 
   void _checkIfCanPop() {
     assert(() {
-      if (!canPop) {
+      if (!canPop()) {
         final name = _activePages.last.page?.name;
         throw 'The page [$name] can not be popped!';
       }
@@ -244,7 +244,7 @@ class YuroRouteDelegate extends RouterDelegate<RouteDecoder>
 
   @override
   void popUntil(PagePredicate predicate) {
-    while (canPop && !predicate.call(_activePages.last.page!)) {
+    while (canPop() && !predicate.call(_activePages.last.page!)) {
       _popWithResult();
     }
     notifyListeners();

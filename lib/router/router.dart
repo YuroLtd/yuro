@@ -43,6 +43,8 @@ extension YuroRouterExt on YuroInterface {
 
   BuildContext get currentContext => routeDelegate.navigatorKey.currentContext!;
 
+  NavigatorState get navigator => Navigator.of(currentContext);
+
   YuroRouteDelegate createRouterDelegate({
     required List<YuroPage> pages,
     YuroPage? unknownPage,
@@ -244,8 +246,10 @@ extension YuroRouterExt on YuroInterface {
         arguments: arguments,
       );
 
+  /// 仅用于页面弹出, 以下弹出使用[navigator]的pop方法
+  /// * [showModalBottomSheet]
   void pop<T>([T? result]) {
-    if (routeDelegate.canPop) {
+    if (routeDelegate.canPop()) {
       routeDelegate.pop(result);
     }
   }
