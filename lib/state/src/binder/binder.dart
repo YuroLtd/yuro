@@ -61,12 +61,11 @@ class BinderElement<T> extends InheritedElement {
     final isRegistered = Yuro.isRegistered<T>(widget.tag);
     if (isRegistered) {
       _isCreator = Yuro.isPrepared<T>(widget.tag);
-      _controllerBuilder = () => Yuro.find<T>(widget.tag);
     } else {
-      _controllerBuilder = widget.init;
-      Yuro.lazyPut<T>(_controllerBuilder!, tag: widget.tag);
+      Yuro.lazyPut<T>(widget.init!, tag: widget.tag);
       _isCreator = true;
     }
+    _controllerBuilder = () => Yuro.find<T>(widget.tag);
     widget.initState?.call();
   }
 

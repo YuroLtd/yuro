@@ -35,10 +35,10 @@ abstract class YuroView<T extends YuroController> extends StatelessWidget {
         didUpdateWidget: didUpdateWidget,
         dispose: dispose,
         //
-        child: Builder(builder: (context) => builder.call(_controller(context))),
+        child: Builder(builder: (context) => builder.call(context, _controller(context))),
       );
 
-  Widget builder(T controller);
+  Widget builder(BuildContext context, T controller);
 
   void dispose() {}
 }
