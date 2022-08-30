@@ -124,7 +124,7 @@ class YuroRouteDelegate extends RouterDelegate<RouteDecoder>
     final setting = PageSettings.fromUrl(name, data);
     final decoder = Yuro.routeTree.matchRoute(setting.name, setting);
     if (decoder.page == null) return null;
-    decoder.completer = _activePages.isEmpty ? null : Completer<T>();
+    decoder.completer = _activePages.isEmpty ? null : Completer<T?>();
     return decoder;
   }
 

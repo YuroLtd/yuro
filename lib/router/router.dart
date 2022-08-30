@@ -127,7 +127,7 @@ extension YuroRouterExt on YuroInterface {
     Map<String, String>? parameters,
     Object? arguments,
   }) =>
-      routeDelegate.pushNamed(
+      routeDelegate.pushNamed<T>(
         _buildNewName(name, parameters),
         arguments: arguments,
       );

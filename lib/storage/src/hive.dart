@@ -8,6 +8,8 @@ import 'package:yuro/util/util.dart';
 
 import 'shared_preferences.dart';
 
+export 'package:hive_flutter/hive_flutter.dart';
+
 extension HiveExt on YuroInterface {
   List<int> get _hiveKey {
     final hiveKey = Yuro.sp.getString('hiveKey');
