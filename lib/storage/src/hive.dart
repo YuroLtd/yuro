@@ -43,13 +43,13 @@ extension HiveExt on YuroInterface {
         encryptionCipher: HiveAesCipher(_hiveKey),
       );
 
-  Future<void> hive<T>(void Function(Box<T> box) run) async {
-    final box = await Yuro.openHiveBox<T>();
+  Future<void> hive<T>(void Function(Box<T> box) run, [String? boxName]) async {
+    final box = await Yuro.openHiveBox<T>(boxName);
     await Future(() => run.call(box));
   }
 
-  Future<void> lazyHive<T>(void Function(LazyBox<T> lazyBox) run) async {
-    final lazyBox = await Yuro.openHiveLazyBox<T>();
+  Future<void> lazyHive<T>(void Function(LazyBox<T> lazyBox) run,[String? boxName]) async {
+    final lazyBox = await Yuro.openHiveLazyBox<T>(boxName);
     await Future(() => run.call(lazyBox));
   }
 

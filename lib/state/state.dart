@@ -3,6 +3,7 @@ library state;
 export 'src/controller_mixin/lifecycle_mixin.dart';
 export 'src/controller_mixin/scroll_mixin.dart';
 export 'src/controller_mixin/state_mixin.dart';
+export 'src/controller_mixin/http_mixin.dart';
 
 export 'src/listenable/listen_notifier.dart';
 export 'src/listenable/value_notifier.dart';

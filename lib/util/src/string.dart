@@ -6,6 +6,8 @@ extension StringExt on String {
   bool isDigit() => int.tryParse(this) != null;
 
   double? toDouble() => double.tryParse(this);
+
+  bool get isBlank => trim().isEmpty;
 }
 
 extension PathExt on String {

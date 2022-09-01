@@ -11,3 +11,5 @@ export 'switcher/switcher.dart';
 
 // text
 export 'text/expandable_text.dart';
+
+export 'overlay/overlay.dart';
