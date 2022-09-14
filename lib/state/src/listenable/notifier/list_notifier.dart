@@ -58,6 +58,12 @@ class ListNotifier<T> extends ValueNotifier<List<T>> with ListMixin<T> {
     _value[index] = value;
     refresh();
   }
+
+  @override
+  void addAll(Iterable<T> iterable) {
+    _value.addAll(iterable);
+    refresh();
+  }
 }
 
 extension ListNotifierExt<T> on List<T> {
