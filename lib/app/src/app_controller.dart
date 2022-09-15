@@ -31,13 +31,11 @@ class YuroAppController extends YuroController with WidgetsBindingObserver {
   @override
   void onInit() {
     WidgetsBinding.instance.addObserver(this);
-    super.onInit();
   }
 
   @override
-  void dispose() {
+  void onDispose() {
     WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
   }
 
   @override

@@ -21,7 +21,7 @@ mixin YuroLifeCycleMixin {
   @nonVirtual
   void onDestroy() {
     if (_destroyed) return;
-    dispose();
+    onDispose();
     _destroyed = true;
   }
 
@@ -29,5 +29,5 @@ mixin YuroLifeCycleMixin {
 
   void onReady() {}
 
-  void dispose() {}
+  void onDispose() {}
 }

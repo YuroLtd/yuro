@@ -24,9 +24,9 @@ mixin ScrollMixin on YuroController {
   }
 
   @override
-  void dispose() {
+  void onDispose() {
     _scrollController.removeListener(_scrollListener);
     _scrollController.dispose();
-    super.dispose();
+    super.onDispose();
   }
 }
