@@ -3,6 +3,23 @@ import 'package:yuro/util/util.dart';
 
 typedef AnimationBuilder = Widget Function(BuildContext context, AnimationController controller, Widget child);
 
+Widget _defaultOverlayAnimationBuilder(BuildContext context, AnimationController controller, Widget child) =>
+    ScaleTransition(
+      scale: controller,
+      child: Opacity(opacity: controller.value, child: child),
+    );
+
+Widget _defaultToastAnimationBuilder(BuildContext context, AnimationController controller, Widget child) =>
+    ScaleTransition(
+        scale: controller,
+        child: Opacity(
+            opacity: controller.value,
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.w),
+              decoration: BoxDecoration(color: Colors.black54, borderRadius: BorderRadius.circular(5.w)),
+              child: child,
+            )));
+
 class OverlayTheme {
   /// 显示位置
   final Alignment alignment;
@@ -23,10 +40,10 @@ class OverlayTheme {
   final AnimationBuilder animationBuilder;
 
   OverlayTheme({
-    required this.alignment,
+    this.alignment = Alignment.center,
     this.duration,
     this.margin,
-    required this.animationBuilder,
+    this.animationBuilder = _defaultOverlayAnimationBuilder,
     this.animationDuration = const Duration(milliseconds: 200),
     this.animationCurve = Curves.linear,
   });
@@ -85,11 +102,11 @@ class ToastTheme extends OverlayTheme {
   final TextStyle textStyle;
 
   ToastTheme({
-    required this.textStyle,
-    required super.alignment,
+    this.textStyle = const TextStyle(),
+    super.alignment,
     super.duration,
     super.margin,
-    required super.animationBuilder,
+    super.animationBuilder = _defaultToastAnimationBuilder,
     super.animationDuration,
     super.animationCurve,
   });

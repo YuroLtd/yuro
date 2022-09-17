@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:yuro/core/core.dart';
 
 import 'theme.dart';
 
 class OverlayContainer extends StatefulWidget {
-  const OverlayContainer({super.key, required this.theme, required this.child});
+  const OverlayContainer(this.theme, this.child, this.disposer, {super.key});
 
   final OverlayTheme theme;
   final Widget child;
+  final Disposer disposer;
 
   @override
   State<OverlayContainer> createState() => OverlayContainerState();
@@ -59,16 +61,20 @@ class OverlayContainerState extends State<OverlayContainer>
   }
 
   @override
-  Widget build(BuildContext context) => AnimatedAlign(
-      alignment: widget.theme.alignment,
-      duration: _animationDuration,
-      curve: widget.theme.animationCurve,
-      child: AnimatedPadding(
-          padding: _margin,
-          duration: _animationDuration,
-          curve: widget.theme.animationCurve,
-          child: AnimatedBuilder(
-            animation: _animController,
-            builder: (context, child) => widget.theme.animationBuilder.call(context, _animController, widget.child),
-          )));
+  Widget build(BuildContext context) => Stack(children: [
+        Positioned.fill(child: GestureDetector(onTap: widget.disposer)),
+        AnimatedAlign(
+            alignment: widget.theme.alignment,
+            duration: _animationDuration,
+            curve: widget.theme.animationCurve,
+            child: AnimatedPadding(
+                padding: _margin,
+                duration: _animationDuration,
+                curve: widget.theme.animationCurve,
+                child: AnimatedBuilder(
+                  animation: _animController,
+                  builder: (context, child) =>
+                      widget.theme.animationBuilder.call(context, _animController, widget.child),
+                ))),
+      ]);
 }

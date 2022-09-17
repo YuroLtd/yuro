@@ -13,35 +13,14 @@ class OverlayManager {
   //
   OverlayTheme? _overlayTheme;
 
-  OverlayTheme get overlayTheme =>
-      _overlayTheme ??
-      OverlayTheme(
-          alignment: Alignment.center,
-          animationBuilder: (context, controller, child) => ScaleTransition(
-                scale: controller,
-                child: Opacity(opacity: controller.value, child: child),
-              ));
+  OverlayTheme get overlayTheme => _overlayTheme ?? OverlayTheme();
 
   set overlayTheme(OverlayTheme theme) => _overlayTheme = theme;
 
   //
   ToastTheme? _toastTheme;
 
-  ToastTheme get toastTheme =>
-      _toastTheme ??
-      ToastTheme(
-          textStyle: const TextStyle(),
-          alignment: Alignment.bottomCenter,
-          margin: EdgeInsets.only(bottom: 0.33.sh),
-          animationBuilder: (context, controller, child) => ScaleTransition(
-              scale: controller,
-              child: Opacity(
-                  opacity: controller.value,
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.w),
-                    decoration: BoxDecoration(color: Colors.black54, borderRadius: BorderRadius.circular(5.w)),
-                    child: child,
-                  ))));
+  ToastTheme get toastTheme => _toastTheme ?? ToastTheme();
 
   set toastTheme(ToastTheme theme) => _toastTheme = theme;
 

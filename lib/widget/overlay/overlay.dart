@@ -24,14 +24,17 @@ extension YuroOverlayExt on YuroInterface {
       alignment: position.alignment,
       margin: position.margin,
     );
-    showOverlay(DefaultTextStyle(style: theme.textStyle, child: Text(content)), theme: theme);
+    showOverlay(theme: theme, child: DefaultTextStyle(style: theme.textStyle, child: Text(content)));
   }
 
-  GlobalKey showOverlay(Widget child, {OverlayTheme? theme, VoidCallback? onDismiss}) {
+  GlobalKey showOverlay({OverlayTheme? theme, required Widget child, VoidCallback? onDismiss}) {
     final globalKey = GlobalKey<OverlayContainerState>();
     final overlayTheme = theme ?? _overlayManager.overlayTheme;
+    disposer() {
+      if (theme is! ToastTheme) dismissOverlay(globalKey);
+    }
     final overlayEntry = OverlayEntry(builder: (context) {
-      return OverlayContainer(key: globalKey, theme: overlayTheme, child: child);
+      return OverlayContainer(overlayTheme, child, disposer, key: globalKey);
     });
 
     final future = OverlayFuture(
