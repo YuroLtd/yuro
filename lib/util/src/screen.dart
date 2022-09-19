@@ -55,9 +55,6 @@ class Screen {
 
   /// 高度方向适配
   double setHeight(num height) => height * _scaleHeight;
-
-  /// 字体适配
-  double setSP(num fontSize) => fontSize * min(_scaleWidth, _scaleHeight);
 }
 
 extension ScreenExt on YuroInterface {
@@ -84,6 +81,4 @@ extension ScreenNumExt on num {
   double get sw => Yuro.screen.width * this;
 
   double get sh => Yuro.screen.height * this;
-
-  double get sp => Yuro.screen.setSP(this);
 }

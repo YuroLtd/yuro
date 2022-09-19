@@ -13,7 +13,7 @@ class RouteItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Column(mainAxisSize: MainAxisSize.min, children: [
         ListTile(
-          title: Text(name, style: TextStyle(fontSize: 12.sp)),
+          title: Text(name, style: const TextStyle(fontSize: 12)),
           trailing: Row(mainAxisSize: MainAxisSize.min, children: [
             Offstage(offstage: trailing.isNull, child: trailing),
             const Icon(Icons.arrow_right),

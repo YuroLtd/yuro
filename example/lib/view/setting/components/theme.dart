@@ -16,7 +16,7 @@ class ThemeSwitcher extends YuroWidget<YuroAppController> {
 
   @override
   Widget build(BuildContext context) => ExpansionTile(
-          title: Text(context.localizations.settingTheme, style: TextStyle(fontSize: 12.sp)),
+          title: Text(context.localizations.settingTheme, style: const TextStyle(fontSize: 12)),
           trailing: Obs((child) => SizedBox(
                 width: 20.w,
                 height: 20.w,

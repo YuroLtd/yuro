@@ -21,11 +21,11 @@ class LocalizationsSwitcher extends YuroWidget<YuroAppController> {
 
   @override
   Widget build(BuildContext context) => ExpansionTile(
-      title: Text(context.localizations.settingLocale, style: TextStyle(fontSize: 12.sp)),
+      title: Text(context.localizations.settingLocale, style: const TextStyle(fontSize: 12)),
       trailing: Obs((child) => Text(locale.value?.desc ?? context.localizations.followSystem)),
       children: [const Locale('followSystem'), ...AppLocalizations.supportedLocales]
           .map((e) => ListTile(
-                title: Text(e.desc, style: TextStyle(fontSize: 12.sp)),
+                title: Text(e.desc, style: const TextStyle(fontSize: 12)),
                 onTap: () => _onLocaleChanged(e),
               ))
           .toList());
