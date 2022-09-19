@@ -18,7 +18,6 @@ mixin ListenableMixin on Listenable {
   @protected
   void reportRead() => Notifier.instance.read(this);
 
-  @protected
   void refresh() => _listeners.forEachIndexed((index, element) => element.call());
 }
 

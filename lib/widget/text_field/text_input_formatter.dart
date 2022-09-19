@@ -10,9 +10,9 @@ extension TextInputFormatters on TextInputFormatter {
   static TextInputFormatter deny(Pattern filterPattern, {String replacementString = ''}) =>
       FilteringTextInputFormatter.deny(filterPattern, replacementString: replacementString);
 
-  static List<TextInputFormatter> get digitsOnly => [FilteringTextInputFormatter.digitsOnly];
+  static TextInputFormatter get digitsOnly => FilteringTextInputFormatter.digitsOnly;
 
-  static List<TextInputFormatter> get singleLineFormatter => [FilteringTextInputFormatter.singleLineFormatter];
+  static TextInputFormatter get singleLineFormatter => FilteringTextInputFormatter.singleLineFormatter;
 }
 
 class _MoneyTextInputFormatter extends TextInputFormatter {
