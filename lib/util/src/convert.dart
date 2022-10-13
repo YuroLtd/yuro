@@ -27,8 +27,7 @@ extension CryptoExt on String {
 
   List<int> fromHex() => hex.decode(this);
 
-  Map<String, dynamic> decodeJson({Object? Function(Object? key, Object? value)? reviver}) =>
-      json.decode(this, reviver: reviver);
+  dynamic decodeJson({Object? Function(Object? key, Object? value)? reviver}) => json.decode(this, reviver: reviver);
 
   List<int> toBytes() => utf8.encode(this);
 }

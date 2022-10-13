@@ -4,7 +4,7 @@
 flutter_home=$FLUTTER_HOME
 
 # 切换到sdk目录
-cd ${flutter_home}
+cd "${flutter_home}" || exit
 
 # 切换到stable
 git checkout stable
