@@ -8,7 +8,6 @@ export 'package:yuro/state/state.dart';
 export 'package:yuro/storage/storage.dart';
 export 'package:yuro/util/util.dart';
 export 'package:yuro/widget/widget.dart';
-export 'package:yuro/logger/logger.dart';
 export 'package:yuro/instance/instance.dart';
 
 export 'package:equatable/equatable.dart';

@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:mqtt_client/mqtt_server_client.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:yuro/core/core.dart';
-import 'package:yuro/logger/logger.dart';
 import 'package:yuro/state/state.dart';
 
 abstract class MqttService extends YuroService {

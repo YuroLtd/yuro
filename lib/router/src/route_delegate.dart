@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:yuro/core/core.dart';
-import 'package:yuro/logger/logger.dart';
 import 'package:yuro/router/router.dart';
 import 'package:yuro/util/util.dart';
 

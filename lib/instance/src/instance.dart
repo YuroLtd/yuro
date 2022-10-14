@@ -1,5 +1,4 @@
 import 'package:yuro/core/core.dart';
-import 'package:yuro/logger/logger.dart';
 import 'package:yuro/state/state.dart';
 
 import 'instance_builder_factory.dart';

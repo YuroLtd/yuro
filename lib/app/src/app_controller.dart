@@ -8,7 +8,7 @@ extension YuroAppExt on YuroInterface {
   WidgetsBinding get engine => WidgetsFlutterBinding.ensureInitialized();
 }
 
-class YuroAppController extends YuroController with WidgetsBindingObserver {
+class YuroAppController extends YuroController {
   //
   UniqueKey? _uniqueKey;
 
@@ -27,19 +27,6 @@ class YuroAppController extends YuroController with WidgetsBindingObserver {
 
   //
   Locale? locale;
-
-  @override
-  void onInit() {
-    WidgetsBinding.instance.addObserver(this);
-  }
-
-  @override
-  void onDispose() {
-    WidgetsBinding.instance.removeObserver(this);
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) => Yuro.fire(state);
 
   /// 重新加载app, 如果[resetRoute]为true,将重新加载路由
   void reload([bool resetRoute = false]) {

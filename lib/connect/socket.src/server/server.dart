@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:yuro/core/core.dart';
-import 'package:yuro/logger/logger.dart';
 import 'package:yuro/state/state.dart';
 
 import 'socket_client.dart';
