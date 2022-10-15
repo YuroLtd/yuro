@@ -1,7 +1,7 @@
 import 'package:path/path.dart' as path;
 
 extension StringExt on String {
-  int? toInt() => int.tryParse(this);
+  int? toInt({int? radix}) => int.tryParse(this, radix: radix);
 
   bool isDigit() => int.tryParse(this) != null;
 
