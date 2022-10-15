@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:crclib/catalog.dart';
 import 'package:crclib/crclib.dart';
 
+export 'package:crclib/catalog.dart';
+
 extension CrcValueExt on CrcValue {
   List<int> toBytes() => utf8.encode(toString());
 }
