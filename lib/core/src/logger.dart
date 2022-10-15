@@ -26,6 +26,13 @@ enum LogLevel {
 }
 
 class _LogInfo {
+  static const topLeftCorner = '┌';
+  static const bottomLeftCorner = '└';
+  static const middleCorner = '├';
+  static const verticalLine = '│';
+  static const doubleDivider = '─';
+  static const singleDivider = '┄';
+
   final String tag;
 
   final LogLevel level;
@@ -41,7 +48,15 @@ class _LogInfo {
   _LogInfo(this.tag, this.level, this.message, this.stack, this.extra, this.dateTime);
 
   @override
-  String toString() => '$tag[$location]: $message';
+  String toString() => '$tag: $message';
+
+  List<String> format() => [
+        '$topLeftCorner${doubleDivider * 79}',
+        '$verticalLine  TAG: $tag Location: $location',
+        '$middleCorner${singleDivider * 79}',
+        '$verticalLine  $message',
+        '$bottomLeftCorner${doubleDivider * 79}'
+      ];
 
   StackTrace get stackTrace => StackTrace.fromString(stack);
 
@@ -90,6 +105,9 @@ class Logger {
     final stackTrace = StackTrace.current;
     final record = _LogInfo(tag, logLevel, finalMsg, stackTrace.toString(), finalExtra, Yuro.currentTimeStamp);
     if (Yuro.enableLogger && _enable && logLevel.level >= Yuro.logLevel.level) {
+      // record.format().forEach((element) {
+      //   developer.log(element, name: logLevel.short, level: logLevel.level);
+      // });
       developer.log(record.toString(), name: logLevel.short, level: logLevel.level);
     }
   }
