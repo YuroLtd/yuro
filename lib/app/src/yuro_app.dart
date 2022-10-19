@@ -31,7 +31,6 @@ class YuroApp extends StatelessWidget {
   final BackButtonDispatcher? backButtonDispatcher;
 
   //
-  final Locale? locale;
   final Iterable<LocalizationsDelegate<dynamic>> localizationsDelegates;
   final LocaleListResolutionCallback? localeListResolutionCallback;
   final LocaleResolutionCallback? localeResolutionCallback;
@@ -69,11 +68,10 @@ class YuroApp extends StatelessWidget {
     this.routeInformationProvider,
     this.backButtonDispatcher,
     //
-    this.locale,
     this.localizationsDelegates = const [],
     this.localeListResolutionCallback,
     this.localeResolutionCallback,
-    this.supportedLocales = const [Locale('zh', 'CN')],
+    this.supportedLocales = const [],
     //
     this.debugShowMaterialGrid = false,
     this.showPerformanceOverlay = false,
@@ -131,7 +129,7 @@ class YuroApp extends StatelessWidget {
       highContrastDarkTheme: ThemeData(colorScheme: controller.highContrastDarkTheme),
       themeMode: controller.themeMode,
       //
-      locale: controller.locale ??= locale,
+      locale: controller.locale,
       localizationsDelegates: localizationsDelegates,
       localeResolutionCallback: localeResolutionCallback,
       localeListResolutionCallback: localeListResolutionCallback,
