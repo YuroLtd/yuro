@@ -104,7 +104,7 @@ class Logger {
     final finalExtra = _stringifyMessage(extra);
     final stackTrace = StackTrace.current;
     final record = _LogInfo(tag, logLevel, finalMsg, stackTrace.toString(), finalExtra, Yuro.currentTimeStamp);
-    if (Yuro.enableLogger && _enable && logLevel.level >= Yuro.logLevel.level) {
+    if (Yuro.enableLog && _enable && logLevel.level >= Yuro.logLevel.level) {
       // record.format().forEach((element) {
       //   developer.log(element, name: logLevel.short, level: logLevel.level);
       // });

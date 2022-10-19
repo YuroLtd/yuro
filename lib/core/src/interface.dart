@@ -9,7 +9,7 @@ abstract class YuroInterface {
   late final logger = Logger('Yuro');
 
   /// 全局日志开关
-  bool enableLogger = kDebugMode;
+  bool enableLog = kDebugMode;
 
   /// 日志打印过滤等级,默认[info]
   LogLevel logLevel = LogLevel.info;

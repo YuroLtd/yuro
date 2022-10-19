@@ -47,7 +47,6 @@ class ListNotifier<T> extends ValueNotifier<List<T>> with ListMixin<T> {
   @override
   set length(int newLength) {
     _value.length = newLength;
-    refresh();
   }
 
   @override
@@ -56,6 +55,13 @@ class ListNotifier<T> extends ValueNotifier<List<T>> with ListMixin<T> {
   @override
   void operator []=(int index, T value) {
     _value[index] = value;
+    refresh();
+  }
+
+
+  @override
+  void add(T element) {
+    _value.add(element);
     refresh();
   }
 
