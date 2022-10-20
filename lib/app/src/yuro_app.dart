@@ -11,7 +11,6 @@ import 'package:yuro/widget/widget.dart';
 part 'app_controller.dart';
 
 class YuroApp extends StatelessWidget {
-  final Size uiSize;
   final VoidCallback? onReady, onDispose;
 
   /// 如果使用国际化中的title,需使用[onGenerateTitle],
@@ -50,7 +49,6 @@ class YuroApp extends StatelessWidget {
 
   YuroApp({
     super.key,
-    this.uiSize = const Size(360, 640),
     this.onReady,
     this.onDispose,
     //
@@ -90,9 +88,6 @@ class YuroApp extends StatelessWidget {
   Widget build(BuildContext context) => YuroBuilder<YuroAppController>(
       init: Yuro.app,
       initState: () {
-        // 初始化尺寸参数
-        Yuro.changeUiSize(uiSize);
-
         // 插件初始化完成后
         Yuro.engine.addPostFrameCallback((timeStamp) {
           onReady?.call();
