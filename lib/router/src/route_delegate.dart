@@ -214,7 +214,7 @@ class YuroRouteDelegate extends RouterDelegate<RouteDecoder>
     if (decoder == null) return null;
     // 先压栈再清理中间的页面
     final result = _push<T>(decoder);
-    var index = _activePages.length - 2;
+    var index = _activePages.length - 1;
     while (index >= 0 && !predicate.call(_activePages[index].page!)) {
       _activePages.removeAt(index);
       index--;
