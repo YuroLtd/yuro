@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class ThemeSwitcher extends YuroWidget<YuroAppController> {
   ThemeSwitcher({super.key});
 
-  late final _colorIndex = defaultColorScheme.indexOf(controller.theme).obs;
+  late final _colorIndex = defaultColorScheme.indexOf(controller.theme ?? const ColorScheme.light()).obs;
 
   void onColorSelected(int index) {
     Yuro.hive<int>((box) => box.put(kThemeColor, index));
