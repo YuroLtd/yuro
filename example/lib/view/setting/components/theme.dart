@@ -7,11 +7,11 @@ class ThemeSwitcher extends YuroWidget<YuroAppController> {
   late final _colorIndex = defaultColorScheme.indexOf(controller.theme ?? const ColorScheme.light()).obs;
 
   void onColorSelected(int index) {
-    Yuro.hive<int>((box) => box.put(kThemeColor, index));
-    _colorIndex.value = index;
-    controller.theme = defaultColorScheme[index];
-    controller.darkTheme = defaultDarkColorScheme[index];
-    controller.reload();
+    // Yuro.hive<int>((box) => box.put(kThemeColor, index));
+    // _colorIndex.value = index;
+    // controller.theme = defaultColorScheme[index];
+    // controller.darkTheme = defaultDarkColorScheme[index];
+    // controller.reload();
   }
 
   @override

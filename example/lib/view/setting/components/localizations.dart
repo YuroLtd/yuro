@@ -7,16 +7,16 @@ class LocalizationsSwitcher extends YuroWidget<YuroAppController> {
   late final locale = controller.locale.obs;
 
   void _onLocaleChanged(Locale value) async {
-    if (locale.value == value) return;
-    final stringBox = await Yuro.openHiveBox<String>();
-    if (value.languageCode == 'followSystem') {
-      controller.locale = locale.value = null;
-      stringBox.delete(kLocale);
-    } else {
-      controller.locale = locale.value = value;
-      stringBox.put(kLocale, value.toLanguageTag());
-    }
-    controller.reload();
+    // if (locale.value == value) return;
+    // final stringBox = await Yuro.openHiveBox<String>();
+    // if (value.languageCode == 'followSystem') {
+    //   controller.locale = locale.value = null;
+    //   stringBox.delete(kLocale);
+    // } else {
+    //   controller.locale = locale.value = value;
+    //   stringBox.put(kLocale, value.toLanguageTag());
+    // }
+    // controller.reload();
   }
 
   @override

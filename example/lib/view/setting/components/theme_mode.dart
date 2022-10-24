@@ -7,11 +7,11 @@ class ThemeModeSwitcher extends YuroWidget<YuroAppController> {
   late final _isSelected = ThemeMode.values.map((e) => e == controller.themeMode).toList().obs;
 
   void _onPressed(int index) {
-    Yuro.hive<int>((box) => box.put(kThemeMode, index));
-    final mode = ThemeMode.values[index];
-    controller.themeMode = mode;
-    _isSelected.value = ThemeMode.values.map((e) => e == mode).toList();
-    controller.reload();
+    // Yuro.hive<int>((box) => box.put(kThemeMode, index));
+    // final mode = ThemeMode.values[index];
+    // controller.themeMode = mode;
+    // _isSelected.value = ThemeMode.values.map((e) => e == mode).toList();
+    // controller.reload();
   }
 
   @override

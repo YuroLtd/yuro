@@ -39,8 +39,6 @@ void runYuroApp({
       };
   // 初始化SharedPreferences
   await Yuro.initSharedPreferences();
-  // 初始化hive数据库
-  await Hive.initFlutter();
 
   // 调用自定义初始化方法
   onInit?.call();
