@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:yuro/core/core.dart';
 import 'package:yuro/storage/storage.dart';
-import 'package:yuro/util/src/screen.dart';
+import 'package:yuro/util/util.dart';
 
 import 'src/yuro_app.dart';
 

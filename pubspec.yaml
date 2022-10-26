@@ -10,6 +10,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   collection: ^1.16.0
   path: ^1.8.1
   isar: ^3.0.2                  # https://pub.flutter-io.cn/packages/isar
@@ -25,6 +27,8 @@ dependencies:
   equatable: ^2.0.3             # https://pub.dev/packages/equatable
   buffer: ^1.1.1                # https://pub.dev/packages/buffer
   crclib: ^3.0.0                # https://pub.dev/packages/crclib
+  synchronized: ^3.0.0+3
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:

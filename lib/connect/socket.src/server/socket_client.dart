@@ -4,6 +4,7 @@ import 'dart:typed_data';
 
 import 'package:yuro/core/core.dart';
 import 'package:yuro/util/src/convert.dart';
+import 'package:yuro/util/util.dart';
 
 import '../events.dart';
 import '../status.dart';

@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'dart:ui' as ui show window;
 
 import 'package:flutter/widgets.dart';

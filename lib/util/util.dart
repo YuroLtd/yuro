@@ -14,6 +14,8 @@ export 'src/platform.dart';
 export 'src/date_time.dart';
 export 'src/crc.dart';
 export 'src/convert.dart';
-export 'src/stream_bus.dart';
+
+export 'src/logger/logger.dart';
 
 export 'package:collection/collection.dart';
+export 'package:synchronized/synchronized.dart';

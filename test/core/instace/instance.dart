@@ -27,7 +27,7 @@ class Counter extends DisposableController {
   }
 
   @override
-  void dispose() {
+  void onDispose() {
     debugPrint('Counter dispose()');
     disposed++;
   }

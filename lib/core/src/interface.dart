@@ -1,20 +1,19 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
-
-import 'logger.dart';
+import 'package:yuro/util/util.dart';
 
 abstract class YuroInterface {
-  // 默认日志
-  late final logger = Logger('Yuro');
-
   /// 全局日志开关
   bool enableLog = kDebugMode;
 
   /// 日志打印过滤等级,默认[info]
   LogLevel logLevel = LogLevel.info;
 
-  // 事件总线
+  /// 根据tag生成[Logger]对象
+  Logger tag(String tag) => Logger(tag);
+
+  /// 事件总线
   late final eventBus = StreamController.broadcast();
 }
 

@@ -107,7 +107,7 @@ class SocketEvent {
     bool mask = binary.substring(0, 1) == '1';
     int length = int.parse(binary.substring(1), radix: 2);
 
-    List<int> _payload(bool mask) {
+    List<int> getPayload(bool mask) {
       if (!mask) return contentReader.read(length);
       // masking-key
       final value = contentReader.readUint32();
@@ -119,13 +119,13 @@ class SocketEvent {
     // payload
     List<int> payload = [];
     if (length <= 125) {
-      payload.addAll(_payload(mask));
+      payload.addAll(getPayload(mask));
     } else if (length == 126) {
       contentReader.readInt16();
-      payload.addAll(_payload(mask));
+      payload.addAll(getPayload(mask));
     } else if (length == 127) {
       contentReader.readInt64();
-      payload.addAll(_payload(mask));
+      payload.addAll(getPayload(mask));
     }
     return SocketEvent._(SocketOpcode.fromCode(opcode), fromServer: !mask, payload: payload);
   }

@@ -8,9 +8,7 @@ extension EventBusExt on YuroInterface {
   Stream<Event> listenOnEvent([List<int> codes = const []]) =>
       listenOn<Event>().where((event) => codes.isNotEmpty ? codes.contains(event.code) : true);
 
-  void post(dynamic event) => Yuro.eventBus.add(event);
-
-  void postEvent(int code, [dynamic extra]) => Yuro.eventBus.add(Event(code, extra));
+  void fire(dynamic event) => Yuro.eventBus.add(event);
 }
 
 class Event {
@@ -19,5 +17,5 @@ class Event {
 
   Event(this.code, [this.extra]);
 
-  void post() => Yuro.post(this);
+  void fire() => Yuro.fire(this);
 }

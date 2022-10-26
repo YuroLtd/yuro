@@ -122,7 +122,7 @@ class PathDecoder {
 
   factory PathDecoder.fromName(String name) {
     final keys = <String?>[];
-    String _replace(Match match) {
+    String replace(Match match) {
       final sb = StringBuffer('(?:');
       if (match[1] != null) sb.write('\\.');
       sb.write('([\\w%+-._~!\$&\'()*,;=:@]+))');
@@ -131,7 +131,7 @@ class PathDecoder {
       return sb.toString();
     }
 
-    final newPath = name.replaceAllMapped(RegExp(r'(\.)?:(\w+)(\?)?'), _replace).replaceAll('//', '/');
+    final newPath = name.replaceAllMapped(RegExp(r'(\.)?:(\w+)(\?)?'), replace).replaceAll('//', '/');
     return PathDecoder(RegExp('^$newPath\$'), keys.whereNotNull().toList());
   }
 

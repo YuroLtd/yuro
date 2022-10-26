@@ -1,10 +1,11 @@
 import 'dart:convert';
 import 'dart:developer' as developer;
 
-import 'package:stack_trace/stack_trace.dart';
+import 'package:isar/isar.dart';
+import 'package:yuro/core/core.dart';
 import 'package:yuro/util/util.dart';
 
-import 'interface.dart';
+part 'logger.g.dart';
 
 enum LogLevel {
   //
@@ -25,16 +26,13 @@ enum LogLevel {
   const LogLevel(this.level, this.str, this.short);
 }
 
-class _LogInfo {
-  static const topLeftCorner = '┌';
-  static const bottomLeftCorner = '└';
-  static const middleCorner = '├';
-  static const verticalLine = '│';
-  static const doubleDivider = '─';
-  static const singleDivider = '┄';
+@collection
+class LogInfo {
+  Id id = Isar.autoIncrement;
 
   final String tag;
 
+  @enumerated
   final LogLevel level;
 
   final String message;
@@ -45,30 +43,32 @@ class _LogInfo {
 
   final int dateTime;
 
-  _LogInfo(this.tag, this.level, this.message, this.stack, this.extra, this.dateTime);
+  LogInfo(this.tag, this.level, this.message, this.stack, this.extra, this.dateTime);
 
   @override
   String toString() => '$tag: $message';
-
-  List<String> format() => [
-        '$topLeftCorner${doubleDivider * 79}',
-        '$verticalLine  TAG: $tag Location: $location',
-        '$middleCorner${singleDivider * 79}',
-        '$verticalLine  $message',
-        '$bottomLeftCorner${doubleDivider * 79}'
-      ];
-
-  StackTrace get stackTrace => StackTrace.fromString(stack);
-
-  String get location => Chain.forTrace(stackTrace)
-      .toTrace()
-      .frames
-      .firstWhere((element) => element.uri.path.baseName != 'logger.dart')
-      .location;
 }
 
 class Logger {
   static final _loggers = <String, Logger>{};
+
+  static Isar? _isar;
+
+  static final _lock = Lock();
+
+  static Future<Isar> _getIsar() async => await _lock.synchronized(() async {
+        _isar ??= await Isar.open([LogInfoSchema]);
+        return _isar!;
+      });
+
+  static void _record(LogInfo info) async => await _getIsar().then((isar) => isar.writeTxn(() async {
+        await isar.logInfos.put(info);
+      }));
+
+  /// 导出[startTime]开始的日志, 如果未null则导出全部日志
+  static Future<List<LogInfo>> export({int? startTime}) async => await _getIsar().then((isar) => isar.txn(() async {
+        return await isar.logInfos.filter().dateTimeGreaterThan(startTime ?? 0).findAll();
+      }));
 
   factory Logger(String tag) => _loggers.putIfAbsent(tag, () => Logger._(tag));
 
@@ -103,26 +103,10 @@ class Logger {
     final finalMsg = _stringifyMessage(message);
     final finalExtra = _stringifyMessage(extra);
     final stackTrace = StackTrace.current;
-    final record = _LogInfo(tag, logLevel, finalMsg, stackTrace.toString(), finalExtra, Yuro.currentTimeStamp);
+    final record = LogInfo(tag, logLevel, finalMsg, stackTrace.toString(), finalExtra, Yuro.currentTimeStamp);
+    if (!Yuro.isWeb) _record(record);
     if (Yuro.enableLog && _enable && logLevel.level >= Yuro.logLevel.level) {
-      // record.format().forEach((element) {
-      //   developer.log(element, name: logLevel.short, level: logLevel.level);
-      // });
       developer.log(record.toString(), name: logLevel.short, level: logLevel.level);
     }
   }
-}
-
-extension LoggerExt on YuroInterface {
-  Logger tag(String tag) => Logger(tag);
-
-  void v(dynamic message, {dynamic extra}) => logger.v(message, extra: extra);
-
-  void d(dynamic message, {dynamic extra}) => logger.d(message, extra: extra);
-
-  void i(dynamic message, {dynamic extra}) => logger.i(message, extra: extra);
-
-  void w(dynamic message, {dynamic extra}) => logger.w(message, extra: extra);
-
-  void e(dynamic message, {dynamic extra}) => logger.e(message, extra: extra);
 }

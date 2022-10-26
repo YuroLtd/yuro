@@ -1,6 +1,7 @@
 import 'dart:core';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:yuro/core/core.dart';
 import 'package:yuro/router/router.dart';
@@ -124,7 +125,12 @@ class YuroApp extends StatelessWidget {
       themeMode: controller.themeMode,
       //
       locale: controller.locale,
-      localizationsDelegates: localizationsDelegates,
+      localizationsDelegates: [
+        ...localizationsDelegates,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
       localeResolutionCallback: localeResolutionCallback,
       localeListResolutionCallback: localeListResolutionCallback,
       supportedLocales: supportedLocales,
