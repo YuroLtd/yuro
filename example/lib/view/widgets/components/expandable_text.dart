@@ -17,7 +17,7 @@ class ExpandableTextDemo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-      appBar: appBar(title: context.localizations.expandableText),
+      appBar: appBar(title: S.of(context).expandableText),
       body: Column(children: [
         Container(
           width: double.infinity,

@@ -7,16 +7,17 @@ class ThemeModeSwitcher extends YuroWidget<YuroAppController> {
   late final _isSelected = ThemeMode.values.map((e) => e == controller.themeMode).toList().obs;
 
   void _onPressed(int index) {
-    // Yuro.hive<int>((box) => box.put(kThemeMode, index));
-    // final mode = ThemeMode.values[index];
-    // controller.themeMode = mode;
-    // _isSelected.value = ThemeMode.values.map((e) => e == mode).toList();
-    // controller.reload();
+    final mode = ThemeMode.values[index];
+    if (controller.themeMode == mode) return;
+    Yuro.sp.setInt(kThemeMode, index);
+    _isSelected.value = ThemeMode.values.map((e) => e == mode).toList();
+    controller.themeMode = mode;
+    controller.reload();
   }
 
   @override
   Widget build(BuildContext context) => ListTile(
-      title: Text(context.localizations.settingDarkMode, style: const TextStyle(fontSize: 12)),
+      title: Text(S.of(context).themeMode, style: const TextStyle(fontSize: 14)),
       trailing: ObsValue<List<bool>>(
           notifier: _isSelected,
           builder: (list, child) => ToggleButtons(
@@ -25,8 +26,8 @@ class ThemeModeSwitcher extends YuroWidget<YuroAppController> {
                   borderRadius: BorderRadius.circular(5.w),
                   constraints: BoxConstraints(minHeight: 30.w, minWidth: 40.w),
                   children: [
-                    Text(context.localizations.system, style: const TextStyle(fontSize: 12)),
-                    Text(context.localizations.lightMode, style: const TextStyle(fontSize: 12)),
-                    Text(context.localizations.darkMode, style: const TextStyle(fontSize: 12)),
+                    Text(S.of(context).system, style: const TextStyle(fontSize: 12)),
+                    Text(S.of(context).lightMode, style: const TextStyle(fontSize: 12)),
+                    Text(S.of(context).darkMode, style: const TextStyle(fontSize: 12)),
                   ])));
 }

@@ -6,8 +6,8 @@ class WidgetsDemo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-      appBar: appBar(title: context.localizations.widgets),
+      appBar: appBar(title: S.of(context).widgets),
       body: ListView(children: [
-        RouteItem(name: context.localizations.expandableText, route: AppRouteKeys.widgets_expandable_text),
+        RouteItem(name: S.of(context).expandableText, route: AppRouteKeys.widgets_expandable_text),
       ]));
 }

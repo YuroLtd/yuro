@@ -1,8 +1,7 @@
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
 if (localPropertiesFile.exists()) {
-    localPropertiesFile.withReader('UTF-8') { reader ->
-        localProperties.load(reader)
+    localPropertiesFile.withReader('UTF-8') { reader -> localProperties.load(reader)
     }
 }
 
@@ -25,8 +24,7 @@ if (flutterVersionName == null) {
 def keyProperties = new Properties()
 def keyPropertiesFile = rootProject.file("key.properties")
 if (keyPropertiesFile.exists()) {
-    keyPropertiesFile.withReader('UTF-8') { reader ->
-        keyProperties.load(reader)
+    keyPropertiesFile.withReader('UTF-8') { reader -> keyProperties.load(reader)
     }
 } else {
     throw new GradleException("File key.properties not found.")
@@ -100,19 +98,19 @@ android {
         }
     }
 
-    flavorDimensions 'version'
+    flavorDimensions 'channel'
 
     productFlavors {
         // 生产环境
         prod {
-            dimension 'version'
+            dimension 'channel'
             manifestPlaceholders = [
                     appName: "yuro",
             ]
         }
         // 测试环境
         beta {
-            dimension 'version'
+            dimension 'channel'
             applicationIdSuffix ".beta"
             manifestPlaceholders = [
                     appName: "yuro(beta)",
@@ -121,7 +119,7 @@ android {
 
         // 开发环境
         dev {
-            dimension 'version'
+            dimension 'channel'
             applicationIdSuffix ".dev"
             manifestPlaceholders = [
                     appName: "yuro(dev)",
@@ -135,5 +133,5 @@ flutter {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 }

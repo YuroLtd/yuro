@@ -11,8 +11,6 @@ class AppRouteKeys {
   static const widgets_expandable_text = '/widgets/expandable_text';
 
   static const setting = '/setting';
-  static const setting_theme = '/setting/theme';
-  static const setting_locale = '/setting/locale';
 
   static const socket = '/socket';
 }

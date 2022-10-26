@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:yuro/core/core.dart';
 import 'package:yuro/router/router.dart';
-import 'package:yuro/util/util.dart';
 
 /// 路由解析器
 class YuroRouteParser extends RouteInformationParser<RouteDecoder> {

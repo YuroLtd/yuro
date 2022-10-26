@@ -4,23 +4,27 @@ import 'package:flutter/material.dart';
 class ThemeSwitcher extends YuroWidget<YuroAppController> {
   ThemeSwitcher({super.key});
 
-  late final _colorIndex = defaultColorScheme.indexOf(controller.theme ?? const ColorScheme.light()).obs;
+  late final _theme = Yuro.app.theme!.obs;
 
-  void onColorSelected(int index) {
-    // Yuro.hive<int>((box) => box.put(kThemeColor, index));
-    // _colorIndex.value = index;
-    // controller.theme = defaultColorScheme[index];
-    // controller.darkTheme = defaultDarkColorScheme[index];
-    // controller.reload();
+  List<ColorScheme> get _schemes => defaultThemeColors.map((e) => ColorScheme.fromSeed(seedColor: e)).toList();
+
+  void _onSchemeSelected(ColorScheme scheme) {
+    final index = _schemes.indexOf(scheme);
+    if (index == Yuro.sp.getInt(kThemeIndex)) return;
+
+    Yuro.sp.setInt(kThemeIndex, index);
+    controller.theme = _theme.value = scheme;
+    controller.darkTheme = ColorScheme.fromSeed(seedColor: defaultThemeColors[index], brightness: Brightness.dark);
+    controller.reload();
   }
 
   @override
   Widget build(BuildContext context) => ExpansionTile(
-          title: Text(context.localizations.settingTheme, style: const TextStyle(fontSize: 12)),
+          title: Text(S.of(context).theme, style: const TextStyle(fontSize: 14)),
           trailing: Obs((child) => SizedBox(
                 width: 20.w,
                 height: 20.w,
-                child: ColoredBox(color: defaultColorScheme[_colorIndex.value].primary),
+                child: ColoredBox(color: _theme.value.primary),
               )),
           children: [
             Container(
@@ -29,22 +33,19 @@ class ThemeSwitcher extends YuroWidget<YuroAppController> {
                 child: Wrap(
                     spacing: 18.5.w,
                     runSpacing: 18.5.w,
-                    children: defaultColorScheme
-                        .mapIndexed((index, color) => _ThemeItem(index, color, onColorSelected))
-                        .toList()))
+                    children: _schemes.map((scheme) => _ThemeItem(scheme, _onSchemeSelected)).toList()))
           ]);
 }
 
 class _ThemeItem extends StatelessWidget {
-  final int index;
-  final ColorScheme color;
-  final void Function(int index) onSelected;
+  final ColorScheme scheme;
+  final void Function(ColorScheme scheme) onSelected;
 
-  const _ThemeItem(this.index, this.color, this.onSelected);
+  const _ThemeItem(this.scheme, this.onSelected);
 
   @override
   Widget build(BuildContext context) => GestureDetector(
-        onTap: () => onSelected.call(index),
-        child: SizedBox(width: 20.w, height: 20.w, child: ColoredBox(color: color.primary)),
+        onTap: () => onSelected.call(scheme),
+        child: SizedBox(width: 20.w, height: 20.w, child: ColoredBox(color: scheme.primary)),
       );
 }

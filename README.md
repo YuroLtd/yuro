@@ -1,12 +1,12 @@
-> Isar
+> yaml配置
 ```yaml
+dependencies:
+  intl: ^0.17.0
+  
 dev_dependencies:
   build_runner: ^2.2.0
   isar_generator: ^3.0.2
-```
 
-> flutter_intl
-```yaml
 flutter_intl:
   enabled: true # Required. Must be set to true to activate the package. Default: false
   class_name: S # Optional. Sets the name for the generated localization class. Default: S

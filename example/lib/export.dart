@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 
+export 'generated/app_routes.g.dart';
+export 'generated/build_config.g.dart';
+export 'generated/l10n.dart';
+
+
 export 'main.dart';
-export 'generated/generated.dart';
-export 'intl/intl.dart';
 export 'view/view.dart';
 
 export 'package:yuro/yuro.dart';
 
-const kThemeColor = 'kThemeColor';
+const kThemeIndex = 'kThemeIndex';
 const kThemeMode = 'kThemeMode';
 const kLocale = 'kLocale';
 
-List<Color> get _defaultThemeColor => [
+List<Color> get defaultThemeColors => [
       Colors.red,
       Colors.pink,
       Colors.green,
@@ -22,13 +25,3 @@ List<Color> get _defaultThemeColor => [
       Colors.grey,
       Colors.teal,
     ];
-
-List<ColorScheme> get defaultColorScheme {
-  final list = _defaultThemeColor.map((e) => ColorScheme.fromSeed(seedColor: e)).toList();
-  return [const ColorScheme.light(), ...list];
-}
-
-List<ColorScheme> get defaultDarkColorScheme {
-  final list = _defaultThemeColor.map((e) => ColorScheme.fromSeed(seedColor: e, brightness: Brightness.dark)).toList();
-  return [const ColorScheme.dark(), ...list];
-}
