@@ -1,5 +1,6 @@
 {
   "@@locale": "zh_HK",
+  "appName": "YuroDemo",
   "locale": "繁體中文(香港)",
   "setting":"設置",
   "followSystem":"跟隨系統",

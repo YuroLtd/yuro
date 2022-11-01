@@ -33,7 +33,7 @@ class YuroApp extends StatelessWidget {
   final LocaleResolutionCallback? localeResolutionCallback;
   final Iterable<Locale> supportedLocales;
 
-  //
+  /// 组件覆盖不完全,不推荐使用
   final bool useMaterial3;
   final bool debugShowMaterialGrid;
   final bool showPerformanceOverlay;

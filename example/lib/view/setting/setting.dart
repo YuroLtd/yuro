@@ -10,7 +10,7 @@ class SettingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-      appBar: AppBar(title: Text(S.of(context).setting), elevation: 0),
+      appBar: appBar(title: S.of(context).setting),
       body: ListView(children: [
         const LocalizationSwitcher(),
         SizedBox.fromSize(size: Size.fromHeight(5.w), child: ColoredBox(color: Theme.of(context).dividerColor)),

@@ -6,4 +6,5 @@ AppBar appBar({String? title, List<Widget>? actions, Color? backgroundColor}) =>
       centerTitle: true,
       backgroundColor: backgroundColor,
       actions: actions,
+      elevation: 0,
     );

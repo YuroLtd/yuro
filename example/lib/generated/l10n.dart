@@ -50,6 +50,16 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `YuroDemo`
+  String get appName {
+    return Intl.message(
+      'YuroDemo',
+      name: 'appName',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `简体中文`
   String get locale {
     return Intl.message(
