@@ -11,15 +11,13 @@ import 'package:yuro/widget/widget.dart';
 part 'app_controller.dart';
 
 class YuroApp extends StatelessWidget {
-  final VoidCallback? onReady, onDispose;
-
   /// 如果使用国际化中的title,需使用[onGenerateTitle],
   final String title;
   final GenerateAppTitle? onGenerateTitle;
   final Color? color;
   final TransitionBuilder? transitionBuilder;
   final GlobalKey<ScaffoldMessengerState>? scaffoldMessengerKey;
-
+  final PageTransitionsBuilder? globalTransition;
   //
   final String initialRoute;
   final List<YuroPage> pages;
@@ -36,6 +34,7 @@ class YuroApp extends StatelessWidget {
   final Iterable<Locale> supportedLocales;
 
   //
+  final bool useMaterial3;
   final bool debugShowMaterialGrid;
   final bool showPerformanceOverlay;
   final bool checkerboardRasterCacheImages;
@@ -49,14 +48,13 @@ class YuroApp extends StatelessWidget {
 
   YuroApp({
     super.key,
-    this.onReady,
-    this.onDispose,
     //
     this.title = '',
     this.onGenerateTitle,
     this.color,
     this.transitionBuilder,
     this.scaffoldMessengerKey,
+    this.globalTransition,
     //
     required this.initialRoute,
     required this.pages,
@@ -71,6 +69,7 @@ class YuroApp extends StatelessWidget {
     this.localeResolutionCallback,
     this.supportedLocales = const [],
     //
+    this.useMaterial3 = false,
     this.debugShowMaterialGrid = false,
     this.showPerformanceOverlay = false,
     this.checkerboardRasterCacheImages = false,
@@ -85,18 +84,10 @@ class YuroApp extends StatelessWidget {
         assert(supportedLocales.isNotEmpty);
 
   @override
-  Widget build(BuildContext context) => YuroBuilder<YuroAppController>(
-      init: Yuro.app,
-      initState: () {
-        // 插件初始化完成后
-        Yuro.engine.addPostFrameCallback((timeStamp) {
-          onReady?.call();
-        });
-      },
-      dispose: onDispose,
-      builder: (_) => builder(_));
+  Widget build(BuildContext context) => YuroBuilder<YuroAppController>(init: Yuro.app, builder: (_) => builder(_));
 
   Widget builder(YuroAppController controller) {
+    controller.globalTransition = globalTransition;
     final routerDelegate = Yuro.createRouterDelegate(
       pages: pages,
       unknownPage: unknownPage,
@@ -118,10 +109,22 @@ class YuroApp extends StatelessWidget {
       onGenerateTitle: onGenerateTitle,
       color: color,
       //
-      theme: ThemeData(colorScheme: controller.theme ?? const ColorScheme.light()),
-      darkTheme: ThemeData(colorScheme: controller.darkTheme ?? const ColorScheme.dark()),
-      highContrastTheme: ThemeData(colorScheme: controller.highContrastTheme ?? const ColorScheme.highContrastLight()),
-      highContrastDarkTheme: ThemeData(colorScheme: controller.highContrastDarkTheme ?? const ColorScheme.highContrastLight()),
+      theme: ThemeData(
+        colorScheme: controller.theme ?? const ColorScheme.light(),
+        useMaterial3: useMaterial3,
+      ),
+      darkTheme: ThemeData(
+        colorScheme: controller.darkTheme ?? const ColorScheme.dark(),
+        useMaterial3: useMaterial3,
+      ),
+      highContrastTheme: ThemeData(
+        colorScheme: controller.highContrastTheme ?? const ColorScheme.highContrastLight(),
+        useMaterial3: useMaterial3,
+      ),
+      highContrastDarkTheme: ThemeData(
+        colorScheme: controller.highContrastDarkTheme ?? const ColorScheme.highContrastLight(),
+        useMaterial3: useMaterial3,
+      ),
       themeMode: controller.themeMode,
       //
       locale: controller.locale,

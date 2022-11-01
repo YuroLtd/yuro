@@ -28,6 +28,8 @@ class YuroAppController extends YuroController {
   //
   Locale? locale;
 
+  PageTransitionsBuilder? globalTransition;
+
   /// 重新加载app, 如果[resetRoute]为true,将重新加载路由
   void reload([bool resetRoute = false]) {
     if (resetRoute) _uniqueKey = UniqueKey();

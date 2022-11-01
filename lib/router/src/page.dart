@@ -1,6 +1,6 @@
 // ignore_for_file: overridden_fields
 
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:yuro/router/router.dart';
 import 'package:yuro/util/util.dart';
 
@@ -32,6 +32,8 @@ class YuroPage<T> extends Page<T> {
   final bool fullscreenDialog;
   final Color? barrierColor;
   final String? barrierLabel;
+
+  final PageTransitionsBuilder? customTransition;
   final Duration transitionDuration;
   final Duration reverseTransitionDuration;
   final bool opaque;
@@ -52,6 +54,8 @@ class YuroPage<T> extends Page<T> {
     this.fullscreenDialog = false,
     this.barrierColor,
     this.barrierLabel,
+    //
+    this.customTransition,
     this.transitionDuration = const Duration(milliseconds: 300),
     this.reverseTransitionDuration = const Duration(milliseconds: 300),
     this.opaque = true,
@@ -74,6 +78,7 @@ class YuroPage<T> extends Page<T> {
     bool? fullscreenDialog,
     Color? barrierColor,
     String? barrierLabel,
+    PageTransitionsBuilder? customTransition,
     Duration? transitionDuration,
     Duration? reverseTransitionDuration,
     bool? opaque,
@@ -94,6 +99,8 @@ class YuroPage<T> extends Page<T> {
         fullscreenDialog: fullscreenDialog ?? this.fullscreenDialog,
         barrierColor: barrierColor ?? this.barrierColor,
         barrierLabel: barrierLabel ?? this.barrierLabel,
+        //
+        customTransition: customTransition ?? this.customTransition,
         transitionDuration: transitionDuration ?? this.transitionDuration,
         reverseTransitionDuration: reverseTransitionDuration ?? this.reverseTransitionDuration,
         opaque: opaque ?? this.opaque,

@@ -24,6 +24,7 @@ class PageRedirect{
       fullscreenDialog: r.fullscreenDialog,
       barrierColor: r.barrierColor,
       barrierLabel: r.barrierLabel,
+      customTransition: r.customTransition,
       transitionDuration: r.transitionDuration,
       reverseTransitionDuration: r.reverseTransitionDuration,
       opaque: r.opaque,

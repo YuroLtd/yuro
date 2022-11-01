@@ -1,7 +1,11 @@
 // ignore_for_file: overridden_fields
 
 import 'package:flutter/material.dart';
+import 'package:yuro/core/core.dart';
+import 'package:yuro/app/app.dart';
 import 'package:yuro/router/router.dart';
+
+import 'page_route_transitions.dart';
 
 /// 页面路由
 class YuroPageRoute<T> extends PageRoute<T> with YuroPageRouteMixin<T> {
@@ -12,6 +16,7 @@ class YuroPageRoute<T> extends PageRoute<T> with YuroPageRouteMixin<T> {
     this.fullscreenDialog = false,
     this.barrierColor,
     this.barrierLabel,
+    this.customTransition,
     this.transitionDuration = const Duration(milliseconds: 300),
     this.reverseTransitionDuration = const Duration(milliseconds: 300),
     this.opaque = true,
@@ -31,6 +36,8 @@ class YuroPageRoute<T> extends PageRoute<T> with YuroPageRouteMixin<T> {
 
   @override
   final String? barrierLabel;
+
+  final PageTransitionsBuilder? customTransition;
 
   @override
   final Duration transitionDuration;
@@ -61,6 +68,16 @@ class YuroPageRoute<T> extends PageRoute<T> with YuroPageRouteMixin<T> {
   }
 
   @override
+  Widget buildTransitions(
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child,
+  ) =>
+      (customTransition ?? Yuro.app.globalTransition ?? DefaultTransition())
+          .buildTransitions(this, context, animation, secondaryAnimation, child);
+
+  @override
   void dispose() {
     super.dispose();
     middlewareRunner.runPageDispose(page);
@@ -75,18 +92,6 @@ mixin YuroPageRouteMixin<T> on PageRoute<T> {
   Widget buildPage(BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
     final content = buildContent(context);
     return Semantics(scopesRoute: true, explicitChildNodes: true, child: content);
-  }
-
-  @override
-  Widget buildTransitions(
-    BuildContext context,
-    Animation<double> animation,
-    Animation<double> secondaryAnimation,
-    Widget child,
-  ) {
-    return Theme.of(context)
-        .pageTransitionsTheme
-        .buildTransitions<T>(this, context, animation, secondaryAnimation, child);
   }
 
   @override
