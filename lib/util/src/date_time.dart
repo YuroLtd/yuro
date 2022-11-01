@@ -19,13 +19,16 @@ extension DateTimeForStringExt on String {
 extension DateTimeExt on DateTime {
   String format([String format = DateFormats.DEFAULT]) => DateFormats().format(this, format);
 
-  int get dayInMonth => DateTime(year, month + 1, 1).difference(DateTime(year, month, 1)).inDays;
-
   Duration intervalNow() => difference(Yuro.currentDateTime);
 
-  DateTime get firstDay => DateTime(year, month, 1);
+  /// 本月天数
+  int get monthDays => DateTime(year, month + 1, 1).difference(DateTime(year, month, 1)).inDays;
 
-  DateTime get lastDay => DateTime(year, month + 1, 1).subtract(const Duration(days: 1));
+  /// 本月第一天
+  DateTime get monthFirstDay => DateTime(year, month, 1);
+
+  /// 本月最后一天
+  DateTime get monthLastDay => DateTime(year, month + 1, 1).subtract(const Duration(days: 1));
 
   String get weekDayZh {
     const zh = ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];
