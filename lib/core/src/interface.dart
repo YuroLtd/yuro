@@ -1,7 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
-import 'package:yuro/util/util.dart';
+
+import 'logger.dart';
 
 abstract class YuroInterface {
   /// 全局日志开关

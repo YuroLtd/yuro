@@ -9,4 +9,8 @@ extension RegexExt on String {
 
   /// 判断字符串是否是邮箱地址
   bool isEmail() => _regExp(r'\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}');
+
+  bool isIPv4()=> _regExp(r'((25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(25[0-5]|2[0-4]\d|[01]?\d\d?)');
+
+  // bool isIPv6()=> _regExp(r'^(([\da-fA-F]{1,4}):){8}$');
 }

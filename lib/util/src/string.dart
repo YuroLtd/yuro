@@ -9,7 +9,7 @@ extension StringExt on String {
 
   bool get isBlank => trim().isEmpty;
 
-  int fastHash() {
+  String fastHash() {
     var hash = 0xcbf29ce484222325;
     var i = 0;
     while (i < length) {
@@ -19,7 +19,7 @@ extension StringExt on String {
       hash ^= codeUnit & 0xFF;
       hash *= 0x100000001b3;
     }
-    return hash;
+    return hash.toRadixString(16);
   }
 }
 

@@ -15,7 +15,4 @@ export 'src/date_time.dart';
 export 'src/crc.dart';
 export 'src/convert.dart';
 
-export 'src/logger/logger.dart';
-
 export 'package:collection/collection.dart';
-export 'package:synchronized/synchronized.dart';

@@ -7,6 +7,8 @@ class AppRouteKeys {
 
   static const root = '/';
 
+  static const exception = '/exception';
+
   static const widgets = '/widgets';
   static const widgets_expandable_text = '/widgets/expandable_text';
 
@@ -20,9 +22,12 @@ class AppRoutes {
 
   static List<YuroPage> pages = [
     YuroPage(name: '/', builder: () => const Root(), children: [
+      YuroPage(name: '/exception', builder: () => const ExceptionPage()),
+
       YuroPage(name: '/widgets', builder: () => const WidgetsDemo(), children: [
         YuroPage(name: '/expandable_text', builder: () => const ExpandableTextDemo()),
       ]),
+
       YuroPage(name: '/setting', builder: () => const SettingPage()),
     ]),
   ];

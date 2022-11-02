@@ -169,6 +169,46 @@ class S {
       args: [],
     );
   }
+
+  /// `异常上报`
+  String get exception {
+    return Intl.message(
+      '异常上报',
+      name: 'exception',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `模拟同步异常`
+  String get exception_sync {
+    return Intl.message(
+      '模拟同步异常',
+      name: 'exception_sync',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `模拟异步异常`
+  String get exception_async {
+    return Intl.message(
+      '模拟异步异常',
+      name: 'exception_async',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `模拟上传异常日志`
+  String get exception_upload {
+    return Intl.message(
+      '模拟上传异常日志',
+      name: 'exception_upload',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

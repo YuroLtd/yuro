@@ -25,7 +25,7 @@ class Observer<T> {
   late final ValueSetter<String>? _onErrorFunc;
   late final VoidCallback? _onDoneFunc;
 
-  void subscribe({
+  void listen({
     VoidCallback? onStart,
     required ValueSetter<T> onData,
     ValueSetter<String>? onError,

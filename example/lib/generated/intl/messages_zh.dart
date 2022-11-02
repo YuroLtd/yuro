@@ -24,6 +24,10 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "appName": MessageLookupByLibrary.simpleMessage("YuroDemo"),
         "darkMode": MessageLookupByLibrary.simpleMessage("深色"),
+        "exception": MessageLookupByLibrary.simpleMessage("异常上报"),
+        "exception_async": MessageLookupByLibrary.simpleMessage("模拟异步异常"),
+        "exception_sync": MessageLookupByLibrary.simpleMessage("模拟同步异常"),
+        "exception_upload": MessageLookupByLibrary.simpleMessage("模拟上传异常日志"),
         "expandableText": MessageLookupByLibrary.simpleMessage("可折叠文本"),
         "followSystem": MessageLookupByLibrary.simpleMessage("跟随系统"),
         "language": MessageLookupByLibrary.simpleMessage("多语言"),

@@ -31,12 +31,8 @@ void runYuroApp({
   Yuro.enableLog = enableLog ?? kDebugMode;
   if (logLevel != null) Yuro.logLevel = logLevel;
   // 绑定错误处理
-  FlutterError.onError = onFlutterError ?? FlutterError.presentError;
-  PlatformDispatcher.instance.onError = onPlatFormError ??
-      (error, stack) {
-        FlutterError.presentError.call(FlutterErrorDetails(exception: error, stack: stack));
-        return true;
-      };
+  if (onFlutterError != null) FlutterError.onError = onFlutterError;
+  if (onPlatFormError != null) PlatformDispatcher.instance.onError = onPlatFormError;
   // 初始化SharedPreferences
   await Yuro.initSharedPreferences();
 

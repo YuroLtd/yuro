@@ -21,13 +21,11 @@ dependencies:
   convert: ^3.0.1               # https://pub.dev/packages/convert
   crypto: ^3.0.2                # https://pub.dev/packages/crypto
   uuid: 3.0.6
-  stack_trace: ^1.10.0
   dio: ^4.0.6                   # https://pub.dev/packages/dio
   mqtt_client: ^9.6.8           # https://pub.dev/packages/mqtt_client
   equatable: ^2.0.3             # https://pub.dev/packages/equatable
   buffer: ^1.1.1                # https://pub.dev/packages/buffer
   crclib: ^3.0.0                # https://pub.dev/packages/crclib
-  synchronized: ^3.0.0+3
   intl: ^0.17.0
 
 dev_dependencies:

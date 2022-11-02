@@ -1,4 +1,4 @@
-export 'package:dio/dio.dart' hide Lock;
+export 'package:dio/dio.dart';
 
 // http
 export 'http.src/dio_ext.dart';
