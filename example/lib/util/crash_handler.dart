@@ -5,15 +5,18 @@ import 'package:flutter/foundation.dart';
 import 'package:yuro_plugin/yuro_plugin.dart';
 
 class CrashHandler {
-  static CrashHandler? _instance;
+  static CrashHandler get() {
+    if (!Yuro.isRegistered<CrashHandler>()) {
+      return Yuro.put(CrashHandler._());
+    }
+    return Yuro.find<CrashHandler>();
+  }
 
-  static CrashHandler get instance => _instance ??= CrashHandler._();
+  CrashHandler._();
 
   Logger get _logger => Logger('CrashHandler');
 
   late final Isar _isar = Isar.openSync([CrashSchema], name: 'CrashReport');
-
-  CrashHandler._();
 
   void handlerError(FlutterErrorDetails details) {
     _handlerError(details);

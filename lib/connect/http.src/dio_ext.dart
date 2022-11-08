@@ -31,7 +31,7 @@ extension DioExt on Dio {
       // 通过head请求获取文件的长度
       final headResponse = await head(url, queryParameters: queryParameters);
       final total = headResponse.headers.value(HttpHeaders.contentLengthHeader)?.toInt();
-      if (total == null) throw Exception('无法获取文件长度');
+      if (total == null) throw Exception('can\'t get file length');
       if (received == total) {
         await raf.close();
         onDone?.call();
@@ -45,6 +45,7 @@ extension DioExt on Dio {
             followRedirects: false,
             headers: {'range': 'bytes=$start-'},
           ));
+
       // 将流写入文件
       final subscription = response.data!.stream.listen(
         (data) {
@@ -62,6 +63,8 @@ extension DioExt on Dio {
         },
         cancelOnError: true,
       );
+
+      // 下载取消
       cancelToken?.whenCancel.then((_) async {
         await subscription.cancel();
         await raf.close();

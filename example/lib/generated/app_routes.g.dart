@@ -21,10 +21,10 @@ class AppRoutes {
   AppRoutes._();
 
   static List<YuroPage> pages = [
-    YuroPage(name: '/', builder: () => const Root(), children: [
+    YuroPage(name: '/', builder: () => const RootPage(), children: [
       YuroPage(name: '/exception', builder: () => const ExceptionPage()),
 
-      YuroPage(name: '/widgets', builder: () => const WidgetsDemo(), children: [
+      YuroPage(name: '/widgets', builder: () => const WidgetsPage(), children: [
         YuroPage(name: '/expandable_text', builder: () => const ExpandableTextDemo()),
       ]),
 

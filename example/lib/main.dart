@@ -4,8 +4,6 @@ import 'package:flutter/services.dart';
 
 void run() => runYuroApp(
     onInit: () {
-      Api.inject();
-
       Yuro.app.themeMode = ThemeMode.values[Yuro.sp.getInt(kThemeMode) ?? ThemeMode.system.index];
       final seedColor = defaultThemeColors[Yuro.sp.getInt(kThemeIndex) ?? 0];
       Yuro.app.theme = ColorScheme.fromSeed(seedColor: seedColor);
@@ -16,10 +14,10 @@ void run() => runYuroApp(
         final array = locale.split('-');
         Yuro.app.locale = Locale.fromSubtags(languageCode: array[0], countryCode: array.length == 2 ? array[1] : null);
       }
-      SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     },
-    onFlutterError: CrashHandler.instance.handlerError,
-    onPlatFormError: CrashHandler.instance.handlerPlatFormError,
+    onFlutterError: CrashHandler.get().handlerError,
+    onPlatFormError: CrashHandler.get().handlerPlatFormError,
+    systemUiOverlayStyle: const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
     builder: () => YuroApp(
           pages: AppRoutes.pages,
           initialRoute: AppRouteKeys.root,

@@ -15,9 +15,10 @@ class YuroApp extends StatelessWidget {
   final String title;
   final GenerateAppTitle? onGenerateTitle;
   final Color? color;
-  final TransitionBuilder? transitionBuilder;
+  final TransitionBuilder? builder;
   final GlobalKey<ScaffoldMessengerState>? scaffoldMessengerKey;
   final PageTransitionsBuilder? globalTransition;
+
   //
   final String initialRoute;
   final List<YuroPage> pages;
@@ -52,7 +53,7 @@ class YuroApp extends StatelessWidget {
     this.title = '',
     this.onGenerateTitle,
     this.color,
-    this.transitionBuilder,
+    this.builder,
     this.scaffoldMessengerKey,
     this.globalTransition,
     //
@@ -84,9 +85,9 @@ class YuroApp extends StatelessWidget {
         assert(supportedLocales.isNotEmpty);
 
   @override
-  Widget build(BuildContext context) => YuroBuilder<YuroAppController>(init: Yuro.app, builder: (_) => builder(_));
+  Widget build(BuildContext context) => YuroBuilder<YuroAppController>(init: Yuro.app, builder: (_) => _build(_));
 
-  Widget builder(YuroAppController controller) {
+  Widget _build(YuroAppController controller) {
     controller.globalTransition = globalTransition;
     final routerDelegate = Yuro.createRouterDelegate(
       pages: pages,
@@ -104,27 +105,21 @@ class YuroApp extends StatelessWidget {
       routerDelegate: routerDelegate,
       backButtonDispatcher: backButtonDispatcher,
       //
-      builder: (context, child) => DismissKeyBoard(child: transitionBuilder?.call(context, child) ?? child),
+      builder: (context, child) => DismissKeyBoard(child: builder?.call(context, child) ?? child),
       title: title,
       onGenerateTitle: onGenerateTitle,
       color: color,
       //
-      theme: ThemeData(
-        colorScheme: controller.theme ?? const ColorScheme.light(),
-        useMaterial3: useMaterial3,
-      ),
-      darkTheme: ThemeData(
-        colorScheme: controller.darkTheme ?? const ColorScheme.dark(),
-        useMaterial3: useMaterial3,
-      ),
-      highContrastTheme: ThemeData(
-        colorScheme: controller.highContrastTheme ?? const ColorScheme.highContrastLight(),
-        useMaterial3: useMaterial3,
-      ),
-      highContrastDarkTheme: ThemeData(
-        colorScheme: controller.highContrastDarkTheme ?? const ColorScheme.highContrastLight(),
-        useMaterial3: useMaterial3,
-      ),
+      theme: controller.theme == null ? null : ThemeData(colorScheme: controller.theme, useMaterial3: useMaterial3),
+      darkTheme: controller.darkTheme == null
+          ? null
+          : ThemeData(colorScheme: controller.darkTheme, useMaterial3: useMaterial3),
+      highContrastTheme: controller.highContrastTheme == null
+          ? null
+          : ThemeData(colorScheme: controller.highContrastTheme, useMaterial3: useMaterial3),
+      highContrastDarkTheme: controller.highContrastDarkTheme == null
+          ? null
+          : ThemeData(colorScheme: controller.highContrastDarkTheme, useMaterial3: useMaterial3),
       themeMode: controller.themeMode,
       //
       locale: controller.locale,

@@ -9,8 +9,8 @@ class RootController extends YuroController {
   }
 }
 
-class Root extends YuroView<RootController> {
-  const Root({super.key});
+class RootPage extends YuroView<RootController> {
+  const RootPage({super.key});
 
   @override
   RootController createController() => RootController();

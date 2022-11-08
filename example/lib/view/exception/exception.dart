@@ -18,7 +18,7 @@ class ExceptionController extends YuroController {
   }
 
   void report() {
-    CrashHandler.instance.report();
+    CrashHandler.get().report();
   }
 }
 

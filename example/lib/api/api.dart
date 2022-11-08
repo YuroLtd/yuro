@@ -8,9 +8,14 @@ import 'interceptor/response.dart';
 import 'src/system.dart';
 
 class Api extends HttpService with HttpServiceMixin {
-  static void inject() => Yuro.lazyPut(() => Api());
+  static Api get() {
+    if (!Yuro.isRegistered<Api>()) {
+      return Yuro.put(Api._());
+    }
+    return Yuro.find<Api>();
+  }
 
-  static Api get() => Yuro.find<Api>();
+  Api._();
 
   static SystemApi get system => get()._sys;
 
