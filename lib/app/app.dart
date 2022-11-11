@@ -20,7 +20,7 @@ void runYuroApp({
   bool? enableLog,
   LogLevel? logLevel,
   FlutterExceptionHandler? onFlutterError,
-  ErrorCallback? onPlatFormError,
+  ErrorCallback? onPlatformError,
   SystemUiOverlayStyle? systemUiOverlayStyle,
 }) async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,7 +39,7 @@ void runYuroApp({
 
   // 绑定错误处理
   if (onFlutterError != null) FlutterError.onError = onFlutterError;
-  if (onPlatFormError != null) PlatformDispatcher.instance.onError = onPlatFormError;
+  if (onPlatformError != null) PlatformDispatcher.instance.onError = onPlatformError;
 
   // 状态栏配置
   if (systemUiOverlayStyle != null) SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);

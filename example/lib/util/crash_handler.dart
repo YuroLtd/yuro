@@ -22,7 +22,7 @@ class CrashHandler {
     _handlerError(details);
   }
 
-  bool handlerPlatFormError(Object object, StackTrace stackTrace) {
+  bool handlerPlatformError(Object object, StackTrace stackTrace) {
     _handlerError(FlutterErrorDetails(exception: object, stack: stackTrace));
     return true;
   }

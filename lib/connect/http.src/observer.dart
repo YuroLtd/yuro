@@ -36,7 +36,7 @@ class Observer<T> {
     _onDoneFunc = onDone;
     _subscription = Stream<T>.fromFuture(_fetchData).listen(
       (event) => _onData(event),
-      onError: (err) => _onError(err),
+      onError: (err, stackTrace) => _onError(err, stackTrace),
       cancelOnError: true,
     );
     onStart?.call();
@@ -47,9 +47,10 @@ class Observer<T> {
     _onDataFunc.call(event);
   }
 
-  void _onError(dynamic err) {
+  void _onError(Object err, stackTrace) {
     _onCompleted();
     _onErrorFunc?.call(err is DioError ? err.error.toString() : err.toString());
+    if (err is! DioError) Error.throwWithStackTrace(err, stackTrace);
   }
 
   void _onCompleted() {
@@ -66,7 +67,6 @@ class Observer<T> {
     }
   }
 }
-
 
 mixin HttpMixin on YuroController {
   final List<Observer> observers = [];

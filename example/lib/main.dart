@@ -16,7 +16,7 @@ void run() => runYuroApp(
       }
     },
     onFlutterError: CrashHandler.get().handlerError,
-    onPlatFormError: CrashHandler.get().handlerPlatFormError,
+    onPlatformError: CrashHandler.get().handlerPlatformError,
     systemUiOverlayStyle: const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
     builder: () => YuroApp(
           pages: AppRoutes.pages,
