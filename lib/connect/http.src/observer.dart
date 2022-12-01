@@ -1,8 +1,11 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
+import 'package:yuro/core/core.dart';
 import 'package:yuro/state/state.dart';
+import 'package:yuro/widget/widget.dart';
+import 'package:yuro/util/util.dart';
 
 class Observer<T> {
   Observer._(this._fetchData);
@@ -24,22 +27,29 @@ class Observer<T> {
   late final ValueSetter<T> _onDataFunc;
   late final ValueSetter<String>? _onErrorFunc;
   late final VoidCallback? _onDoneFunc;
+  late final bool _loadingShow;
 
   void listen({
-    VoidCallback? onStart,
     required ValueSetter<T> onData,
     ValueSetter<String>? onError,
     VoidCallback? onDone,
+    bool loadingShow = false,
+    Widget? loadingWidget,
   }) {
     _onDataFunc = onData;
     _onErrorFunc = onError;
     _onDoneFunc = onDone;
+    _loadingShow = loadingShow;
+    if (loadingShow) {
+      // 如果[loadingWidget]不为空,认为切换显示Widget,则先dismiss后显示
+      if (loadingWidget.notNull) Yuro.dismissLoading();
+      Yuro.showLoading(child: loadingWidget, onDismiss: cancel);
+    }
     _subscription = Stream<T>.fromFuture(_fetchData).listen(
       (event) => _onData(event),
       onError: (err, stackTrace) => _onError(err, stackTrace),
       cancelOnError: true,
     );
-    onStart?.call();
   }
 
   void _onData(T event) {
@@ -56,6 +66,7 @@ class Observer<T> {
   void _onCompleted() {
     _completed = true;
     _subscription = null;
+    if (_loadingShow) Yuro.dismissLoading();
     _onDoneFunc?.call();
   }
 
@@ -72,7 +83,7 @@ mixin HttpMixin on YuroController {
   final List<Observer> observers = [];
 
   Observer<T> request<T>(Future<T> request) {
-    // 添加之前,先清理掉已经完成或取消了的请求
+    // 添加之前,先清理掉已经完成或已取消的请求
     observers.removeWhere((element) => element.completed || element.canceled);
     final observer = Observer.fromFuture(request);
     observers.add(observer);

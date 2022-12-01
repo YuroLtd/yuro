@@ -1,7 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:yuro/util/util.dart';
+import 'package:yuro/core/core.dart';
+import 'package:yuro/router/router.dart';
 
 import 'container.dart';
 import 'theme.dart';
@@ -9,6 +10,9 @@ import 'theme.dart';
 class OverlayManager {
   //
   final _futures = <GlobalKey, OverlayFuture>{};
+
+  // 排除ToastOverlay
+  List<OverlayFuture> get overlaies => _futures.values.where((element) => !element.isToastOverlay).toList();
 
   //
   OverlayTheme? _overlayTheme;
@@ -24,35 +28,45 @@ class OverlayManager {
 
   set toastTheme(ToastTheme theme) => _toastTheme = theme;
 
-  void addOverlay(GlobalKey key, OverlayFuture future) => _futures[key] = future;
+  //
+  LoadingTheme? _loadingTheme;
 
-  void remove(GlobalKey key) => _futures.remove(key);
+  LoadingTheme get loadingTheme => _loadingTheme ?? LoadingTheme();
 
-  void dismissOverlay([GlobalKey? key]) => (_futures[key] ?? _futures.values.lastOrNull)?.dismiss();
+  set loadingTheme(LoadingTheme theme) => _loadingTheme = theme;
+
+  void addOverlay(GlobalKey key, OverlayFuture future) {
+    _futures[key] = future;
+    Yuro.navigator.overlay?.insert(future.overlayEntry);
+  }
+
+  void removeOverlay([GlobalKey? key]) {
+    key ??= _futures.values.lastWhere((element) => !element.isToastOverlay).globalKey;
+    _futures.remove(key)?.dismiss();
+  }
 }
 
 class OverlayFuture {
-  OverlayFuture({
-    required this.manager,
-    required this.globalKey,
-    required this.overlayEntry,
-    required this.animationDuration,
-    this.onDismiss,
-  });
-
-  final OverlayManager manager;
   final OverlayEntry overlayEntry;
   final GlobalKey<OverlayContainerState> globalKey;
   final Duration animationDuration;
+  final bool isToastOverlay;
   final VoidCallback? onDismiss;
 
   Timer? timer;
 
+  OverlayFuture({
+    required this.globalKey,
+    required this.overlayEntry,
+    required this.animationDuration,
+    required this.isToastOverlay,
+    this.onDismiss,
+  });
+
   void dismiss() {
     timer?.cancel();
     globalKey.currentState?.dismiss();
-    Future.delayed(animationDuration, overlayEntry.remove);
-    manager.remove(globalKey);
-    onDismiss?.call();
+    // 延迟[animationDuration]是为了保证退出动画执行完,而不是立即结束
+    Future.delayed(animationDuration, overlayEntry.remove).whenComplete(() => onDismiss?.call());
   }
 }

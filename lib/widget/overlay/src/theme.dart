@@ -9,26 +9,12 @@ Widget _defaultOverlayAnimationBuilder(BuildContext context, AnimationController
       child: Opacity(opacity: controller.value, child: child),
     );
 
-Widget _defaultToastAnimationBuilder(BuildContext context, AnimationController controller, Widget child) =>
-    ScaleTransition(
-        scale: controller,
-        child: Opacity(
-            opacity: controller.value,
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.w),
-              decoration: BoxDecoration(color: Colors.black54, borderRadius: BorderRadius.circular(5.w)),
-              child: child,
-            )));
-
 class OverlayTheme {
+  /// 背景色
+  final Color color;
+
   /// 显示位置
   final Alignment alignment;
-
-  /// 显示时长, 为空时一直显示
-  final Duration? duration;
-
-  /// 外边距
-  final EdgeInsets? margin;
 
   /// 动画持续时间
   final Duration animationDuration;
@@ -40,26 +26,23 @@ class OverlayTheme {
   final AnimationBuilder animationBuilder;
 
   OverlayTheme({
+    this.color = Colors.transparent,
     this.alignment = Alignment.center,
-    this.duration,
-    this.margin,
     this.animationBuilder = _defaultOverlayAnimationBuilder,
     this.animationDuration = const Duration(milliseconds: 200),
-    this.animationCurve = Curves.linear,
+    this.animationCurve = Curves.easeIn,
   });
 
   OverlayTheme copyWith({
+    Color? color,
     Alignment? alignment,
-    Duration? duration,
-    EdgeInsets? margin,
     AnimationBuilder? animationBuilder,
     Duration? animationDuration,
     Curve? animationCurve,
   }) =>
       OverlayTheme(
+        color: color ?? this.color,
         alignment: alignment ?? this.alignment,
-        duration: duration ?? this.duration,
-        margin: margin ?? this.margin,
         animationBuilder: animationBuilder ?? this.animationBuilder,
         animationDuration: animationDuration ?? this.animationDuration,
         animationCurve: animationCurve ?? this.animationCurve,
@@ -91,7 +74,7 @@ extension ToastPositionExt on ToastPosition {
 
 enum ToastDuration {
   long(Duration(seconds: 3)),
-  short(Duration(seconds: 1));
+  short(Duration(milliseconds: 1500));
 
   final Duration duration;
 
@@ -99,33 +82,70 @@ enum ToastDuration {
 }
 
 class ToastTheme extends OverlayTheme {
+  /// 显示时长,
+  final ToastDuration duration;
+
+  /// 文本样式
   final TextStyle textStyle;
 
+  /// 显示位置
+  final EdgeInsets margin;
+
   ToastTheme({
+    this.duration = ToastDuration.long,
+    this.margin = EdgeInsets.zero,
     this.textStyle = const TextStyle(),
+    super.color = Colors.black54,
     super.alignment,
-    super.duration,
-    super.margin,
-    super.animationBuilder = _defaultToastAnimationBuilder,
+    super.animationBuilder,
     super.animationDuration,
     super.animationCurve,
   });
 
   @override
   ToastTheme copyWith({
+    ToastDuration? duration,
     TextStyle? textStyle,
-    Alignment? alignment,
-    Duration? duration,
     EdgeInsets? margin,
+    Color? color,
+    Alignment? alignment,
     AnimationBuilder? animationBuilder,
     Duration? animationDuration,
     Curve? animationCurve,
   }) =>
       ToastTheme(
-        textStyle: textStyle ?? this.textStyle,
-        alignment: alignment ?? this.alignment,
         duration: duration ?? this.duration,
+        textStyle: textStyle ?? this.textStyle,
         margin: margin ?? this.margin,
+        color: color ?? this.color,
+        alignment: alignment ?? this.alignment,
+        animationBuilder: animationBuilder ?? super.animationBuilder,
+        animationDuration: animationDuration ?? super.animationDuration,
+        animationCurve: animationCurve ?? super.animationCurve,
+      );
+}
+
+class LoadingTheme extends OverlayTheme {
+  LoadingTheme({
+    super.color,
+    super.alignment,
+    super.animationBuilder,
+    super.animationDuration,
+    super.animationCurve,
+  });
+
+  @override
+  LoadingTheme copyWith({
+    Color? color,
+    Alignment? alignment,
+    Duration? duration,
+    AnimationBuilder? animationBuilder,
+    Duration? animationDuration,
+    Curve? animationCurve,
+  }) =>
+      LoadingTheme(
+        color: color ?? this.color,
+        alignment: alignment ?? this.alignment,
         animationBuilder: animationBuilder ?? this.animationBuilder,
         animationDuration: animationDuration ?? this.animationDuration,
         animationCurve: animationCurve ?? this.animationCurve,

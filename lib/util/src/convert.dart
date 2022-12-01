@@ -43,7 +43,7 @@ extension ListIntExt on List<int> {
 extension ObjectExt on Object? {
   bool get isNull => this == null;
 
-  bool get notNull => !isNull;
+  bool get notNull => this != null;
 
   String toJsonStr({Object? Function(dynamic object)? toEncodable}) => json.encode(this, toEncodable: toEncodable);
 }

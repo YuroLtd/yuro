@@ -57,24 +57,38 @@ class OverlayContainerState extends State<OverlayContainer>
 
   EdgeInsets get _margin {
     final viewInsets = MediaQuery.of(context).viewInsets;
-    return EdgeInsets.only(bottom: viewInsets.bottom) + (widget.theme.margin ?? EdgeInsets.zero);
+    if (widget.theme is ToastTheme) {
+      final theme = widget.theme as ToastTheme;
+      return EdgeInsets.only(bottom: viewInsets.bottom) + theme.margin;
+    }
+    return EdgeInsets.only(bottom: viewInsets.bottom);
   }
 
   @override
-  Widget build(BuildContext context) => Stack(children: [
-        Positioned.fill(child: GestureDetector(onTap: widget.disposer)),
-        AnimatedAlign(
-            alignment: widget.theme.alignment,
+  Widget build(BuildContext context) {
+    final content = AnimatedAlign(
+        alignment: widget.theme.alignment,
+        duration: _animationDuration,
+        curve: widget.theme.animationCurve,
+        child: AnimatedPadding(
+            padding: _margin,
             duration: _animationDuration,
             curve: widget.theme.animationCurve,
-            child: AnimatedPadding(
-                padding: _margin,
-                duration: _animationDuration,
-                curve: widget.theme.animationCurve,
-                child: AnimatedBuilder(
-                  animation: _animController,
-                  builder: (context, child) =>
-                      widget.theme.animationBuilder.call(context, _animController, widget.child),
-                ))),
-      ]);
+            child: AnimatedBuilder(
+              animation: _animController,
+              builder: (context, child) => widget.theme.animationBuilder.call(context, _animController, widget.child),
+            )));
+
+    if (widget.theme is ToastTheme) return content;
+
+    return Stack(children: [
+      Positioned.fill(
+        child: GestureDetector(
+          onTap: widget.disposer,
+          child: ColoredBox(color: widget.theme.color),
+        ),
+      ),
+      content
+    ]);
+  }
 }

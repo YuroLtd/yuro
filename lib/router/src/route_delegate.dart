@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:yuro/core/core.dart';
 import 'package:yuro/router/router.dart';
 import 'package:yuro/util/util.dart';
+import 'package:yuro/widget/overlay/overlay.dart';
 
 mixin RouteDelegateMixin {
   /// 获取页面路由查询
@@ -93,6 +94,12 @@ class YuroRouteDelegate extends RouterDelegate<RouteDecoder>
   }
 
   bool _onPopPage(Route route, dynamic result) {
+    // 判断是否有Overlay显示,如有则弹出
+    if (Yuro.hasOverlayShow()) {
+      Yuro.dismissOverlay();
+      return false;
+    }
+
     final didPop = route.didPop(result);
     if (didPop) {
       // 弹出成功,从历史栈中移除
