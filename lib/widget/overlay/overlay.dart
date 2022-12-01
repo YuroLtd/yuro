@@ -7,10 +7,10 @@ import 'package:yuro/util/util.dart';
 import 'src/container.dart';
 import 'src/manager.dart';
 import 'src/theme.dart';
-import 'src/loading/ball_circle_opacity.dart';
+import 'src/loading/loading.dart';
 
 export 'src/theme.dart';
-export 'src/loading/ball_circle_opacity.dart';
+export 'src/loading/loading.dart';
 
 extension YuroOverlayExt on YuroInterface {
   static final _overlayManager = OverlayManager();
@@ -45,7 +45,7 @@ extension YuroOverlayExt on YuroInterface {
   void showLoading({Widget? child, LoadingTheme? loadingTheme, VoidCallback? onDismiss}) {
     if (_loadingKey.notNull) return;
     _loadingKey = showOverlay(
-      builder: (_) => child ?? const BallCircleOpacityLoading(),
+      builder: (_) => child ?? const PlatformLoading(),
       theme: loadingTheme ?? _overlayManager.loadingTheme,
       onDismiss: onDismiss,
     );

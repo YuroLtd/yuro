@@ -16,6 +16,9 @@ class OverlayTheme {
   /// 显示位置
   final Alignment alignment;
 
+  /// 显示位置
+  final EdgeInsets margin;
+
   /// 动画持续时间
   final Duration animationDuration;
 
@@ -28,6 +31,7 @@ class OverlayTheme {
   OverlayTheme({
     this.color = Colors.transparent,
     this.alignment = Alignment.center,
+    this.margin = EdgeInsets.zero,
     this.animationBuilder = _defaultOverlayAnimationBuilder,
     this.animationDuration = const Duration(milliseconds: 200),
     this.animationCurve = Curves.easeIn,
@@ -36,6 +40,7 @@ class OverlayTheme {
   OverlayTheme copyWith({
     Color? color,
     Alignment? alignment,
+    EdgeInsets? margin,
     AnimationBuilder? animationBuilder,
     Duration? animationDuration,
     Curve? animationCurve,
@@ -43,6 +48,7 @@ class OverlayTheme {
       OverlayTheme(
         color: color ?? this.color,
         alignment: alignment ?? this.alignment,
+        margin: margin ?? this.margin,
         animationBuilder: animationBuilder ?? this.animationBuilder,
         animationDuration: animationDuration ?? this.animationDuration,
         animationCurve: animationCurve ?? this.animationCurve,
@@ -74,7 +80,8 @@ extension ToastPositionExt on ToastPosition {
 
 enum ToastDuration {
   long(Duration(seconds: 3)),
-  short(Duration(milliseconds: 1500));
+  middle(Duration(seconds: 2)),
+  short(Duration(seconds: 1));
 
   final Duration duration;
 
@@ -88,15 +95,12 @@ class ToastTheme extends OverlayTheme {
   /// 文本样式
   final TextStyle textStyle;
 
-  /// 显示位置
-  final EdgeInsets margin;
-
   ToastTheme({
-    this.duration = ToastDuration.long,
-    this.margin = EdgeInsets.zero,
+    this.duration = ToastDuration.middle,
     this.textStyle = const TextStyle(),
     super.color = Colors.black54,
     super.alignment,
+    super.margin,
     super.animationBuilder,
     super.animationDuration,
     super.animationCurve,
@@ -106,9 +110,9 @@ class ToastTheme extends OverlayTheme {
   ToastTheme copyWith({
     ToastDuration? duration,
     TextStyle? textStyle,
-    EdgeInsets? margin,
     Color? color,
     Alignment? alignment,
+    EdgeInsets? margin,
     AnimationBuilder? animationBuilder,
     Duration? animationDuration,
     Curve? animationCurve,
@@ -116,9 +120,9 @@ class ToastTheme extends OverlayTheme {
       ToastTheme(
         duration: duration ?? this.duration,
         textStyle: textStyle ?? this.textStyle,
-        margin: margin ?? this.margin,
         color: color ?? this.color,
         alignment: alignment ?? this.alignment,
+        margin: margin ?? this.margin,
         animationBuilder: animationBuilder ?? super.animationBuilder,
         animationDuration: animationDuration ?? super.animationDuration,
         animationCurve: animationCurve ?? super.animationCurve,
@@ -129,6 +133,7 @@ class LoadingTheme extends OverlayTheme {
   LoadingTheme({
     super.color,
     super.alignment,
+    super.margin,
     super.animationBuilder,
     super.animationDuration,
     super.animationCurve,
@@ -138,6 +143,7 @@ class LoadingTheme extends OverlayTheme {
   LoadingTheme copyWith({
     Color? color,
     Alignment? alignment,
+    EdgeInsets? margin,
     Duration? duration,
     AnimationBuilder? animationBuilder,
     Duration? animationDuration,
@@ -146,6 +152,7 @@ class LoadingTheme extends OverlayTheme {
       LoadingTheme(
         color: color ?? this.color,
         alignment: alignment ?? this.alignment,
+        margin: margin ?? this.margin,
         animationBuilder: animationBuilder ?? this.animationBuilder,
         animationDuration: animationDuration ?? this.animationDuration,
         animationCurve: animationCurve ?? this.animationCurve,

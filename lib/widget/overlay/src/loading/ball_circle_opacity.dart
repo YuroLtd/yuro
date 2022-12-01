@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:yuro/app/app.dart';
 import 'package:yuro/core/core.dart';
 
-class BallCircleOpacityLoading extends StatefulWidget {
-  /// 小球的半径
+class BallCircleOpacity extends StatefulWidget {
   final double radius;
 
   /// 小球的颜色
@@ -14,18 +13,18 @@ class BallCircleOpacityLoading extends StatefulWidget {
   /// 旋转速度
   final Duration duration;
 
-  const BallCircleOpacityLoading({
+  const BallCircleOpacity({
     super.key,
-    this.radius = 5,
+    this.radius = 15,
     this.color,
     this.duration = const Duration(milliseconds: 1200),
   });
 
   @override
-  BallCircleOpacityLoadingState createState() => BallCircleOpacityLoadingState();
+  BallCircleOpacityState createState() => BallCircleOpacityState();
 }
 
-class BallCircleOpacityLoadingState extends State<BallCircleOpacityLoading> with SingleTickerProviderStateMixin {
+class BallCircleOpacityState extends State<BallCircleOpacity> with SingleTickerProviderStateMixin {
   late final _controller = AnimationController(vsync: this, duration: widget.duration)..repeat();
   late final _animation = _controller.drive(CurveTween(curve: Curves.linear));
 
@@ -54,35 +53,41 @@ class BallCircleOpacityLoadingState extends State<BallCircleOpacityLoading> with
   }
 
   @override
-  Widget build(BuildContext context) => AnimatedBuilder(
-      animation: _controller,
-      builder: (context, child) {
-        final index = (_animation.value * _opacity.length).floor();
-        return CustomPaint(painter: _BallPainter(widget.radius, _colorSchemes[index]));
-      });
+  Widget build(BuildContext context) => SizedBox.fromSize(
+      size: Size.fromRadius(widget.radius),
+      child: AnimatedBuilder(
+          animation: _controller,
+          builder: (context, child) {
+            final index = (_animation.value * _opacity.length).floor();
+            return CustomPaint(painter: _BallPainter(_colorSchemes[index]));
+          }));
 }
 
 class _BallPainter extends CustomPainter {
-  final double radius;
   final List<Color> colors;
 
-  _BallPainter(this.radius, this.colors);
+  _BallPainter(this.colors);
 
   late final _paint = Paint()..style = PaintingStyle.fill;
 
   @override
   void paint(Canvas canvas, Size size) {
-    double perAngle = 2 * pi / colors.length;
+    final radius = size.width / 2;
+    final center = size.center(Offset.zero);
+
+    final ballRadius = size.width / 8;
+    final perAngle = 2 * pi / colors.length;
+
     List.generate(colors.length, (index) {
       _paint.color = colors[index];
-      canvas.drawCircle(
-        Offset(2.5 * radius * cos(perAngle * index), 2.5 * radius * sin(perAngle * index)),
-        radius / 2,
-        _paint,
+      final offset = Offset(
+        center.dx + radius * cos(perAngle * index),
+        center.dy + radius * sin(perAngle * index),
       );
+      canvas.drawCircle(offset, ballRadius, _paint);
     });
   }
 
   @override
-  bool shouldRepaint(covariant _BallPainter old) => radius != old.radius || colors != old.colors;
+  bool shouldRepaint(covariant _BallPainter old) => colors != old.colors;
 }

@@ -57,11 +57,7 @@ class OverlayContainerState extends State<OverlayContainer>
 
   EdgeInsets get _margin {
     final viewInsets = MediaQuery.of(context).viewInsets;
-    if (widget.theme is ToastTheme) {
-      final theme = widget.theme as ToastTheme;
-      return EdgeInsets.only(bottom: viewInsets.bottom) + theme.margin;
-    }
-    return EdgeInsets.only(bottom: viewInsets.bottom);
+    return EdgeInsets.only(bottom: viewInsets.bottom) + widget.theme.margin;
   }
 
   @override
