@@ -1,6 +1,8 @@
-part of '../value_notifier.dart';
+import 'dart:collection';
 
-class ListNotifier<T> extends ValueNotifier<List<T>> with ListMixin<T> {
+import 'object_notifier.dart';
+
+class ListNotifier<T> extends ObjectNotifier<List<T>> with ListMixin<T> {
   factory ListNotifier.filled(int length, T fill, {bool growable = false}) {
     return ListNotifier(List.filled(length, fill, growable: growable));
   }
@@ -25,55 +27,23 @@ class ListNotifier<T> extends ValueNotifier<List<T>> with ListMixin<T> {
     return ListNotifier(List.unmodifiable(elements));
   }
 
-  ListNotifier([List<T> list = const []]) : _value = list;
-
-  List<T> _value;
+  ListNotifier([List<T> list = const []]) : super(list);
 
   @override
-  List<T> get value {
-    reportRead();
-    return _value;
-  }
-
-  set value(List<T> other) {
-    if (_value.equals(other)) return;
-    _value = other;
-    refresh();
-  }
+  int get length => value.length;
 
   @override
-  int get length => _value.length;
-
-  @override
-  set length(int newLength) {
-    _value.length = newLength;
-  }
-
-  @override
-  T operator [](int index) => _value[index];
+  T operator [](int index) => value[index];
 
   @override
   void operator []=(int index, T value) {
-    _value[index] = value;
-    refresh();
-  }
-
-
-  @override
-  void add(T element) {
-    _value.add(element);
+    super.value[index] = value;
     refresh();
   }
 
   @override
-  void addAll(Iterable<T> iterable) {
-    _value.addAll(iterable);
-    refresh();
-  }
-
-  @override
-  void clear() {
-    _value.clear();
+  set length(int newLength) {
+    value.length = newLength;
     refresh();
   }
 }

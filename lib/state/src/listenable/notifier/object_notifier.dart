@@ -1,11 +1,10 @@
-part of '../value_notifier.dart';
+import '../listen_notifier.dart';
 
-class ObjectNotifier<T> extends ValueNotifier<T> {
+class ObjectNotifier<T> extends ListenNotifier {
   ObjectNotifier(T value) : _value = value;
 
   T _value;
 
-  @override
   T get value {
     reportRead();
     return _value;

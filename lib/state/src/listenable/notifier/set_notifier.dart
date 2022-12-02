@@ -1,6 +1,7 @@
-part of '../value_notifier.dart';
+import 'dart:collection';
+import 'object_notifier.dart';
 
-class SetNotifier<T> extends ValueNotifier<Set<T>> with SetMixin<T> {
+class SetNotifier<T> extends ObjectNotifier<Set<T>> with SetMixin<T> {
   factory SetNotifier.from(Set<T> other) => SetNotifier(Set.from(other));
 
   factory SetNotifier.of(Set<T> other) => SetNotifier(Set.of(other));
@@ -9,51 +10,36 @@ class SetNotifier<T> extends ValueNotifier<Set<T>> with SetMixin<T> {
 
   factory SetNotifier.identity() => SetNotifier(Set.identity());
 
-  SetNotifier([Set<T> set = const {}]) : _value = set;
-
-  // ignore: prefer_final_fields
-  Set<T> _value;
-
-  @override
-  Set<T> get value {
-    reportRead();
-    return _value;
-  }
-
-  set value(Set<T> other) {
-    if (_value.equals(other)) return;
-    _value = other;
-    refresh();
-  }
+  SetNotifier([Set<T> set = const {}]) : super(set);
 
   @override
   bool add(T value) {
-    final result = _value.add(value);
+    final result = super.value.add(value);
     if (result) refresh();
     return result;
   }
 
   @override
-  bool contains(Object? element) => _value.contains(element);
+  bool contains(Object? element) => value.contains(element);
 
   @override
-  Iterator<T> get iterator => _value.iterator;
+  Iterator<T> get iterator => value.iterator;
 
   @override
-  int get length => _value.length;
+  int get length => value.length;
 
   @override
-  T? lookup(Object? element) => _value.lookup(element);
+  T? lookup(Object? element) => value.lookup(element);
 
   @override
   bool remove(Object? value) {
-    final result = _value.remove(value);
+    final result = super.value.remove(value);
     if (result) refresh();
     return result;
   }
 
   @override
-  Set<T> toSet() => _value.toSet();
+  Set<T> toSet() => value.toSet();
 }
 
 extension SetNotifierExt<T> on Set<T> {

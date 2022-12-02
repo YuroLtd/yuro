@@ -1,7 +1,6 @@
 library state;
 
 export 'src/listenable/listen_notifier.dart';
-export 'src/listenable/value_notifier.dart';
 
 export 'src/obs.dart';
 export 'src/yuro_builder.dart';

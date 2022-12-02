@@ -1,6 +1,8 @@
-part of '../value_notifier.dart';
+import 'dart:collection';
 
-class MapNotifier<K, V> extends ValueNotifier<Map<K, V>> with MapMixin<K, V> {
+import 'object_notifier.dart';
+
+class MapNotifier<K, V> extends ObjectNotifier<Map<K, V>> with MapMixin<K, V> {
   factory MapNotifier.fromMap(Map<K, V> other) => MapNotifier(Map.from(other));
 
   factory MapNotifier.of(Map<K, V> other) => MapNotifier(Map.of(other));
@@ -9,45 +11,29 @@ class MapNotifier<K, V> extends ValueNotifier<Map<K, V>> with MapMixin<K, V> {
 
   factory MapNotifier.identity() => MapNotifier(Map.identity());
 
-  MapNotifier([Map<K, V> map = const {}]) : _value = map;
-
-  // ignore: prefer_final_fields
-  Map<K, V> _value;
+  MapNotifier([Map<K, V> map = const {}]) : super(map);
 
   @override
-  Map<K, V> get value {
-    reportRead();
-    return _value;
-  }
-
-  set value(Map<K, V> other) {
-    if (_value.equals(other)) return;
-    _value = other;
-    refresh();
-  }
-
-  @override
-  V? operator [](Object? key) => _value[key];
+  V? operator [](Object? key) => value[key];
 
   @override
   void operator []=(K key, V value) {
-    _value[key] = value;
+    super.value[key] = value;
     refresh();
   }
 
   @override
   void clear() {
-    _value.clear();
+    value.clear();
     refresh();
   }
 
   @override
-  Iterable<K> get keys => _value.keys;
+  Iterable<K> get keys => value.keys;
 
   @override
   V? remove(Object? key) {
-    final result = _value.remove(key);
-    // 不能确保泛型V是否允许为null,所以每次调用都要刷新
+    final result = value.remove(key);
     refresh();
     return result;
   }

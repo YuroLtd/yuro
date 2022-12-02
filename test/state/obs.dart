@@ -7,7 +7,7 @@ import 'package:yuro/state/state.dart';
 class Counter extends YuroController {
   final counter = 0.obs;
   final boolean = false.obs;
-  final string = ObjectNotifier<String?>(null);
+  final string = NStringNotifier();
 
   final list = <String>[].obs;
 

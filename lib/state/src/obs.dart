@@ -1,10 +1,9 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/widgets.dart' hide ValueNotifier;
+import 'package:flutter/widgets.dart';
 import 'package:yuro/core/core.dart';
 
 import 'listenable/listen_notifier.dart';
-import 'listenable/value_notifier.dart';
 
 mixin _ObserverComponent on ComponentElement {
   List<Disposer>? disposers = [];
@@ -51,7 +50,7 @@ class Obs extends _ObsWidget {
 }
 
 class ObsValue<T> extends _ObsWidget {
-  final ValueNotifier<T> notifier;
+  final ObjectNotifier<T> notifier;
   final Widget Function(T value, Widget? child) builder;
   final Widget? child;
 
