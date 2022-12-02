@@ -1,6 +1,6 @@
 import 'object_notifier.dart';
 
-class NumNotifier extends ObjectNotifier<num> implements Comparable<num> {
+class NumNotifier<T extends num> extends ObjectNotifier<T> implements Comparable<T> {
   NumNotifier(super.value);
 
   @override
@@ -72,12 +72,8 @@ class NumNotifier extends ObjectNotifier<num> implements Comparable<num> {
   String toString() => value.toString();
 }
 
-extension NumNotifierExt on num {
-  NumNotifier get obs => NumNotifier(this);
-}
-
-class NNumNotifier extends ObjectNotifier<num?> implements Comparable<num> {
-  NNumNotifier([num? value]) : super(value);
+class NNumNotifier<T extends num?> extends ObjectNotifier<T?> implements Comparable<num> {
+  NNumNotifier([T? value]) : super(value);
 
   @override
   int compareTo(num other) => value?.compareTo(other) ?? -1;
@@ -148,11 +144,8 @@ class NNumNotifier extends ObjectNotifier<num?> implements Comparable<num> {
   String toString() => value.toString();
 }
 
-class IntNotifier extends ObjectNotifier<int> implements Comparable<int> {
+class IntNotifier extends NumNotifier<int> {
   IntNotifier(super.value);
-
-  @override
-  int compareTo(num other) => value.compareTo(other);
 
   int operator &(int other) => value & other;
 
@@ -184,43 +177,20 @@ class IntNotifier extends ObjectNotifier<int> implements Comparable<int> {
 
   int toSigned(int width) => value.toSigned(width);
 
+  @override
   int operator -() => -value;
 
+  @override
   int abs() => value.abs();
 
-  int get sign => value.sign;
-
-  int round() => value.round();
-
-  int floor() => value.floor();
-
-  int ceil() => value.ceil();
-
-  int truncate() => value.truncate();
-
-  double roundToDouble() => value.roundToDouble();
-
-  double floorToDouble() => value.floorToDouble();
-
-  double ceilToDouble() => value.ceilToDouble();
-
-  double truncateToDouble() => value.truncateToDouble();
-
   @override
-  String toString() => value.toString();
+  int get sign => value.sign;
 
   String toRadixString(int radix) => value.toRadixString(radix);
 }
 
-extension IntNotifierExt on int {
-  IntNotifier get obs => IntNotifier(this);
-}
-
-class NIntNotifier extends ObjectNotifier<int?> implements Comparable<int> {
+class NIntNotifier extends NNumNotifier<int?> {
   NIntNotifier([int? value]) : super(value);
-
-  @override
-  int compareTo(int other) => value?.compareTo(other) ?? -1;
 
   int? operator &(int other) => value == null ? null : value! & other;
 
@@ -252,126 +222,49 @@ class NIntNotifier extends ObjectNotifier<int?> implements Comparable<int> {
 
   int? toSigned(int width) => value?.toSigned(width);
 
+  @override
   int? operator -() => value == null ? null : -value!;
 
+  @override
   int? abs() => value?.abs();
 
-  int? get sign => value?.sign;
-
-  int? round() => value?.round();
-
-  int? floor() => value?.floor();
-
-  int? ceil() => value?.ceil();
-
-  int? truncate() => value?.truncate();
-
-  double? roundToDouble() => value?.roundToDouble();
-
-  double? floorToDouble() => value?.floorToDouble();
-
-  double? ceilToDouble() => value?.ceilToDouble();
-
-  double? truncateToDouble() => value?.truncateToDouble();
-
   @override
-  String toString() => value.toString();
+  int? get sign => value?.sign;
 
   String? toRadixString(int radix) => value?.toRadixString(radix);
 }
 
-class DoubleNotifier extends ObjectNotifier<double> implements Comparable<double> {
+class DoubleNotifier extends NumNotifier<double> {
   DoubleNotifier(super.value);
-
-  @override
-  int compareTo(num other) => value.compareTo(other);
 
   double remainder(num other) => value.remainder(other);
 
-  double operator +(num other) => value + other;
-
-  double operator -(num other) => value - other;
-
-  double operator *(num other) => value * other;
-
-  double operator %(num other) => value % other;
-
-  double operator /(num other) => value / other;
-
-  int operator ~/(num other) => value ~/ other;
-
+  @override
   double operator -() => -value;
 
+  @override
   double abs() => value.abs();
 
+  @override
   double get sign => value.sign;
+}
 
-  int round() => value.round();
+class NDoubleNotifier extends NNumNotifier<double?> {
+  NDoubleNotifier([double? value]) : super(value);
 
-  int floor() => value.floor();
-
-  int ceil() => value.ceil();
-
-  int truncate() => value.truncate();
-
-  double roundToDouble() => value.roundToDouble();
-
-  double floorToDouble() => value.floorToDouble();
-
-  double ceilToDouble() => value.ceilToDouble();
-
-  double truncateToDouble() => value.truncateToDouble();
+  double? remainder(num other) => value?.remainder(other);
 
   @override
-  String toString() => value.toString();
+  double? abs() => value?.abs();
+
+  @override
+  double? get sign => value?.sign;
+}
+
+extension IntNotifierExt on int {
+  IntNotifier get obs => IntNotifier(this);
 }
 
 extension DoubleNotifierExt on double {
   DoubleNotifier get obs => DoubleNotifier(this);
-}
-
-class NDoubleNotifier extends ObjectNotifier<double?> implements Comparable<double> {
-  NDoubleNotifier([double? value]) : super(value);
-
-  @override
-  int compareTo(double other) => value?.compareTo(other) ?? -1;
-
-  double? remainder(num other) => value?.remainder(other);
-
-  double? operator +(num other) => value == null ? null : value! + other;
-
-  double? operator -(num other) => value == null ? null : value! - other;
-
-  double? operator *(num other) => value == null ? null : value! * other;
-
-  double? operator %(num other) => value == null ? null : value! % other;
-
-  double? operator /(num other) => value == null ? null : value! / other;
-
-  int? operator ~/(num other) => value == null ? null : value! ~/ other;
-
-  double? operator -() => value == null ? null : -value!;
-
-  double? abs() => value?.abs();
-
-  double? get sign => value?.sign;
-
-  int? round() => value?.round();
-
-  int? floor() => value?.floor();
-
-  int? ceil() => value?.ceil();
-
-  int? truncate() => value?.truncate();
-
-  double? roundToDouble() => value?.roundToDouble();
-
-  double? floorToDouble() => value?.floorToDouble();
-
-  double? ceilToDouble() => value?.ceilToDouble();
-
-  double? truncateToDouble() => value?.truncateToDouble();
-
-  @override
-  String toString() => value.toString();
 }
