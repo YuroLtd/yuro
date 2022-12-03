@@ -9,24 +9,18 @@ typedef InitialBuilder<T> = T Function();
 class Binder<T> extends InheritedWidget {
   final String? tag;
   final InitialBuilder<T>? init;
-  final VoidCallback? initState, dispose, didChangeDependencies;
-  final void Function(Binder<T> oldWidget, BinderElement<T> state)? didUpdateWidget;
+  final void Function(BuildContext context, T controller)? didChangeDependencies;
 
   const Binder({
     super.key,
     required super.child,
     this.tag,
     this.init,
-    this.initState,
     this.didChangeDependencies,
-    this.didUpdateWidget,
-    this.dispose,
   });
 
   @override
-  bool updateShouldNotify(Binder<T> oldWidget) {
-    return tag != oldWidget.tag || init != oldWidget.init;
-  }
+  bool updateShouldNotify(Binder<T> oldWidget) => tag != oldWidget.tag || init != oldWidget.init;
 
   @override
   InheritedElement createElement() => BinderElement<T>(this);
@@ -66,7 +60,6 @@ class BinderElement<T> extends InheritedElement {
       _isCreator = true;
     }
     _controllerBuilder = () => Yuro.find<T>(widget.tag);
-    widget.initState?.call();
   }
 
   void _subscribeController() {
@@ -84,14 +77,13 @@ class BinderElement<T> extends InheritedElement {
   @override
   void update(Binder<T> newWidget) {
     if (widget.tag != newWidget.tag) _subscribeController();
-    widget.didUpdateWidget?.call(widget, this);
     super.update(newWidget);
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    widget.didChangeDependencies?.call();
+    widget.didChangeDependencies?.call(this, controller);
   }
 
   void _update() {
@@ -118,7 +110,6 @@ class BinderElement<T> extends InheritedElement {
   }
 
   void dispose() {
-    widget.dispose?.call();
     if (_isCreator! && Yuro.isRegistered<T>(widget.tag)) {
       if (controller is YuroLifeCycleMixin) {
         (controller as YuroLifeCycleMixin).onDispose();

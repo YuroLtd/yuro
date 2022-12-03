@@ -10,11 +10,7 @@ abstract class YuroView<T extends YuroController> extends StatelessWidget {
 
   T createController();
 
-  void initState() {}
-
-  void didChangeDependencies() {}
-
-  void didUpdateWidget(Binder<T> oldWidget, BinderElement<T> state) {}
+  void didChangeDependencies(BuildContext context, T controller) {}
 
   T _controller(BuildContext context) {
     final inheritedElement = context.getElementForInheritedWidgetOfExactType<Binder<T>>() as BinderElement<T>?;
@@ -29,16 +25,9 @@ abstract class YuroView<T extends YuroController> extends StatelessWidget {
   Widget build(BuildContext context) => Binder<T>(
         tag: tag,
         init: createController,
-        //
-        initState: initState,
         didChangeDependencies: didChangeDependencies,
-        didUpdateWidget: didUpdateWidget,
-        dispose: dispose,
-        //
         child: Builder(builder: (context) => builder.call(context, _controller(context))),
       );
 
   Widget builder(BuildContext context, T controller);
-
-  void dispose() {}
 }

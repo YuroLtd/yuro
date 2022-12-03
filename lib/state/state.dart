@@ -2,6 +2,9 @@ library state;
 
 export 'src/listenable/listen_notifier.dart';
 
+export 'src/controller_mixin/scroll_mixin.dart';
+export 'src/controller_mixin/ticker_mixin.dart';
+
 export 'src/obs.dart';
 export 'src/yuro_builder.dart';
 export 'src/yuro_controller.dart';

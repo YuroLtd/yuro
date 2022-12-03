@@ -9,8 +9,9 @@ class YuroBuilder<T extends YuroController> extends StatelessWidget {
   final Widget Function(T controller) builder;
 
   final T? init;
-  final VoidCallback? initState, dispose, didChangeDependencies;
-  final void Function(Binder<T> oldWidget, BinderElement<T> state)? didUpdateWidget;
+  final void Function(T controller)? initState, dispose;
+  final void Function(BuildContext context, T controller)? didChangeDependencies;
+  final void Function(Binder<T> oldWidget)? didUpdateWidget;
 
   const YuroBuilder({
     super.key,
@@ -38,12 +39,7 @@ class YuroBuilder<T extends YuroController> extends StatelessWidget {
   Widget build(BuildContext context) => Binder<T>(
         tag: tag,
         init: init.isNull ? null : () => init!,
-        //
-        initState: initState,
         didChangeDependencies: didChangeDependencies,
-        didUpdateWidget: didUpdateWidget,
-        dispose: dispose,
-        //
         child: Builder(builder: (context) => builder.call(_controller(context))),
       );
 }
