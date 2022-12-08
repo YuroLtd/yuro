@@ -130,7 +130,10 @@ class ToastTheme extends OverlayTheme {
 }
 
 class LoadingTheme extends OverlayTheme {
+  final Widget child;
+
   LoadingTheme({
+    required this.child,
     super.color,
     super.alignment,
     super.margin,
@@ -141,6 +144,7 @@ class LoadingTheme extends OverlayTheme {
 
   @override
   LoadingTheme copyWith({
+    Widget? child,
     Color? color,
     Alignment? alignment,
     EdgeInsets? margin,
@@ -150,6 +154,7 @@ class LoadingTheme extends OverlayTheme {
     Curve? animationCurve,
   }) =>
       LoadingTheme(
+        child: child ?? this.child,
         color: color ?? this.color,
         alignment: alignment ?? this.alignment,
         margin: margin ?? this.margin,

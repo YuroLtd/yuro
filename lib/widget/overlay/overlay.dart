@@ -45,7 +45,7 @@ extension YuroOverlayExt on YuroInterface {
   void showLoading({Widget? child, LoadingTheme? loadingTheme, VoidCallback? onDismiss}) {
     if (_loadingKey.notNull) return;
     _loadingKey = showOverlay(
-      builder: (_) => child ?? const PlatformLoading(),
+      builder: (_) => child ?? _overlayManager.loadingTheme.child,
       theme: loadingTheme ?? _overlayManager.loadingTheme,
       onDismiss: onDismiss,
     );

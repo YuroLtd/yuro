@@ -6,8 +6,9 @@ import 'package:yuro/core/core.dart';
 
 class RingInsideWithText extends StatelessWidget {
   final String text;
+  final TextStyle style;
 
-  const RingInsideWithText({this.text = 'loading...', super.key});
+  const RingInsideWithText({this.text = 'loading...', this.style = const TextStyle(), super.key});
   @override
   Widget build(BuildContext context) => Container(
       padding: const EdgeInsets.all(7.5),
@@ -19,7 +20,7 @@ class RingInsideWithText extends StatelessWidget {
         const RingInside(radius: 10),
         Padding(
           padding: const EdgeInsets.only(left: 8.0),
-          child: DefaultTextStyle(style: const TextStyle(), child: Text(text)),
+          child: DefaultTextStyle(style: style, child: Text(text)),
         )
       ]));
 }
@@ -35,7 +36,7 @@ class RingInside extends StatefulWidget {
     this.radius = 15,
     this.color,
     this.backgroudColor,
-    this.strokenWidth = 4,
+    this.strokenWidth = 3,
     this.duration = const Duration(milliseconds: 1200),
     super.key,
   });

@@ -6,6 +6,7 @@ import 'package:yuro/router/router.dart';
 
 import 'container.dart';
 import 'theme.dart';
+import 'loading/loading.dart';
 
 class OverlayManager {
   //
@@ -31,7 +32,7 @@ class OverlayManager {
   //
   LoadingTheme? _loadingTheme;
 
-  LoadingTheme get loadingTheme => _loadingTheme ?? LoadingTheme();
+  LoadingTheme get loadingTheme => _loadingTheme ?? LoadingTheme(child: const PlatformLoading());
 
   set loadingTheme(LoadingTheme theme) => _loadingTheme = theme;
 
