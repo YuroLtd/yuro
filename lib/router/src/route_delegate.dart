@@ -202,7 +202,10 @@ class YuroRouteDelegate extends RouterDelegate<RouteDecoder>
   @override
   Future<R?> pushReplacementNamed<T, R>(String name, {T? result, Object? arguments}) async {
     final decoder = _getRouteDecoder<T>(name, arguments);
-    if (decoder == null) return null;
+    if (decoder == null) {
+      _toUnknownPage();
+      return null;
+    }
     // 返回数据
     final completer = _activePages.last.completer;
     if (completer != null && !completer.isCompleted) completer.complete(result);
@@ -218,7 +221,10 @@ class YuroRouteDelegate extends RouterDelegate<RouteDecoder>
   @override
   Future<T?> pushNamedAndRemoveUntil<T>(String name, PagePredicate predicate, {Object? arguments}) async {
     final decoder = _getRouteDecoder<T>(name, arguments);
-    if (decoder == null) return null;
+    if (decoder == null) {
+      _toUnknownPage();
+      return null;
+    }
     // 先压栈再清理中间的页面
     final result = _push<T>(decoder);
     var index = _activePages.length - 1;
