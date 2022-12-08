@@ -13,7 +13,7 @@ extension YuroAppExt on YuroInterface {
   }
 }
 
-class YuroAppController extends YuroController {
+class YuroAppController extends YuroController with WidgetsBindingObserver {
   //
   UniqueKey? _uniqueKey;
 
@@ -34,6 +34,24 @@ class YuroAppController extends YuroController {
   Locale? locale;
 
   PageTransitionsBuilder? globalTransition;
+
+  @override
+  void onInit() {
+    super.onInit();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void didChangePlatformBrightness() {
+    super.didChangePlatformBrightness();
+    reload(true);
+  }
+
+  @override
+  void onDispose() {
+    super.onDispose();
+    WidgetsBinding.instance.removeObserver(this);
+  }
 
   /// 重新加载app, 如果[resetRoute]为true,将重新加载路由
   void reload([bool resetRoute = false]) {
