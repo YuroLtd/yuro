@@ -110,16 +110,10 @@ class YuroApp extends StatelessWidget {
       onGenerateTitle: onGenerateTitle,
       color: color,
       //
-      theme: controller.theme == null ? null : ThemeData(colorScheme: controller.theme, useMaterial3: useMaterial3),
-      darkTheme: controller.darkTheme == null
-          ? null
-          : ThemeData(colorScheme: controller.darkTheme, useMaterial3: useMaterial3),
-      highContrastTheme: controller.highContrastTheme == null
-          ? null
-          : ThemeData(colorScheme: controller.highContrastTheme, useMaterial3: useMaterial3),
-      highContrastDarkTheme: controller.highContrastDarkTheme == null
-          ? null
-          : ThemeData(colorScheme: controller.highContrastDarkTheme, useMaterial3: useMaterial3),
+      theme: ThemeData(colorScheme: controller.lightTheme, useMaterial3: useMaterial3),
+      darkTheme: ThemeData(colorScheme: controller.darkTheme, useMaterial3: useMaterial3),
+      highContrastTheme: ThemeData(colorScheme: controller.highContrastTheme, useMaterial3: useMaterial3),
+      highContrastDarkTheme: ThemeData(colorScheme: controller.highContrastDarkTheme, useMaterial3: useMaterial3),
       themeMode: controller.themeMode,
       //
       locale: controller.locale,

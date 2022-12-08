@@ -31,7 +31,7 @@ class BallCircleOpacityState extends State<BallCircleOpacity> with SingleTickerP
   final _opacity = [0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.9, 1.0];
   final List<List<Color>> _colorSchemes = [];
 
-  Color get color => widget.color ?? (Yuro.app.theme ?? const ColorScheme.light()).primary;
+  Color get color => widget.color ?? Yuro.theme.primary;
 
   @override
   void initState() {
