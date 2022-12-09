@@ -11,7 +11,7 @@ class ListNotifier<T> extends ObjectNotifier<List<T>> with ListMixin<T> {
     return ListNotifier(List.empty(growable: growable));
   }
 
-  factory ListNotifier.from(Iterable elements, {bool growable = true}) {
+  factory ListNotifier.from(Iterable<T> elements, {bool growable = true}) {
     return ListNotifier(List.from(elements, growable: growable));
   }
 
@@ -45,6 +45,17 @@ class ListNotifier<T> extends ObjectNotifier<List<T>> with ListMixin<T> {
   set length(int newLength) {
     value.length = newLength;
     refresh();
+  }
+
+  @override
+  void add(T element) {
+    value.add(element);
+     refresh();
+  }
+
+  @override
+  void clear() {
+    length = 0;
   }
 }
 
