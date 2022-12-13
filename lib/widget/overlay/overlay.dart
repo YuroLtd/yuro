@@ -7,7 +7,6 @@ import 'package:yuro/util/util.dart';
 import 'src/container.dart';
 import 'src/manager.dart';
 import 'src/theme.dart';
-import 'src/loading/loading.dart';
 
 export 'src/theme.dart';
 export 'src/loading/loading.dart';

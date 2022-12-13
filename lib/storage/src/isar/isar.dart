@@ -1,16 +1,9 @@
 import 'package:isar/isar.dart';
+import 'package:yuro/core/core.dart';
 
 export 'package:isar/isar.dart';
 
 extension IsarExt on Isar {
-  Isar getIsar([String name = Isar.defaultName]) {
-    final isar = Isar.getInstance(name);
-    if (isar == null) {
-      throw IsarError('Instance does not exist. Open an instance of Isar using Isar.open() or Isar.openSync()');
-    }
-    return isar;
-  }
-
   Future<T> writeIsar<T>(Future<T> Function(Isar isar) callback, {bool silent = false}) async {
     return await writeTxn(() => callback.call(this), silent: false);
   }
@@ -25,5 +18,15 @@ extension IsarExt on Isar {
 
   T readIsarSync<T>(T Function(Isar isar) callback) {
     return txnSync(() => callback.call(this));
+  }
+}
+
+extension YuroIsarExt on YuroInterface {
+  Isar getIsar([String name = Isar.defaultName]) {
+    final isar = Isar.getInstance(name);
+    if (isar == null) {
+      throw IsarError('Instance does not exist. Open an instance of Isar using Isar.open() or Isar.openSync()');
+    }
+    return isar;
   }
 }
