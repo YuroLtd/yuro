@@ -3,6 +3,14 @@ import 'package:isar/isar.dart';
 export 'package:isar/isar.dart';
 
 extension IsarExt on Isar {
+  Isar getIsar([String name = Isar.defaultName]) {
+    final isar = Isar.getInstance(name);
+    if (isar == null) {
+      throw IsarError('Instance does not exist. Open an instance of Isar using Isar.open() or Isar.openSync()');
+    }
+    return isar;
+  }
+
   Future<T> writeIsar<T>(Future<T> Function(Isar isar) callback, {bool silent = false}) async {
     return await writeTxn(() => callback.call(this), silent: false);
   }
