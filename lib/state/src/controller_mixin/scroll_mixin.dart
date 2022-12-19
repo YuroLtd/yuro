@@ -7,21 +7,26 @@ mixin ScrollMixin on YuroController {
 
   ScrollController get scrollController => _scrollController;
 
+  bool _canLoadMore = true;
+
+  set canLoadMore(bool value) => _canLoadMore = value;
+
   @override
   void onInit() {
-    _scrollController.addListener(_scrollListener);
     super.onInit();
+    _scrollController.addListener(_scrollListener);
   }
 
   void _scrollListener() {
     if (_scrollController.position.atEdge) {
-      if (_scrollController.position.pixels == 0) {
-        // todo 滚动到顶部触发
-      } else {
-        // todo 滚动到底部触发
+      if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
+        // 滚动到底部触发加载更多
+        if (_canLoadMore) loadMore();
       }
     }
   }
+
+  void loadMore();
 
   @override
   void onDispose() {

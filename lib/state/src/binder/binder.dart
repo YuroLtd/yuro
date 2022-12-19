@@ -111,9 +111,6 @@ class BinderElement<T> extends InheritedElement {
 
   void dispose() {
     if (_isCreator! && Yuro.isRegistered<T>(widget.tag)) {
-      if (controller is YuroLifeCycleMixin) {
-        (controller as YuroLifeCycleMixin).onDispose();
-      }
       Yuro.delete<T>(tag: widget.tag);
     }
     _remove?.call();
