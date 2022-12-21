@@ -13,7 +13,7 @@ class RingInsideWithText extends StatelessWidget {
   Widget build(BuildContext context) => Container(
       padding: const EdgeInsets.all(7.5),
       decoration: BoxDecoration(
-        color: Yuro.theme.onSecondaryContainer,
+        color: Yuro.theme.colorScheme.onSecondaryContainer,
         borderRadius: BorderRadius.circular(5),
       ),
       child: Row(mainAxisSize: MainAxisSize.min, children: [
@@ -55,9 +55,9 @@ class RingInsideState extends State<RingInside> with SingleTickerProviderStateMi
     super.dispose();
   }
 
-  Color get color => widget.color ?? Yuro.theme.primary;
+  Color get color => widget.color ?? Yuro.theme.colorScheme.primary;
 
-  Color get backgroudColor => widget.backgroudColor ?? Yuro.theme.surfaceVariant;
+  Color get backgroudColor => widget.backgroudColor ?? Yuro.theme.colorScheme.surfaceVariant;
 
   @override
   Widget build(BuildContext context) => SizedBox.fromSize(

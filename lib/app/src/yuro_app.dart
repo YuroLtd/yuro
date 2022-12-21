@@ -34,8 +34,6 @@ class YuroApp extends StatelessWidget {
   final LocaleResolutionCallback? localeResolutionCallback;
   final Iterable<Locale> supportedLocales;
 
-  /// 组件覆盖不完全,不推荐使用
-  final bool useMaterial3;
   final bool debugShowMaterialGrid;
   final bool showPerformanceOverlay;
   final bool checkerboardRasterCacheImages;
@@ -70,7 +68,6 @@ class YuroApp extends StatelessWidget {
     this.localeResolutionCallback,
     this.supportedLocales = const [],
     //
-    this.useMaterial3 = false,
     this.debugShowMaterialGrid = false,
     this.showPerformanceOverlay = false,
     this.checkerboardRasterCacheImages = false,
@@ -110,10 +107,10 @@ class YuroApp extends StatelessWidget {
       onGenerateTitle: onGenerateTitle,
       color: color,
       //
-      theme: ThemeData(colorScheme: controller.lightTheme, useMaterial3: useMaterial3),
-      darkTheme: ThemeData(colorScheme: controller.darkTheme, useMaterial3: useMaterial3),
-      highContrastTheme: ThemeData(colorScheme: controller.highContrastTheme, useMaterial3: useMaterial3),
-      highContrastDarkTheme: ThemeData(colorScheme: controller.highContrastDarkTheme, useMaterial3: useMaterial3),
+      theme: controller.lightTheme,
+      darkTheme: controller.darkTheme,
+      highContrastTheme: controller.highContrastTheme,
+      highContrastDarkTheme: controller.highContrastDarkTheme,
       themeMode: controller.themeMode,
       //
       locale: controller.locale,

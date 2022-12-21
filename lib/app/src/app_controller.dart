@@ -7,7 +7,7 @@ extension YuroAppExt on YuroInterface {
 
   WidgetsBinding get engine => WidgetsFlutterBinding.ensureInitialized();
 
-  ColorScheme get theme {
+  ThemeData get theme {
     final brightness = Theme.of(Yuro.currentContext).brightness;
     return brightness == Brightness.light ? app.lightTheme : app.darkTheme;
   }
@@ -20,12 +20,12 @@ class YuroAppController extends YuroController with WidgetsBindingObserver {
   UniqueKey? get uniqueKey => _uniqueKey;
 
   // light theme
-  ColorScheme lightTheme = const ColorScheme.light();
-  ColorScheme highContrastTheme = const ColorScheme.highContrastLight();
+  ThemeData lightTheme = ThemeData.light();
+  ThemeData highContrastTheme = ThemeData(colorScheme: const ColorScheme.highContrastLight());
 
   // dark theme
-  ColorScheme darkTheme = const ColorScheme.dark();
-  ColorScheme highContrastDarkTheme = const ColorScheme.highContrastDark();
+  ThemeData darkTheme = ThemeData.dark();
+  ThemeData highContrastDarkTheme = ThemeData(colorScheme: const ColorScheme.highContrastDark());
 
   //
   ThemeMode themeMode = ThemeMode.system;
