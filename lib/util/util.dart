@@ -1,9 +1,9 @@
 library util;
 
-export 'src/build_context.dart';
 export 'src/collection.dart';
 export 'src/file_system.dart';
 export 'src/map.dart';
+export 'src/focus.dart';
 export 'src/num.dart';
 export 'src/path_provider.dart';
 export 'src/regex.dart';
