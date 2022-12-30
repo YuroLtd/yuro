@@ -40,6 +40,10 @@ extension PathExt on String {
 }
 
 extension NullStringExt on String? {
+  bool get isNull => this == null;
+
+  bool get noNull => this != null;
+
   bool get isNullOrEmpty => this == null || this!.isEmpty;
 
   bool get isNullOrBlank => this == null || this!.trim().isEmpty;
