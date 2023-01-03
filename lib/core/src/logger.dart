@@ -52,9 +52,9 @@ class Logger {
 
   void v(dynamic message, {dynamic extra}) => log(LogLevel.verbose, message, extra: extra);
 
-  void d(dynamic message, {dynamic extra}) => log(LogLevel.debug, message, extra: extra);
-
   void i(dynamic message, {dynamic extra}) => log(LogLevel.info, message, extra: extra);
+
+  void d(dynamic message, {dynamic extra}) => log(LogLevel.debug, message, extra: extra);
 
   void w(dynamic message, {dynamic extra}) => log(LogLevel.warring, message, extra: extra);
 

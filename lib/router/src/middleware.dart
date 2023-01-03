@@ -42,7 +42,7 @@ class MiddlewareRunner {
   late final _logger = Logger('MiddlewareRunner');
 
   RouteSettings? runRedirect(String route) {
-    _logger.v('[Redirect] $route');
+    _logger.i('[Redirect] $route');
     RouteSettings? to;
     for (final element in middlewares) {
       to = element.redirect(route);
@@ -52,7 +52,7 @@ class MiddlewareRunner {
   }
 
   YuroPage runPageCalled(YuroPage page) {
-    _logger.v('[Called] ${page.name}');
+    _logger.i('[Called] ${page.name}');
     for (final element in middlewares) {
       page = element.pageCalled(page);
     }
@@ -74,7 +74,7 @@ class MiddlewareRunner {
   }
 
   void runPageDispose(YuroPage page) {
-    _logger.v('[Dispose] ${page.name}');
+    _logger.i('[Dispose] ${page.name}');
     for (final element in middlewares) {
       element.pageDispose();
     }

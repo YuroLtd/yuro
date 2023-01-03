@@ -35,27 +35,27 @@ abstract class MqttService extends YuroService {
 
   /// 连接成功的回调
   void onConnected() {
-    _logger.v('onConnected');
+    _logger.i('onConnected');
   }
 
   /// 订阅成功回调
   void onSubscribed(String topic) {
-    _logger.v('onSubscribed: $topic');
+    _logger.i('onSubscribed: $topic');
   }
 
   /// 订阅失败回调
   void onSubscribeFail(String topic) {
-    _logger.v('onSubscribeFail: $topic');
+    _logger.i('onSubscribeFail: $topic');
   }
 
   /// ping-pong回调
   void pong() {
-    _logger.v('pong');
+    _logger.i('pong');
   }
 
   /// 未经请求的断开连接的回调
   void onDisconnected() {
-    _logger.v('onDisconnected');
+    _logger.i('onDisconnected');
   }
 }
 
