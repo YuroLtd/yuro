@@ -4,19 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:yuro/core/core.dart';
 import 'package:yuro/instance/instance.dart';
 
+import '../controller_mixin/ticker_mixin.dart';
+
 typedef InitialBuilder<T> = T Function();
 
 class Binder<T> extends InheritedWidget {
   final String? tag;
   final InitialBuilder<T>? init;
-  final void Function(BuildContext context, T controller)? didChangeDependencies;
 
   const Binder({
     super.key,
     required super.child,
     this.tag,
     this.init,
-    this.didChangeDependencies,
   });
 
   @override
@@ -83,7 +83,11 @@ class BinderElement<T> extends InheritedElement {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    widget.didChangeDependencies?.call(this, controller);
+    if (controller is SingleTickerMixin) {
+      (controller as SingleTickerMixin).didChangeDependencies(this);
+    } else if (controller is TickerMixin) {
+      (controller as TickerMixin).didChangeDependencies(this);
+    }
   }
 
   void _update() {

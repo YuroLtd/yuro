@@ -39,7 +39,6 @@ class YuroBuilder<T extends YuroController> extends StatelessWidget {
   Widget build(BuildContext context) => Binder<T>(
         tag: tag,
         init: init.isNull ? null : () => init!,
-        didChangeDependencies: didChangeDependencies,
         child: Builder(builder: (context) => builder.call(_controller(context))),
       );
 }

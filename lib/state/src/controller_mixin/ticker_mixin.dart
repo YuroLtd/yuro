@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 
 import '../yuro_controller.dart';
 
-mixin SingleYuroControllerTickerMixin on YuroController implements TickerProvider {
+mixin SingleTickerMixin on YuroController implements TickerProvider {
   Ticker? _ticker;
 
   @override
@@ -52,7 +52,7 @@ mixin SingleYuroControllerTickerMixin on YuroController implements TickerProvide
   }
 }
 
-mixin YuroControllerTickerMixin on YuroController implements TickerProvider {
+mixin TickerMixin on YuroController implements TickerProvider {
   Set<Ticker>? _tickers;
 
   @override
@@ -104,7 +104,7 @@ mixin YuroControllerTickerMixin on YuroController implements TickerProvider {
 class _WidgetTicker extends Ticker {
   _WidgetTicker(super.onTick, this._creator, {super.debugLabel});
 
-  final YuroControllerTickerMixin _creator;
+  final TickerMixin _creator;
 
   @override
   void dispose() {
