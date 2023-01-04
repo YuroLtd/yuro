@@ -24,7 +24,8 @@ extension StringExt on String {
 }
 
 extension PathExt on String {
-  String join(String dir) => path.join(this, dir);
+  String join(String dir, [String? part2, String? part3, String? part4, String? part5, String? part6, String? part7]) =>
+      path.join(this, dir, part2, part3, part4, part5, part6, part7);
 
   String get baseName => path.basename(this);
 

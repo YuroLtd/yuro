@@ -9,7 +9,7 @@ class ExpandableText extends StatefulWidget {
   final int minLines;
 
   /// 文字整体样式
-  final TextStyle? textStyle;
+  final TextStyle? style;
 
   /// 收起、展开文字颜色, 默认[Theme.of(context).colorScheme.primary]
   final Color? linkColor;
@@ -29,19 +29,18 @@ class ExpandableText extends StatefulWidget {
   /// 当点击展开、收起的时的回调
   final Function(bool isExpand)? onExpanded;
 
-  const ExpandableText({
-    Key? key,
-    required this.content,
+  const ExpandableText(
+    this.content, {
     this.minLines = 2,
-    this.textStyle,
+    this.style,
     this.linkColor,
     this.linkBackground,
     this.foldedText = '收起',
     this.expandedText = '展开',
     this.alwaysDisplay = true,
     this.onExpanded,
-  })  : assert(minLines > 0),
-        super(key: key);
+    super.key,
+  }) : assert(minLines > 0);
 
   @override
   ExpandableTextState createState() => ExpandableTextState();
@@ -50,32 +49,42 @@ class ExpandableText extends StatefulWidget {
 class ExpandableTextState extends State<ExpandableText> {
   bool _expanded = false;
 
-  TextStyle get _textStyle => DefaultTextStyle.of(context).style.merge(widget.textStyle);
+  TextStyle get _textStyle => DefaultTextStyle.of(context).style.merge(widget.style);
 
   Color get _linkColor => widget.linkColor ?? Theme.of(context).colorScheme.primary;
 
   Color get _linkBackground => widget.linkBackground ?? Theme.of(context).scaffoldBackgroundColor;
 
+  void toggleExpanded(bool expanded) => setState(() {
+        _expanded = expanded;
+        widget.onExpanded?.call(_expanded);
+      });
+
   Widget _buildExpand(Size size) => SizedBox.fromSize(
       size: size,
       child: Stack(children: [
-        Positioned.fill(child: Text(widget.content ?? '', maxLines: widget.minLines, overflow: TextOverflow.clip)),
+        Positioned.fill(
+          child: Text(
+            widget.content ?? '',
+            style: _textStyle,
+            maxLines: widget.minLines,
+            overflow: TextOverflow.clip,
+          ),
+        ),
         Positioned(
             right: 0,
             bottom: 0,
             child: Container(
                 padding: const EdgeInsets.only(left: 15),
                 decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                  colors: [_linkBackground.withAlpha(100), _linkBackground, _linkBackground],
-                  stops: const [0.1, 0.2, 1],
-                )),
+                  gradient: LinearGradient(
+                    colors: [_linkBackground.withAlpha(100), _linkBackground, _linkBackground],
+                    stops: const [0.1, 0.3, 1],
+                  ),
+                ),
                 child: GestureDetector(
                     child: Text(widget.expandedText, style: _textStyle.copyWith(color: _linkColor)),
-                    onTap: () => setState(() {
-                          _expanded = true;
-                          widget.onExpanded?.call(_expanded);
-                        }))))
+                    onTap: () => toggleExpanded(true))))
       ]));
 
   Widget _buildFold() => RichText(
@@ -87,11 +96,7 @@ class ExpandableTextState extends State<ExpandableText> {
                   TextSpan(
                       text: '\n${widget.foldedText}',
                       style: _textStyle.copyWith(color: _linkColor),
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () => setState(() {
-                              _expanded = false;
-                              widget.onExpanded?.call(_expanded);
-                            }))
+                      recognizer: TapGestureRecognizer()..onTap = () => toggleExpanded(false))
                 ]
               : null));
 
