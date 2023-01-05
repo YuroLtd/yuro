@@ -7,7 +7,7 @@ import 'yuro_controller.dart';
 abstract class YuroWidget<T extends YuroController> extends StatelessWidget {
   const YuroWidget({super.key});
 
-  final String? tag = null;
+  String? get tag => null;
 
   T get controller => Yuro.find<T>(tag);
 }

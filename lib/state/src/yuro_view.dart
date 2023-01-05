@@ -6,14 +6,14 @@ import 'yuro_controller.dart';
 abstract class YuroView<T extends YuroController> extends StatelessWidget {
   const YuroView({super.key});
 
-  final String? tag = null;
+  String? get tag => null;
 
   T createController();
 
   T _controller(BuildContext context) {
     final inheritedElement = context.getElementForInheritedWidgetOfExactType<Binder<T>>() as BinderElement<T>?;
     if (inheritedElement == null) {
-      throw BinderError(controller: '$T', tag: tag);
+      throw BinderError('$T', tag);
     }
     context.dependOnInheritedElement(inheritedElement);
     return inheritedElement.controller;
@@ -40,7 +40,7 @@ abstract class YuroKeepAliveView<T extends YuroController> extends StatefulWidge
 
   @override
   // ignore: library_private_types_in_public_api
-  _YuroKeepAliveState createState() => _YuroKeepAliveState();
+  _YuroKeepAliveState<T> createState() => _YuroKeepAliveState<T>();
 }
 
 class _YuroKeepAliveState<T extends YuroController> extends State<YuroKeepAliveView<T>>
@@ -51,7 +51,7 @@ class _YuroKeepAliveState<T extends YuroController> extends State<YuroKeepAliveV
   T _controller(BuildContext context) {
     final inheritedElement = context.getElementForInheritedWidgetOfExactType<Binder<T>>() as BinderElement<T>?;
     if (inheritedElement == null) {
-      throw BinderError(controller: '$T', tag: widget.tag);
+      throw BinderError('$T', widget.tag);
     }
     context.dependOnInheritedElement(inheritedElement);
     return inheritedElement.controller;

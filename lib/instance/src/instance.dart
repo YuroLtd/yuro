@@ -47,7 +47,7 @@ class YuroInstance {
       }
       return t ?? factory.getDependency() as T;
     } else {
-      throw '"$T" not find, You must call "Yuro.put($T())" or "Yuro.lazyPut(()=>$T())" before calling "Yuro.find()"';
+      throw '"$T"${tag != 'null' ? ' with tag "$tag"' : ''} not find, You must call "Yuro.put($T())" or "Yuro.lazyPut(()=>$T())" before calling "Yuro.find()"';
     }
   }
 

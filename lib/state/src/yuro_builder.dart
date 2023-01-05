@@ -29,7 +29,7 @@ class YuroBuilder<T extends YuroController> extends StatelessWidget {
   T _controller(BuildContext context) {
     final inheritedElement = context.getElementForInheritedWidgetOfExactType<Binder<T>>() as BinderElement<T>?;
     if (inheritedElement == null) {
-      throw BinderError(controller: '$T', tag: tag);
+      throw BinderError('$T', tag);
     }
     context.dependOnInheritedElement(inheritedElement);
     return inheritedElement.controller;

@@ -44,7 +44,7 @@ class BinderElement<T> extends InheritedElement {
     if (_controller == null) {
       _controller = _controllerBuilder?.call();
       if (_controller == null) {
-        throw BinderError(controller: _controller, tag: widget.tag);
+        throw BinderError(_controller, widget.tag);
       }
       _subscribeController();
     }
@@ -129,7 +129,7 @@ class BinderError<T> extends Error {
   final T controller;
   final String? tag;
 
-  BinderError({required this.controller, required this.tag});
+  BinderError(this.controller, this.tag);
 
   @override
   String toString() => '''
