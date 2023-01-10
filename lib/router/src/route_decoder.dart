@@ -16,7 +16,7 @@ class RouteDecoder {
     return Yuro.routeTree.matchRoute(location, settings);
   }
 
-  Map<String, String> get params => Map.of(settings?.params ?? {});
+  Map<String, String> get pathParams => Map.of(settings?.params ?? {});
 
   Map<String, String> get queryParams => Map.of(settings?.queryParams ?? {});
 

@@ -30,7 +30,7 @@ void main() {
       var path = '/setting/theme_mode';
       var match = routeTree.matchRoute(path, PageSettings.fromUrl(path));
       expect(match, isNotNull);
-      expect(match.params, isEmpty);
+      expect(match.pathParams, isEmpty);
       expect(match.queryParams, isEmpty);
 
       routeTree.addPage(YuroPage(name: '/test/:id', builder: () => Container()));
@@ -38,8 +38,8 @@ void main() {
       match = routeTree.matchRoute(path, PageSettings.fromUrl(path));
       expect(match, isNotNull);
 
-      expect(match.params, isNotEmpty);
-      expect(match.params['id'], '1');
+      expect(match.pathParams, isNotEmpty);
+      expect(match.pathParams['id'], '1');
       expect(match.queryParams, isNotEmpty);
       expect(match.queryParams['test'], 'aaa');
     });

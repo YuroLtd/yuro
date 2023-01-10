@@ -8,15 +8,6 @@ import 'package:yuro/util/util.dart';
 import 'package:yuro/widget/overlay/overlay.dart';
 
 mixin RouteDelegateMixin {
-  /// 获取页面路由查询
-  Map<String, String> params();
-
-  /// 获取页面路由查询
-  Map<String, String> queryParams();
-
-  /// 获取页面的传参
-  T? arguments<T>();
-
   /// 推送命名路由
   Future<T?> pushNamed<T>(String name, {Object? arguments});
 
@@ -178,15 +169,6 @@ class YuroRouteDelegate extends RouterDelegate<RouteDecoder>
     final completer = _activePages.removeLast().completer;
     if (completer != null && !completer.isCompleted) completer.complete(result);
   }
-
-  @override
-  Map<String, String> params() => currentConfiguration?.params ?? {};
-
-  @override
-  Map<String, String> queryParams() => currentConfiguration?.queryParams ?? {};
-
-  @override
-  T? arguments<T>() => currentConfiguration?.arguments<T>();
 
   @override
   Future<T?> pushNamed<T>(String name, {Object? arguments}) async {

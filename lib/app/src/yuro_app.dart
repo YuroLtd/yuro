@@ -5,6 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:yuro/core/core.dart';
 import 'package:yuro/router/router.dart';
+import 'package:yuro/state/src/binder/binder.dart';
 import 'package:yuro/state/state.dart';
 import 'package:yuro/widget/widget.dart';
 
@@ -82,10 +83,8 @@ class YuroApp extends StatelessWidget {
         assert(supportedLocales.isNotEmpty);
 
   @override
-  Widget build(BuildContext context) => YuroBuilder<YuroAppController>(init: Yuro.app, builder: (_) => _build(_));
-
-  Widget _build(YuroAppController controller) {
-    controller.globalTransition = globalTransition;
+  Widget build(BuildContext context) {
+    Yuro.app.globalTransition = globalTransition;
     final routerDelegate = Yuro.createRouterDelegate(
       pages: pages,
       unknownPage: unknownPage,
@@ -93,47 +92,50 @@ class YuroApp extends StatelessWidget {
       navigatorObservers: navigatorObservers,
     );
     final routerParser = Yuro.createRouteParser(initialRoute);
-    return MaterialApp.router(
-      key: controller.uniqueKey,
-      scaffoldMessengerKey: scaffoldMessengerKey,
-      //
-      routeInformationProvider: routeInformationProvider,
-      routeInformationParser: routerParser,
-      routerDelegate: routerDelegate,
-      backButtonDispatcher: backButtonDispatcher,
-      //
-      builder: (context, child) => DismissKeyBoard(child: builder?.call(context, child) ?? child),
-      title: title,
-      onGenerateTitle: onGenerateTitle,
-      color: color,
-      //
-      theme: controller.lightTheme,
-      darkTheme: controller.darkTheme,
-      highContrastTheme: controller.highContrastTheme,
-      highContrastDarkTheme: controller.highContrastDarkTheme,
-      themeMode: controller.themeMode,
-      //
-      locale: controller.locale,
-      localizationsDelegates: [
-        ...localizationsDelegates,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      localeResolutionCallback: localeResolutionCallback,
-      localeListResolutionCallback: localeListResolutionCallback,
-      supportedLocales: supportedLocales,
-      //
-      showPerformanceOverlay: showPerformanceOverlay,
-      debugShowMaterialGrid: debugShowMaterialGrid,
-      checkerboardRasterCacheImages: checkerboardRasterCacheImages,
-      checkerboardOffscreenLayers: checkerboardOffscreenLayers,
-      showSemanticsDebugger: showSemanticsDebugger,
-      debugShowCheckedModeBanner: debugShowCheckedModeBanner,
-      shortcuts: shortcuts,
-      actions: actions,
-      restorationScopeId: restorationScopeId,
-      useInheritedMediaQuery: useInheritedMediaQuery,
-    );
+
+    return Binder<YuroAppController>(
+        init: () => Yuro.app,
+        child: MaterialApp.router(
+          key: Yuro.app.uniqueKey,
+          scaffoldMessengerKey: scaffoldMessengerKey,
+          //
+          routeInformationProvider: routeInformationProvider,
+          routeInformationParser: routerParser,
+          routerDelegate: routerDelegate,
+          backButtonDispatcher: backButtonDispatcher,
+          //
+          builder: (context, child) => DismissKeyBoard(child: builder?.call(context, child) ?? child),
+          title: title,
+          onGenerateTitle: onGenerateTitle,
+          color: color,
+          //
+          theme: Yuro.app.lightTheme,
+          darkTheme: Yuro.app.darkTheme,
+          highContrastTheme: Yuro.app.highContrastTheme,
+          highContrastDarkTheme: Yuro.app.highContrastDarkTheme,
+          themeMode: Yuro.app.themeMode,
+          //
+          locale: Yuro.app.locale,
+          localizationsDelegates: [
+            ...localizationsDelegates,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          localeResolutionCallback: localeResolutionCallback,
+          localeListResolutionCallback: localeListResolutionCallback,
+          supportedLocales: supportedLocales,
+          //
+          showPerformanceOverlay: showPerformanceOverlay,
+          debugShowMaterialGrid: debugShowMaterialGrid,
+          checkerboardRasterCacheImages: checkerboardRasterCacheImages,
+          checkerboardOffscreenLayers: checkerboardOffscreenLayers,
+          showSemanticsDebugger: showSemanticsDebugger,
+          debugShowCheckedModeBanner: debugShowCheckedModeBanner,
+          shortcuts: shortcuts,
+          actions: actions,
+          restorationScopeId: restorationScopeId,
+          useInheritedMediaQuery: useInheritedMediaQuery,
+        ));
   }
 }

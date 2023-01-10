@@ -58,21 +58,6 @@ extension YuroRouterExt on YuroInterface {
         navigatorObservers: navigatorObservers,
       );
 
-  /// 获取单个路径参数
-  String? param(String key) => params()[key];
-
-  /// 获取路径参数表
-  Map<String, String> params() => routeDelegate.params();
-
-  /// 获取单个路由参数
-  String? queryParam(String key) => queryParams()[key];
-
-  /// 获取路由参数表
-  Map<String, String> queryParams() => routeDelegate.queryParams();
-
-  /// 获取页面传参
-  T? arguments<T>() => routeDelegate.arguments<T>();
-
   String _buildNewName(String name, Map<String, String>? parameters) {
     return (parameters.isNullOrEmpty ? Uri(path: name) : Uri(path: name, queryParameters: parameters)).toString();
   }

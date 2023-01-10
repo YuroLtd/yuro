@@ -27,7 +27,7 @@ class Binder<T> extends InheritedWidget {
 }
 
 class BinderElement<T> extends InheritedElement {
-  BinderElement(Binder<T> widget) : super(widget) {
+  BinderElement(super.widget) {
     initState();
   }
 

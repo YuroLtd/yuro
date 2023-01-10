@@ -1,9 +1,3 @@
-import 'package:collection/collection.dart';
-
-extension IterableExt<T> on Iterable<T> {
-  bool equals(Iterable<T> other) => const DeepCollectionEquality().equals(this, other);
-}
-
 extension ListExt<T> on List<T> {
   List<T> reverse() => reversed.toList();
 }
@@ -11,7 +5,7 @@ extension ListExt<T> on List<T> {
 extension NullListExt<T> on List<T>? {
   bool get isNullOrEmpty => this == null || this!.isEmpty;
 
-  bool get notNullOrEmpty => !isNullOrEmpty;
+  bool get notNullOrEmpty => this != null && this!.isNotEmpty;
 
   List<T>? merge(List<T>? other) {
     if (other.notNullOrEmpty) {

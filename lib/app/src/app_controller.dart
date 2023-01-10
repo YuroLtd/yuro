@@ -13,7 +13,7 @@ extension YuroAppExt on YuroInterface {
   }
 }
 
-class YuroAppController extends YuroController with WidgetsBindingObserver {
+class YuroAppController extends BaseController with WidgetsBindingObserver {
   //
   UniqueKey? _uniqueKey;
 
