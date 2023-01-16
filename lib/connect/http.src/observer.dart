@@ -29,22 +29,25 @@ class Observer<T> {
   late final VoidCallback? _onDoneFunc;
   late final bool _loadingShow;
 
+  ///
+  /// [delay] 延迟请求
   void listen({
     required ValueSetter<T> onData,
     ValueSetter<String>? onError,
     VoidCallback? onDone,
-    bool loadingShow = false,
-    Widget? loadingWidget,
-  }) {
+    Widget? loading,
+    Duration delay = const Duration(seconds: 1),
+  }) async {
     _onDataFunc = onData;
     _onErrorFunc = onError;
     _onDoneFunc = onDone;
-    _loadingShow = loadingShow;
-    if (loadingShow) {
-      // 如果[loadingWidget]不为空,认为切换显示Widget,则先dismiss后显示
-      if (loadingWidget.notNull) Yuro.dismissLoading();
-      Yuro.showLoading(child: loadingWidget, onDismiss: cancel);
+
+    _loadingShow = loading.notNull;
+    if (loading.notNull) {
+      Yuro.dismissLoading();
+      Yuro.showLoading(child: loading, onDismiss: cancel);
     }
+    await Future.delayed(delay);
     _subscription = Stream<T>.fromFuture(_fetchData).listen(
       (event) => _onData(event),
       onError: (err, stackTrace) => _onError(err, stackTrace),

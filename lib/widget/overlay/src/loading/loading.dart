@@ -16,8 +16,15 @@ class PlatformLoading extends StatelessWidget {
     if (Yuro.isMacOS || Yuro.isIOS) {
       indicator = const CupertinoActivityIndicator();
     } else {
-      indicator = const CircularProgressIndicator(strokeWidth: 3);
+      indicator = const CircularProgressIndicator(strokeWidth: 3,color: Colors.white);
     }
-    return SizedBox.fromSize(size: Size.fromRadius(radius), child: indicator);
+    return Container(
+      padding: EdgeInsets.all(radius),
+      decoration: BoxDecoration(
+        color: Colors.black45,
+        borderRadius: BorderRadius.circular(radius/2),
+      ),
+      child: SizedBox.fromSize(size: Size.fromRadius(radius), child: indicator),
+    );
   }
 }
