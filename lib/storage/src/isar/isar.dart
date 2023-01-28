@@ -22,10 +22,46 @@ extension IsarExt on Isar {
 }
 
 extension YuroIsarExt on YuroInterface {
+  Isar openIsarSync(
+    List<CollectionSchema<dynamic>> schemas, {
+    String? directory,
+    String name = Isar.defaultName,
+    int maxSizeMiB = Isar.defaultMaxSizeMiB,
+    bool relaxedDurability = true,
+    CompactCondition? compactOnLaunch,
+    bool inspector = true,
+  }) =>
+      Isar.openSync(
+        schemas,
+        directory: directory,
+        name: name,
+        maxSizeMiB: maxSizeMiB,
+        relaxedDurability: relaxedDurability,
+        inspector: inspector,
+      );
+
+  Future<Isar> openIsar(
+    List<CollectionSchema<dynamic>> schemas, {
+    String? directory,
+    String name = Isar.defaultName,
+    int maxSizeMiB = Isar.defaultMaxSizeMiB,
+    bool relaxedDurability = true,
+    CompactCondition? compactOnLaunch,
+    bool inspector = true,
+  }) =>
+      Isar.open(
+        schemas,
+        directory: directory,
+        name: name,
+        maxSizeMiB: maxSizeMiB,
+        relaxedDurability: relaxedDurability,
+        inspector: inspector,
+      );
+
   Isar getIsar([String name = Isar.defaultName]) {
     final isar = Isar.getInstance(name);
     if (isar == null) {
-      throw IsarError('Instance does not exist. Open an instance of Isar using Isar.open() or Isar.openSync()');
+      throw IsarError('Instance does not exist. Open an instance of Isar using Yuro.openIsar() or Yuro.openIsarSync()');
     }
     return isar;
   }

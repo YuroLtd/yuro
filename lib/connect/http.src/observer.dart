@@ -36,7 +36,7 @@ class Observer<T> {
     ValueSetter<String>? onError,
     VoidCallback? onDone,
     Widget? loading,
-    Duration delay = const Duration(seconds: 1),
+    Duration delay = const Duration(milliseconds: 500),
   }) async {
     _onDataFunc = onData;
     _onErrorFunc = onError;

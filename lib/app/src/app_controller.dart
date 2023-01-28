@@ -11,6 +11,8 @@ extension YuroAppExt on YuroInterface {
     final brightness = Theme.of(Yuro.currentContext).brightness;
     return brightness == Brightness.light ? app.lightTheme : app.darkTheme;
   }
+
+  ColorScheme get colorScheme => theme.colorScheme;
 }
 
 class YuroAppController extends BaseController with WidgetsBindingObserver {
