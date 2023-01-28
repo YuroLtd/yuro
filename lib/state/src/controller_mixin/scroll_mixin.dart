@@ -26,6 +26,8 @@ mixin ScrollMixin on YuroController {
     }
   }
 
+  Future<void> onRefresh();
+
   void loadMore();
 
   @override

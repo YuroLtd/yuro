@@ -13,7 +13,7 @@ String get uuid4 => _uuid.v4();
 extension CryptoExt on String {
   String uuid5([String namespace = Uuid.NAMESPACE_URL]) => _uuid.v5(namespace, this);
 
-  String toMd5([String salt = '']) => hex.encode(md5.convert(utf8.encode('${this}$salt')).bytes);
+  String toMd5([String salt = '']) => hex.encode(md5.convert(utf8.encode('$this$salt')).bytes);
 
   String toSha1() => hex.encode(sha1.convert(utf8.encode(this)).bytes);
 
