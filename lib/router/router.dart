@@ -244,10 +244,63 @@ extension YuroRouterExt on YuroInterface {
     routeDelegate.popUntil(predicate);
   }
 
-  /// 弹出当前页面后推送新的命名路由
-  Future<R?> popAndPushNamed<T, R>(String name, {T? result, Object? arguments}) {
-    return routeDelegate.popAndPushNamed<T, R>(name, result: result, arguments: arguments);
+  Future<R?> popAndPush<T, R>(
+    PageBuilder builder, {
+    T? result,
+    String? name,
+    Map<String, String>? parameters,
+    Object? arguments,
+    List<Middleware>? middlewares,
+    String? restorationId,
+    bool? maintainState,
+    bool? fullscreenDialog,
+    Color? barrierColor,
+    String? barrierLabel,
+    Duration? transitionDuration,
+    Duration? reverseTransitionDuration,
+    bool? opaque,
+    bool? barrierDismissible,
+  }) async {
+    name = _cleanRouteName(name ?? '/${builder.runtimeType}');
+    final page = YuroPage(
+      name: name,
+      builder: builder,
+      arguments: arguments,
+      middlewares: middlewares,
+      restorationId: restorationId,
+      maintainState: maintainState ?? true,
+      fullscreenDialog: fullscreenDialog ?? false,
+      barrierColor: barrierColor,
+      barrierLabel: barrierLabel,
+      transitionDuration: transitionDuration ?? const Duration(milliseconds: 300),
+      reverseTransitionDuration: reverseTransitionDuration ?? const Duration(milliseconds: 300),
+      opaque: opaque ?? true,
+      barrierDismissible: barrierDismissible ?? false,
+    );
+
+    addPage(page);
+    final future = await popAndPushNamed<T, R>(
+      page.name,
+      parameters: parameters,
+      arguments: arguments,
+      result: result,
+    );
+    removePage(page);
+    return future;
   }
+
+  /// 弹出当前页面后推送新的命名路由
+  Future<R?> popAndPushNamed<T, R>(
+    String name, {
+    Map<String, String>? parameters,
+    Object? arguments,
+    T? result,
+  }) =>
+      routeDelegate.popAndPushNamed<T, R>(
+        _buildNewName(name, parameters),
+        result: result,
+        arguments: arguments,
+      );
 
   /// 移除栈中的指定页面
   void removeRoute(PagePredicate predicate) {
