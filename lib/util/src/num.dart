@@ -13,14 +13,13 @@ extension NumExt on num {
     }
   }
 
-  /// 格式化金额
-  String formatMoney([String? unit]) => '${toStringAsFixed(2)}${unit ?? ''}';
-
   /// 格式化为大写人民币
   String formatToRMB([int fixed = 2]) {
     assert(fixed >= 0 && fixed <= 3);
     return MoneyForZh().toChinese(toStringAsFixed(fixed));
   }
+
+  String format({int fixed = 2, String unit = ''}) => '${toStringAsFixed(fixed)}$unit';
 }
 
 extension DurationExt on int {
