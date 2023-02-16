@@ -189,15 +189,10 @@ class YuroRouteDelegate extends RouterDelegate<RouteDecoder>
       return null;
     }
     // 返回数据
-    final completer = _activePages.last.completer;
+    final completer = _activePages.lastWhereOrNull((e) => e.settings?.path == decoder.settings?.path)?.completer;
     if (completer != null && !completer.isCompleted) completer.complete(result);
 
-    bool isSamePage = decoder.settings == _activePages.last.settings;
-    // 如果推入的界面不是最后的界面
-    final future = _push<R>(decoder);
-    if (!isSamePage) _activePages.removeAt(_activePages.length - 2);
-
-    return future;
+    return _push<R>(decoder);
   }
 
   @override

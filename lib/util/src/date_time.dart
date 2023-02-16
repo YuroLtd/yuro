@@ -34,6 +34,10 @@ extension DateTimeExt on DateTime {
     const zh = ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日'];
     return zh[weekday - 1];
   }
+
+  DateTime get max => DateTime(year, month, day, 23, 59, 59);
+  
+  DateTime get min => DateTime(year, month, day);
 }
 
 class DateFormats {

@@ -117,6 +117,7 @@ extension YuroRouterExt on YuroInterface {
         arguments: arguments,
       );
 
+  @Deprecated('bug')
   Future<R?> pushReplacement<T, R>(
     PageBuilder builder, {
     T? result,
@@ -161,7 +162,8 @@ extension YuroRouterExt on YuroInterface {
     removePage(page);
     return future;
   }
-
+  
+  @Deprecated('bug')
   Future<R?> pushReplacementNamed<T, R>(
     String name, {
     Map<String, String>? parameters,
