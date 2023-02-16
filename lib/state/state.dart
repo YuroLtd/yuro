@@ -4,6 +4,7 @@ export 'src/listenable/listen_notifier.dart';
 
 export 'src/controller_mixin/scroll_mixin.dart';
 export 'src/controller_mixin/ticker_mixin.dart';
+export 'src/controller_mixin/stream_mixin.dart';
 
 export 'src/obs.dart';
 export 'src/yuro_controller.dart';
