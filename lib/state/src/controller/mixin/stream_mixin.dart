@@ -1,9 +1,4 @@
-import 'dart:async';
-
-import 'package:yuro/core/core.dart';
-import 'package:yuro/util/src/event_bus.dart';
-
-import '../yuro_controller.dart';
+part of '../yuro_controller.dart';
 
 mixin StreamMixin on YuroController {
   late final StreamSubscription _subscription;

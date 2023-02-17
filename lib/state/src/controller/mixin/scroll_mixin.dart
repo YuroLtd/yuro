@@ -1,6 +1,4 @@
-import 'package:flutter/widgets.dart';
-
-import '../yuro_controller.dart';
+part of '../yuro_controller.dart';
 
 mixin ScrollMixin on YuroController {
   final ScrollController _scrollController = ScrollController();

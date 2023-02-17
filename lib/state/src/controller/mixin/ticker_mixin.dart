@@ -1,8 +1,4 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter/widgets.dart';
-
-import '../yuro_controller.dart';
+part of '../yuro_controller.dart';
 
 mixin SingleTickerMixin on YuroController implements TickerProvider {
   Ticker? _ticker;

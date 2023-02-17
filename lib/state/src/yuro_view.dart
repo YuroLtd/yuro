@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'binder/binder.dart';
-import 'yuro_controller.dart';
+import 'controller/yuro_controller.dart';
 
 abstract class YuroView<T extends YuroController> extends StatelessWidget {
   const YuroView({super.key});

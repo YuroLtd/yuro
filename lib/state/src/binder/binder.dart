@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:yuro/core/core.dart';
 import 'package:yuro/instance/instance.dart';
 
-import '../controller_mixin/ticker_mixin.dart';
+import '../controller/yuro_controller.dart';
+
 
 typedef InitialBuilder<T> = T Function();
 
