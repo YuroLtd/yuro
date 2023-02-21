@@ -28,7 +28,7 @@ class RouteDecoder {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-    return other is RouteDecoder ? other.page == page && other.arguments == arguments : false;
+    return other is RouteDecoder ? other.settings == settings : false;
   }
 }
 

@@ -18,6 +18,7 @@ export 'src/route_decoder.dart';
 export 'src/route_delegate.dart';
 export 'src/route_parser.dart';
 export 'src/route_tree.dart';
+export 'src/page_observer.dart';
 
 extension YuroRouterExt on YuroInterface {
   static final _routeTree = RouteTree();
