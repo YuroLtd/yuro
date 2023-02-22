@@ -22,8 +22,8 @@ extension IsarExt on Isar {
 }
 
 extension YuroIsarExt on YuroInterface {
-  Isar openIsarSync(
-    List<CollectionSchema<dynamic>> schemas, {
+  Isar openIsarSync({
+    required List<CollectionSchema<dynamic>> schemas,
     String? directory,
     String name = Isar.defaultName,
     int maxSizeMiB = Isar.defaultMaxSizeMiB,
@@ -40,8 +40,8 @@ extension YuroIsarExt on YuroInterface {
         inspector: inspector,
       );
 
-  Future<Isar> openIsar(
-    List<CollectionSchema<dynamic>> schemas, {
+  Future<Isar> openIsar({
+    required List<CollectionSchema<dynamic>> schemas,
     String? directory,
     String name = Isar.defaultName,
     int maxSizeMiB = Isar.defaultMaxSizeMiB,
