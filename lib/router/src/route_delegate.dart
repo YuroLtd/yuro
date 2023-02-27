@@ -7,8 +7,6 @@ import 'package:yuro/router/router.dart';
 import 'package:yuro/util/util.dart';
 import 'package:yuro/widget/overlay/overlay.dart';
 
-import 'page_observer.dart';
-
 mixin RouteDelegateMixin {
   /// 推送命名路由
   Future<T?> pushNamed<T>(String name, {Object? arguments});

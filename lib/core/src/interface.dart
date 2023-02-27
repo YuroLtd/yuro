@@ -1,12 +1,9 @@
 import 'dart:async';
-
-import 'package:flutter/foundation.dart';
-
 import 'logger.dart';
 
 abstract class YuroInterface {
   /// 全局日志开关
-  bool enableLog = kDebugMode;
+  bool enableLog = true;
 
   /// 日志打印过滤等级,默认[info]
   LogLevel logLevel = LogLevel.info;
