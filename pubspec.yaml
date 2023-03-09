@@ -16,7 +16,7 @@ dependencies:
   path: ^1.8.1
   isar: ^3.0.5                  # https://pub.flutter-io.cn/packages/isar
   isar_flutter_libs: ^3.0.5
-  shared_preferences: ^2.0.15   # https://pub.dev/packages/shared_preferences
+  shared_preferences: ^2.0.18   # https://pub.dev/packages/shared_preferences
   path_provider: ^2.0.11        # https://pub.dev/packages/path_provider
   convert: ^3.0.1               # https://pub.dev/packages/convert
   crypto: ^3.0.2                # https://pub.dev/packages/crypto
