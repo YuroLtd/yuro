@@ -15,7 +15,7 @@ typedef YuroAppBuilder = YuroApp Function();
 
 void runYuroApp({
   required YuroAppBuilder builder,
-  VoidCallback? onInit,
+  FutureVoidCallback? onInit,
   Size? uiSize,
   bool? enableLog,
   LogLevel? logLevel,
@@ -29,7 +29,7 @@ void runYuroApp({
   await Yuro.initSharedPreferences();
 
   // 调用自定义初始化方法
-  onInit?.call();
+  await onInit?.call();
 
   Yuro.changeUiSize(uiSize ?? const Size(360, 640));
 
