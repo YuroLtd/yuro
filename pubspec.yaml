@@ -12,7 +12,8 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  collection: ^1.16.0
+  collection: ^1.17.0
+  json_annotation: ^4.8.0
   path: ^1.8.1
   isar: ^3.0.5                  # https://pub.flutter-io.cn/packages/isar
   isar_flutter_libs: ^3.0.5
