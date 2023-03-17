@@ -41,3 +41,42 @@ abstract class YuroController extends BaseController {
   T? arguments<T>() => _decoder?.arguments<T>();
 }
 
+abstract class AppLifecycleController extends YuroController with WidgetsBindingObserver {
+  @override
+  void onInit() {
+    WidgetsBinding.instance.addObserver(this);
+    super.onInit();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    switch (state) {
+      case AppLifecycleState.detached:
+        detached();
+        break;
+      case AppLifecycleState.inactive:
+        inactive();
+        break;
+      case AppLifecycleState.resumed:
+        onResumed();
+        break;
+      case AppLifecycleState.paused:
+        onPaused();
+        break;
+    }
+  }
+
+  @override
+  void onDispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.onDispose();
+  }
+
+  void inactive() {}
+
+  void onResumed() {}
+
+  void onPaused() {}
+
+  void detached() {}
+}

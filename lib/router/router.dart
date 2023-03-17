@@ -164,7 +164,7 @@ extension YuroRouterExt on YuroInterface {
     return future;
   }
   
-  @Deprecated('bug')
+
   Future<R?> pushReplacementNamed<T, R>(
     String name, {
     Map<String, String>? parameters,
