@@ -14,28 +14,28 @@ export 'src/yuro_app.dart';
 typedef YuroAppBuilder = YuroApp Function();
 
 void runYuroApp({
-  required YuroAppBuilder builder,
-  FutureVoidCallback? onInit,
   Size? uiSize,
   bool? enableLog,
   LogLevel? logLevel,
+  FutureVoidCallback? beforeRun,
   FlutterExceptionHandler? onFlutterError,
   ErrorCallback? onPlatformError,
   SystemUiOverlayStyle? systemUiOverlayStyle,
+  required YuroAppBuilder builder,
 }) async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // 初始化SharedPreferences
   await Yuro.initSharedPreferences();
 
-  // 调用自定义初始化方法
-  await onInit?.call();
-
   Yuro.changeUiSize(uiSize ?? const Size(360, 640));
 
   // 初始化日志开关
   if (enableLog != null) Yuro.enableLog = enableLog;
   if (logLevel != null) Yuro.logLevel = logLevel;
+
+  // 调用自定义初始化方法
+  await beforeRun?.call();
 
   // 绑定错误处理
   if (onFlutterError != null) FlutterError.onError = onFlutterError;
