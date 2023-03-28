@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:yuro/core/core.dart';
 
 class Screen {
-  Screen._(double width, double height) {
+  Screen._([double? width, double? height]) {
     final window = MediaQueryData.fromWindow(ui.window);
     _devicePixelRatio = window.devicePixelRatio;
     _textScaleFactor = window.textScaleFactor;
@@ -15,8 +15,8 @@ class Screen {
     _statusBarHeight = window.padding.top;
     _bottomBarHeight = window.padding.bottom;
 
-    _scaleWidth = _width / width;
-    _scaleHeight = _height / height;
+    _scaleWidth = _width / (width ?? _width);
+    _scaleHeight = _height / (height ?? _height);
   }
 
   late final double _devicePixelRatio;
@@ -57,7 +57,7 @@ class Screen {
 }
 
 extension ScreenExt on YuroInterface {
-  static late Screen _instance;
+  static Screen _instance = Screen._();
 
   /// 获取屏幕信息
   Screen get screen => _instance;

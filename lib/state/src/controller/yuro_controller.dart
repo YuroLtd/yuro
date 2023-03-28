@@ -7,17 +7,19 @@ import 'package:yuro/core/core.dart';
 import 'package:yuro/router/router.dart';
 import 'package:yuro/util/util.dart';
 
+
 import '../listenable/listen_notifier.dart';
 
 part 'mixin/scroll_mixin.dart';
 part 'mixin/stream_mixin.dart';
 part 'mixin/ticker_mixin.dart';
-part 'mixin/page_mixin.dart';
 
 abstract class BaseController extends ListenNotifier with YuroLifeCycleMixin {}
 
 abstract class YuroController extends BaseController {
   RouteDecoder? _decoder;
+
+  PageSettings? get pageSettings => _decoder?.settings;
 
   @override
   void onInit() {
@@ -39,44 +41,4 @@ abstract class YuroController extends BaseController {
 
   /// 获取顶层页面传参
   T? arguments<T>() => _decoder?.arguments<T>();
-}
-
-abstract class AppLifecycleController extends YuroController with WidgetsBindingObserver {
-  @override
-  void onInit() {
-    WidgetsBinding.instance.addObserver(this);
-    super.onInit();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    switch (state) {
-      case AppLifecycleState.detached:
-        detached();
-        break;
-      case AppLifecycleState.inactive:
-        inactive();
-        break;
-      case AppLifecycleState.resumed:
-        onResumed();
-        break;
-      case AppLifecycleState.paused:
-        onPaused();
-        break;
-    }
-  }
-
-  @override
-  void onDispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    super.onDispose();
-  }
-
-  void inactive() {}
-
-  void onResumed() {}
-
-  void onPaused() {}
-
-  void detached() {}
 }

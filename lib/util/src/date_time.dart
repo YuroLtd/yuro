@@ -2,6 +2,7 @@
 
 import 'package:yuro/core/core.dart';
 import 'package:intl/intl.dart';
+import 'package:yuro/util/util.dart';
 
 extension DateTimeForYuroExt on YuroInterface {
   DateTime get currentDateTime => DateTime.now();
@@ -14,9 +15,9 @@ extension DateTimeForIntExt on int {
 }
 
 extension DateTimeForStringExt on String {
-  DateTime? toDateTime(DateFormat df, [bool utc = false]) {
+  DateTime? toDateTime([DateFormat? df, bool utc = false]) {
     try {
-      return df.parse(this, utc);
+      return df.isNull ? DateTime.tryParse(this) : df!.parse(this, utc);
     } catch (e) {
       return null;
     }
@@ -24,7 +25,7 @@ extension DateTimeForStringExt on String {
 }
 
 extension DateTimeExt on DateTime {
-  String format(DateFormat df) => df.format(this);
+  String format([DateFormat? df]) => (df ?? DateFormats.datetime()).format(this);
 
   Duration intervalNow() => difference(Yuro.currentDateTime);
 
@@ -45,4 +46,10 @@ extension DateTimeExt on DateTime {
   DateTime get max => DateTime(year, month, day, 23, 59, 59);
 
   DateTime get min => DateTime(year, month, day);
+}
+
+abstract class DateFormats {
+  static DateFormat date() => DateFormat('yyyy-MM-dd');
+  static DateFormat time() => DateFormat('HH:mm:ss');
+  static DateFormat datetime() => DateFormat('yyyy-MM-dd HH:mm:ss');
 }

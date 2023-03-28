@@ -1,6 +1,6 @@
 name: yuro
 description: Yuro package.
-version: 1.0.0
+version: 1.0.1
 homepage: https://github.com/YuroLtd/yuro
 
 environment:
@@ -22,7 +22,7 @@ dependencies:
   convert: ^3.0.1               # https://pub.dev/packages/convert
   crypto: ^3.0.2                # https://pub.dev/packages/crypto
   uuid: ^3.0.6
-  dio: ^4.0.6                   # https://pub.dev/packages/dio
+  dio: ^5.1.0                   # https://pub.dev/packages/dio
   equatable: ^2.0.3             # https://pub.dev/packages/equatable
   buffer: ^1.1.1                # https://pub.dev/packages/buffer
   crclib: ^3.0.0                # https://pub.dev/packages/crclib

@@ -1,9 +1,10 @@
 import 'dart:io';
 
-import 'package:dio/adapter.dart';
-import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' ;
+import 'package:dio/io.dart';
 import 'package:yuro/state/state.dart';
 import 'package:yuro/util/src/string.dart';
+
 
 abstract class HttpService extends YuroService {
   // ignore: prefer_final_fields
@@ -17,79 +18,47 @@ mixin HttpServiceMixin on HttpService {
     _dio.options.baseUrl = url;
   }
 
-  set connectTimeout(Duration timeout) {
-    _dio.options.connectTimeout = timeout.inMilliseconds;
-  }
+  set connectTimeout(Duration timeout) => _dio.options.connectTimeout = timeout;
 
-  set receiveTimeout(Duration timeout) {
-    _dio.options.receiveTimeout = timeout.inMilliseconds;
-  }
+  set receiveTimeout(Duration timeout) => _dio.options.receiveTimeout = timeout;
 
-  set sendTimeout(Duration timeout) {
-    _dio.options.sendTimeout = timeout.inMilliseconds;
-  }
+  set sendTimeout(Duration timeout) => _dio.options.sendTimeout = timeout;
 
-  set contentType(String contentType) {
-    _dio.options.contentType = contentType;
-  }
+  set contentType(String contentType) => _dio.options.contentType = contentType;
 
-  set responseType(ResponseType type) {
-    _dio.options.responseType = type;
-  }
+  set responseType(ResponseType type) => _dio.options.responseType = type;
 
-  set headers(Map<String, dynamic> headers) {
-    _dio.options.headers.addAll(headers);
-  }
+  set headers(Map<String, dynamic> headers) => _dio.options.headers.addAll(headers);
 
-  set queryParameters(Map<String, dynamic> parameters) {
-    _dio.options.queryParameters.addAll(parameters);
-  }
+  set queryParameters(Map<String, dynamic> parameters) => _dio.options.queryParameters.addAll(parameters);
 
-  set extras(Map<String, dynamic> extras) {
-    _dio.options.extra.addAll(extras);
-  }
+  set extras(Map<String, dynamic> extras) => _dio.options.extra.addAll(extras);
 
-  set validateStatus(ValidateStatus validateStatus) {
-    _dio.options.validateStatus = validateStatus;
-  }
+  set validateStatus(ValidateStatus validateStatus) => _dio.options.validateStatus = validateStatus;
 
-  set receiveDataWhenStatusError(bool receiveDataWhenStatusError) {
-    _dio.options.receiveDataWhenStatusError = receiveDataWhenStatusError;
-  }
+  set receiveDataWhenStatusError(bool receiveDataWhenStatusError) => _dio.options.receiveDataWhenStatusError = receiveDataWhenStatusError;
 
-  set followRedirects(bool followRedirects) {
-    _dio.options.followRedirects = followRedirects;
-  }
+  set followRedirects(bool followRedirects) => _dio.options.followRedirects = followRedirects;
 
-  set maxRedirects(int maxRedirects) {
-    _dio.options.maxRedirects = maxRedirects;
-  }
+  set maxRedirects(int maxRedirects) => _dio.options.maxRedirects = maxRedirects;
 
-  set requestEncoder(RequestEncoder requestEncoder) {
-    _dio.options.requestEncoder = requestEncoder;
-  }
+  set requestEncoder(RequestEncoder requestEncoder) => _dio.options.requestEncoder = requestEncoder;
 
-  set responseDecoder(ResponseDecoder responseDecoder) {
-    _dio.options.responseDecoder = responseDecoder;
-  }
+  set responseDecoder(ResponseDecoder responseDecoder) => _dio.options.responseDecoder = responseDecoder;
 
-  void addInterceptor(Interceptor interceptor) {
-    _dio.interceptors.add(interceptor);
-  }
+  void addInterceptor(Interceptor interceptor) => _dio.interceptors.add(interceptor);
 
-  void addInterceptors(List<Interceptor> list) {
-    _dio.interceptors.addAll(list);
-  }
+  void addInterceptors(List<Interceptor> list) => _dio.interceptors.addAll(list);
 
   void setCertificate(String pem) {
-    (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
+    (_dio.httpClientAdapter as IOHttpClientAdapter).onHttpClientCreate = (client) {
       client.badCertificateCallback = (cert, host, port) => cert.pem == pem;
       return client;
     };
   }
 
   void setCertificateFile(File file) {
-    (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
+    (_dio.httpClientAdapter as IOHttpClientAdapter).onHttpClientCreate = (client) {
       return HttpClient(context: SecurityContext()..setTrustedCertificates(file.path));
     };
   }
@@ -97,7 +66,7 @@ mixin HttpServiceMixin on HttpService {
   /// eg. 192.168.0.1:8888
   set httpProxy(String? proxy) {
     if (proxy.isNullOrBlank) return;
-    (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
+    (_dio.httpClientAdapter as IOHttpClientAdapter).onHttpClientCreate = (client) {
       client.findProxy = (uri) => "PROXY $proxy";
       return client;
     };

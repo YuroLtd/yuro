@@ -15,8 +15,6 @@ typedef YuroAppBuilder = YuroApp Function();
 
 void runYuroApp({
   Size? uiSize,
-  bool? enableLog,
-  LogLevel? logLevel,
   FutureVoidCallback? beforeRun,
   FlutterExceptionHandler? onFlutterError,
   ErrorCallback? onPlatformError,
@@ -28,11 +26,8 @@ void runYuroApp({
   // 初始化SharedPreferences
   await Yuro.initSharedPreferences();
 
-  Yuro.changeUiSize(uiSize ?? const Size(360, 640));
-
-  // 初始化日志开关
-  if (enableLog != null) Yuro.enableLog = enableLog;
-  if (logLevel != null) Yuro.logLevel = logLevel;
+  // 修改设计图尺寸
+  if (uiSize.notNull) Yuro.changeUiSize(uiSize!);
 
   // 调用自定义初始化方法
   await beforeRun?.call();
@@ -42,7 +37,7 @@ void runYuroApp({
   if (onPlatformError != null) PlatformDispatcher.instance.onError = onPlatformError;
 
   // 状态栏配置
-  if (systemUiOverlayStyle != null) SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+  SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle ?? const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
 
   // 启动应用
   runApp(builder.call());

@@ -3,7 +3,6 @@ import 'package:flutter/widgets.dart';
 import 'package:yuro/core/core.dart';
 import 'package:yuro/router/router.dart';
 
-
 // 路由中间件,负责路由拦截和重定向
 // 完整的生命周期为:
 //  pageCalled >> redirect >> onPageBuildStart >> onPageBuildEnd >> onPageDispose
@@ -39,7 +38,7 @@ class MiddlewareRunner {
   }
 
   late final List<Middleware> middlewares;
-  late final _logger = Logger('MiddlewareRunner');
+  late final _logger = Yuro.tag('MiddlewareRunner');
 
   RouteSettings? runRedirect(String route) {
     _logger.i('[Redirect] $route');
