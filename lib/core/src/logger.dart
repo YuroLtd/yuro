@@ -79,7 +79,7 @@ class Logger {
   void _log(LogLevel logLevel, dynamic message, dynamic extra) {
     final record = LogInfo(tag, logLevel, message, extra);
     // ignore: avoid_print
-    if (logLevel.code > level.code) record.format().forEach(print);
+    if (logLevel.code >= level.code) record.format().forEach(print);
   }
 }
 

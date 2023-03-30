@@ -12,6 +12,8 @@ class Screen {
     _width = window.size.width;
     _height = window.size.height;
 
+    _orientation = _width > _height ? Orientation.landscape : Orientation.portrait;
+
     _statusBarHeight = window.padding.top;
     _bottomBarHeight = window.padding.bottom;
 
@@ -24,6 +26,7 @@ class Screen {
 
   late final double _width;
   late final double _height;
+  late final Orientation _orientation;
 
   late final double _statusBarHeight;
   late final double _bottomBarHeight;
@@ -36,6 +39,9 @@ class Screen {
 
   /// 屏幕高度
   double get height => _height;
+
+  /// 屏幕方向
+  Orientation get orientation => _orientation;
 
   /// 屏幕像素密度
   double get devicePixelRatio => _devicePixelRatio;
