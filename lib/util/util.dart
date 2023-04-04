@@ -16,5 +16,5 @@ export 'src/convert.dart';
 export 'src/worker.dart';
 export 'src/yuro.dart';
 
+export 'package:equatable/equatable.dart';
 export 'package:collection/collection.dart';
-export 'package:json_annotation/json_annotation.dart';

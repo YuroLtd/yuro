@@ -10,5 +10,4 @@ export 'package:yuro/util/util.dart';
 export 'package:yuro/widget/widget.dart';
 export 'package:yuro/instance/instance.dart';
 
-export 'package:equatable/equatable.dart';
 export 'package:intl/intl.dart';

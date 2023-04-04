@@ -1,7 +1,7 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
 import 'package:yuro/core/core.dart';
-import 'package:yuro/util/util.dart';
 
 extension EventBusExt on YuroInterface {
   Stream<T> stream<T>() => Yuro.eventBus.stream.where((event) => event is T).cast<T>();
