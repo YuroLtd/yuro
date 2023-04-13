@@ -10,24 +10,20 @@ mixin YuroLifeCycleMixin {
 
   bool get destroyed => _destroyed;
 
-  @nonVirtual
-  void onCreate() {
+  @mustCallSuper
+  void onInit() {
     if (_initialized) return;
+    _initialized = true;
     onInit();
     SchedulerBinding.instance.addPostFrameCallback((_) => onReady());
-    _initialized = true;
   }
-
-  @nonVirtual
-  void onDestroy() {
-    if (_destroyed) return;
-    onDispose();
-    _destroyed = true;
-  }
-
-  void onInit() {}
 
   void onReady() {}
 
-  void onDispose() {}
+  @mustCallSuper
+  void onDispose() {
+    if (_destroyed) return;
+    _destroyed = true;
+    onDispose();
+  }
 }

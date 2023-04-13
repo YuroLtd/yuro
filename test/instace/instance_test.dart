@@ -22,6 +22,7 @@ class Counter extends DisposableController {
 
   @override
   void onInit() {
+    super.onInit();
     debugPrint('Counter onInit()');
     init++;
   }
@@ -30,6 +31,7 @@ class Counter extends DisposableController {
   void onDispose() {
     debugPrint('Counter dispose()');
     disposed++;
+    super.onDispose();
   }
 
   void increment() {

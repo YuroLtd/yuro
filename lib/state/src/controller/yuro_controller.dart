@@ -21,8 +21,8 @@ abstract class YuroController extends BaseController {
 
   @override
   void onInit() {
-    _decoder = Yuro.routeDelegate.currentConfiguration;
     super.onInit();
+    _decoder = Yuro.routeDelegate.currentConfiguration;
   }
 
   /// 获取顶层页面的单个路径参数
