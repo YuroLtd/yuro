@@ -1,4 +1,8 @@
 class MoneyForZh {
+  static MoneyForZh? _instance;
+
+  factory MoneyForZh() => _instance ??= MoneyForZh._();
+
   // 大写数字
   static const List<String> _zhNumber = ['零', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖'];
 
@@ -7,6 +11,8 @@ class MoneyForZh {
 
   // 小数部分的单位
   static const List<String> _decimal = ['角', '分', '厘'];
+
+  MoneyForZh._();
 
   //转成中文的大写金额
   String toChinese(String str) {
@@ -74,7 +80,7 @@ class MoneyForZh {
   }
 
   // 将整数部分转为大写的金额
-  String _getChineseInteger(var integers, bool isWan) {
+  String _getChineseInteger(List<int> integers, bool isWan) {
     StringBuffer chineseInteger = StringBuffer('');
     int length = integers.length;
     for (int i = 0; i < length; i++) {
@@ -106,11 +112,10 @@ class MoneyForZh {
   }
 
   // 将小数部分转为大写的金额
-  String _getChineseDecimal(var decimals) {
+  String _getChineseDecimal(List<int> decimals) {
     StringBuffer chineseDecimal = StringBuffer('');
     for (int i = 0; i < decimals.length; i++) {
-      if (i == 3) break;
-      chineseDecimal.write(decimals[i] == 0 ? '' : (_zhNumber[decimals[i]] + _decimal[i]));
+      chineseDecimal.write(_zhNumber[decimals[i]] + _decimal[i]);
     }
     return chineseDecimal.toString();
   }
