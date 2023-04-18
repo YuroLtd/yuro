@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:isar/isar.dart';
 import 'package:yuro/core/core.dart';
+import 'package:yuro/util/src/path_provider.dart';
 
 export 'package:isar/isar.dart';
 
@@ -22,46 +25,30 @@ extension IsarExt on Isar {
 }
 
 extension YuroIsarExt on YuroInterface {
-  Isar openIsarSync({
-    required List<CollectionSchema<dynamic>> schemas,
-    String? directory,
-    String name = Isar.defaultName,
-    int maxSizeMiB = Isar.defaultMaxSizeMiB,
-    bool relaxedDurability = true,
-    CompactCondition? compactOnLaunch,
-    bool inspector = true,
-  }) =>
-      Isar.openSync(
-        schemas,
-        directory: directory,
-        name: name,
-        maxSizeMiB: maxSizeMiB,
-        relaxedDurability: relaxedDurability,
-        inspector: inspector,
-      );
-
   Future<Isar> openIsar({
     required List<CollectionSchema<dynamic>> schemas,
-    String? directory,
+    Directory? directory,
     String name = Isar.defaultName,
     int maxSizeMiB = Isar.defaultMaxSizeMiB,
     bool relaxedDurability = true,
     CompactCondition? compactOnLaunch,
     bool inspector = true,
-  }) =>
-      Isar.open(
-        schemas,
-        directory: directory,
-        name: name,
-        maxSizeMiB: maxSizeMiB,
-        relaxedDurability: relaxedDurability,
-        inspector: inspector,
-      );
+  }) async {
+    directory ??= await Yuro.externalStorageDirectory;
+    return await Isar.open(
+      schemas,
+      directory: directory!.path,
+      name: name,
+      maxSizeMiB: maxSizeMiB,
+      relaxedDurability: relaxedDurability,
+      inspector: inspector,
+    );
+  }
 
   Isar getIsar([String name = Isar.defaultName]) {
     final isar = Isar.getInstance(name);
     if (isar == null) {
-      throw IsarError('Instance does not exist. Open an instance of Isar using Yuro.openIsar() or Yuro.openIsarSync()');
+      throw IsarError('Instance does not exist. Open an instance of Isar using Yuro.openIsar()');
     }
     return isar;
   }
