@@ -34,10 +34,10 @@ extension YuroIsarExt on YuroInterface {
     CompactCondition? compactOnLaunch,
     bool inspector = true,
   }) async {
-    directory ??= await Yuro.externalStorageDirectory;
+    directory ??= await Yuro.applicationSupportDirectory;
     return await Isar.open(
       schemas,
-      directory: directory!.path,
+      directory: directory.path,
       name: name,
       maxSizeMiB: maxSizeMiB,
       relaxedDurability: relaxedDurability,
