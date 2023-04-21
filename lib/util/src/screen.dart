@@ -7,7 +7,6 @@ class Screen {
   Screen._([double? width, double? height]) {
     final window = MediaQueryData.fromWindow(ui.window);
     _devicePixelRatio = window.devicePixelRatio;
-    _textScaleFactor = window.textScaleFactor;
 
     _width = window.size.width;
     _height = window.size.height;
@@ -19,6 +18,8 @@ class Screen {
 
     _scaleWidth = _width / (width ?? _width);
     _scaleHeight = _height / (height ?? _height);
+
+    _textScaleFactor = _scaleWidth;
   }
 
   late final double _devicePixelRatio;
@@ -86,4 +87,6 @@ extension ScreenNumExt on num {
   double get sw => Yuro.screen.width * this;
 
   double get sh => Yuro.screen.height * this;
+
+  double get sp => Yuro.screen.textScaleFactor * this;
 }
