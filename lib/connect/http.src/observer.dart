@@ -5,7 +5,6 @@ import 'package:flutter/widgets.dart';
 import 'package:yuro/core/core.dart';
 import 'package:yuro/state/state.dart';
 import 'package:yuro/widget/widget.dart';
-import 'package:yuro/util/util.dart';
 
 class Observer<T> {
   Observer._(this._fetchData);
@@ -27,7 +26,6 @@ class Observer<T> {
   late final ValueSetter<T> _onDataFunc;
   late final ValueSetter<String>? _onErrorFunc;
   late final VoidCallback? _onDoneFunc;
-  late final bool _loadingShow;
 
   ///
   /// [delay] 延迟请求
@@ -42,8 +40,7 @@ class Observer<T> {
     _onErrorFunc = onError;
     _onDoneFunc = onDone;
 
-    _loadingShow = loading.notNull;
-    if (loading.notNull) {
+    if (loading != null) {
       Yuro.dismissLoading();
       Yuro.showLoading(child: loading, onDismiss: cancel);
     }
@@ -72,7 +69,7 @@ class Observer<T> {
   void _onCompleted() {
     _completed = true;
     _subscription = null;
-    if (_loadingShow) Yuro.dismissLoading();
+    Yuro.dismissLoading();
     _onDoneFunc?.call();
   }
 

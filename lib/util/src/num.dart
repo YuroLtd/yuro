@@ -59,9 +59,3 @@ extension FileSizeExt on int {
 
   int get TB => this * 1024.GB;
 }
-
-extension IntExt on int? {
-  bool get isNull => this == null;
-
-  bool get noNull => this != null;
-}

@@ -27,7 +27,7 @@ void runYuroApp({
   await Yuro.initSharedPreferences();
 
   // 修改设计图尺寸
-  if (uiSize.notNull) Yuro.changeUiSize(uiSize!);
+  if (uiSize != null) Yuro.changeUiSize(uiSize);
 
   // 调用自定义初始化方法
   await beforeRun?.call();

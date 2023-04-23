@@ -42,7 +42,7 @@ extension YuroOverlayExt on YuroInterface {
   }
 
   void showLoading({Widget? child, LoadingTheme? loadingTheme, VoidCallback? onDismiss}) {
-    if (_loadingKey.notNull) return;
+    if (_loadingKey != null) return;
     _loadingKey = showOverlay(
       builder: (_) => child ?? _overlayManager.loadingTheme.child,
       theme: loadingTheme ?? _overlayManager.loadingTheme,
@@ -51,8 +51,8 @@ extension YuroOverlayExt on YuroInterface {
   }
 
   void dismissLoading() {
-    if (_loadingKey.isNull) return;
-    _dismissOverlay(_loadingKey);
+    if (_loadingKey == null) return;
+    dismissOverlay(_loadingKey);
     _loadingKey = null;
   }
 
@@ -83,13 +83,5 @@ extension YuroOverlayExt on YuroInterface {
     return globalKey;
   }
 
-  void dismissOverlay([GlobalKey? key]) {
-    if (_loadingKey.notNull) {
-      dismissLoading();
-    } else {
-      _overlayManager.removeOverlay(key);
-    }
-  }
-
-  void _dismissOverlay([GlobalKey? key]) => _overlayManager.removeOverlay(key);
+  void dismissOverlay([GlobalKey? key]) => _overlayManager.removeOverlay(key);
 }

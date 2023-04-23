@@ -2,7 +2,6 @@
 
 import 'package:yuro/core/core.dart';
 import 'package:intl/intl.dart';
-import 'package:yuro/util/util.dart';
 
 extension DateTimeForYuroExt on YuroInterface {
   DateTime get currentDateTime => DateTime.now();
@@ -17,7 +16,7 @@ extension DateTimeForIntExt on int {
 extension DateTimeForStringExt on String {
   DateTime? toDateTime([DateFormat? df, bool utc = false]) {
     try {
-      return df.isNull ? DateTime.tryParse(this) : df!.parse(this, utc);
+      return df == null ? DateTime.tryParse(this) : df.parse(this, utc);
     } catch (e) {
       return null;
     }
