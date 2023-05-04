@@ -7,11 +7,14 @@ import 'package:yuro/core/core.dart';
 import 'package:yuro/router/router.dart';
 import 'package:yuro/state/src/binder/binder.dart';
 import 'package:yuro/state/state.dart';
+import 'package:yuro/util/src/screen.dart';
 import 'package:yuro/widget/widget.dart';
 
 part 'app_controller.dart';
 
 class YuroApp extends StatelessWidget {
+  final Size? uiSize;
+
   /// 如果使用国际化中的title,需使用[onGenerateTitle],
   final String title;
   final GenerateAppTitle? onGenerateTitle;
@@ -48,6 +51,7 @@ class YuroApp extends StatelessWidget {
 
   YuroApp({
     super.key,
+    this.uiSize,
     //
     this.title = '',
     this.onGenerateTitle,
@@ -104,7 +108,10 @@ class YuroApp extends StatelessWidget {
           routerDelegate: routerDelegate,
           backButtonDispatcher: backButtonDispatcher,
           //
-          builder: (context, child) => DismissKeyBoard(child: builder?.call(context, child) ?? child),
+          builder: (context, child) {
+            Yuro.initScreen(MediaQuery.of(context), uiSize);
+            return DismissKeyBoard(child: builder?.call(context, child) ?? child);
+          },
           title: title,
           onGenerateTitle: onGenerateTitle,
           color: color,
