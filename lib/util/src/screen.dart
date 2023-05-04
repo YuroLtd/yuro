@@ -4,20 +4,22 @@ import 'package:flutter/widgets.dart';
 import 'package:yuro/core/core.dart';
 
 class Screen {
-  Screen._([double? width, double? height]) {
+  static Size? uiSize;
+
+  Screen._() {
     final window = MediaQueryData.fromWindow(ui.window);
     _devicePixelRatio = window.devicePixelRatio;
 
     _width = window.size.width;
     _height = window.size.height;
 
-    _orientation = _width > _height ? Orientation.landscape : Orientation.portrait;
+    _orientation = window.orientation;
 
     _statusBarHeight = window.padding.top;
     _bottomBarHeight = window.padding.bottom;
 
-    _scaleWidth = _width / (width ?? _width);
-    _scaleHeight = _height / (height ?? _height);
+    _scaleWidth = _width / (uiSize?.width ?? _width);
+    _scaleHeight = _height / (uiSize?.height ?? _height);
 
     _textScaleFactor = _scaleWidth;
   }
@@ -41,9 +43,6 @@ class Screen {
   /// 屏幕高度
   double get height => _height;
 
-  /// 屏幕方向
-  Orientation get orientation => _orientation;
-
   /// 屏幕像素密度
   double get devicePixelRatio => _devicePixelRatio;
 
@@ -61,22 +60,25 @@ class Screen {
 
   /// 高度方向适配
   double setHeight(num height) => height * _scaleHeight;
+
+  /// 屏幕方向
+  Orientation get orientation => _orientation;
+
+  /// 是否横屏模式
+  bool get isLandscape => _orientation == Orientation.landscape;
+
+  /// 是否竖屏模式
+  bool get isPortrait => _orientation == Orientation.portrait;
 }
 
 extension ScreenExt on YuroInterface {
-  static Screen _instance = Screen._();
+  static Screen? _instance;
 
   /// 获取屏幕信息
-  Screen get screen => _instance;
+  Screen get screen => _instance ??= Screen._();
 
   /// 修改设计图尺寸
-  void changeUiSize(Size size) => _instance = Screen._(size.width, size.height);
-
-  /// 获取屏幕宽度(dp)
-  double get width => screen.width;
-
-  /// 获取屏幕高度(dp)
-  double get height => screen.height;
+  void changeUiSize(Size? size) => Screen.uiSize = size;
 }
 
 extension ScreenNumExt on num {
