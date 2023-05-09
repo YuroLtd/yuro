@@ -1,4 +1,4 @@
-import 'package:yuro/util/util.dart';
+import 'package:collection/collection.dart';
 
 extension MapExt<K, V> on Map<K, V> {
   void put(K key, V value) => this[key] = value;

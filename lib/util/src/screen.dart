@@ -1,22 +1,30 @@
-import 'dart:ui' as ui show window;
-
 import 'package:flutter/widgets.dart';
 import 'package:yuro/core/core.dart';
 
 class Screen {
-  Screen._(double width, double height) {
-    final window = MediaQueryData.fromWindow(ui.window);
+  Screen._(MediaQueryData window, Size? uiSize) {
     _devicePixelRatio = window.devicePixelRatio;
-    _textScaleFactor = window.textScaleFactor;
 
     _width = window.size.width;
     _height = window.size.height;
 
+    _orientation = window.orientation;
+
     _statusBarHeight = window.padding.top;
     _bottomBarHeight = window.padding.bottom;
 
-    _scaleWidth = _width / width;
-    _scaleHeight = _height / height;
+    if (uiSize != null) {
+      // 如果设计图屏幕方向与实际方向不一致,交换设计尺寸的宽高值
+      final uiOrientation = uiSize.width > uiSize.height ? Orientation.landscape : Orientation.portrait;
+      if (_orientation != uiOrientation) {
+        uiSize = Size(uiSize.height, uiSize.width);
+      }
+    }
+
+    _scaleWidth = _width / (uiSize?.width ?? _width);
+    _scaleHeight = _height / (uiSize?.height ?? _height);
+
+    _textScaleFactor = _scaleWidth;
   }
 
   late final double _devicePixelRatio;
@@ -24,6 +32,7 @@ class Screen {
 
   late final double _width;
   late final double _height;
+  late final Orientation _orientation;
 
   late final double _statusBarHeight;
   late final double _bottomBarHeight;
@@ -54,6 +63,15 @@ class Screen {
 
   /// 高度方向适配
   double setHeight(num height) => height * _scaleHeight;
+
+  /// 屏幕方向
+  Orientation get orientation => _orientation;
+
+  /// 是否横屏模式
+  bool get isLandscape => _orientation == Orientation.landscape;
+
+  /// 是否竖屏模式
+  bool get isPortrait => _orientation == Orientation.portrait;
 }
 
 extension ScreenExt on YuroInterface {
@@ -63,13 +81,7 @@ extension ScreenExt on YuroInterface {
   Screen get screen => _instance;
 
   /// 修改设计图尺寸
-  void changeUiSize(Size size) => _instance = Screen._(size.width, size.height);
-
-  /// 获取屏幕宽度(dp)
-  double get width => screen.width;
-
-  /// 获取屏幕高度(dp)
-  double get height => screen.height;
+  void initScreen(MediaQueryData queryData, Size? uiSize) => _instance = Screen._(queryData, uiSize);
 }
 
 extension ScreenNumExt on num {
@@ -80,4 +92,6 @@ extension ScreenNumExt on num {
   double get sw => Yuro.screen.width * this;
 
   double get sh => Yuro.screen.height * this;
+
+  double get sp => Yuro.screen.textScaleFactor * this;
 }

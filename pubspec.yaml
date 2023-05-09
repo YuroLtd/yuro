@@ -1,10 +1,10 @@
 name: yuro
 description: Yuro package.
-version: 1.0.0
+version: 1.1.0
 homepage: https://github.com/YuroLtd/yuro
 
 environment:
-  sdk: ">=2.17.0 <3.0.0"
+  sdk: '>=2.19.3 <3.0.0'
   flutter: ">=1.17.0"
 
 dependencies:
@@ -12,17 +12,16 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  collection: ^1.16.0
+  collection: ^1.17.0
   path: ^1.8.1
-  isar: ^3.0.5                  # https://pub.flutter-io.cn/packages/isar
-  isar_flutter_libs: ^3.0.5
-  shared_preferences: ^2.0.15   # https://pub.dev/packages/shared_preferences
+  isar: ^3.1.0                  # https://pub.flutter-io.cn/packages/isar
+  isar_flutter_libs: ^3.1.0
+  shared_preferences: ^2.0.18   # https://pub.dev/packages/shared_preferences
   path_provider: ^2.0.11        # https://pub.dev/packages/path_provider
   convert: ^3.0.1               # https://pub.dev/packages/convert
   crypto: ^3.0.2                # https://pub.dev/packages/crypto
   uuid: ^3.0.6
-  dio: ^4.0.6                   # https://pub.dev/packages/dio
-  mqtt_client: ^9.6.8           # https://pub.dev/packages/mqtt_client
+  dio: ^5.1.1                   # https://pub.dev/packages/dio
   equatable: ^2.0.3             # https://pub.dev/packages/equatable
   buffer: ^1.1.1                # https://pub.dev/packages/buffer
   crclib: ^3.0.0                # https://pub.dev/packages/crclib
@@ -33,5 +32,5 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^2.0.0
   build_runner: ^2.2.0
-  isar_generator: ^3.0.5      # https://pub.flutter-io.cn/packages/isar_generator
+  isar_generator: ^3.1.0      # https://pub.flutter-io.cn/packages/isar_generator
 

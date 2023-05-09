@@ -40,7 +40,7 @@ class YuroInstance {
         t = factory.getDependency() as T;
         // 如果实例混入了YuroLifeCycleMixin,则启动生命周期
         if (t is YuroLifeCycleMixin) {
-          t.onCreate();
+          t.$create();
           _logger.v('"$T"${tag != 'null' ? ' with tag "$tag"' : ''} has been initialized.');
         }
         factory.isInit = true;
@@ -98,7 +98,7 @@ class YuroInstance {
     }
 
     if (dependency is YuroLifeCycleMixin) {
-      dependency.onDestroy();
+      dependency.$destroy();
       _logger.v('"$newKey" onDestroy() called.');
     }
     if (factory.keepFactory) {
@@ -138,7 +138,7 @@ class YuroInstance {
       return;
     }
     if (dependency is YuroLifeCycleMixin) {
-      dependency.onDestroy();
+      dependency.$destroy();
       _logger.v('"$newKey" onDestroy() called.');
     }
     factory.dependency = null;

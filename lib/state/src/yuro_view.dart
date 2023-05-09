@@ -32,7 +32,7 @@ abstract class YuroView<T extends YuroController> extends StatelessWidget {
 abstract class YuroKeepAliveView<T extends YuroController> extends StatefulWidget {
   const YuroKeepAliveView({super.key});
 
-  String get tag;
+  String? get tag => null;
 
   T createController();
 
@@ -43,8 +43,7 @@ abstract class YuroKeepAliveView<T extends YuroController> extends StatefulWidge
   _YuroKeepAliveState<T> createState() => _YuroKeepAliveState<T>();
 }
 
-class _YuroKeepAliveState<T extends YuroController> extends State<YuroKeepAliveView<T>>
-    with AutomaticKeepAliveClientMixin {
+class _YuroKeepAliveState<T extends YuroController> extends State<YuroKeepAliveView<T>> with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
 

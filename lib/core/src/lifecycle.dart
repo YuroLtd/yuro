@@ -11,7 +11,7 @@ mixin YuroLifeCycleMixin {
   bool get destroyed => _destroyed;
 
   @nonVirtual
-  void onCreate() {
+  void $create() {
     if (_initialized) return;
     onInit();
     SchedulerBinding.instance.addPostFrameCallback((_) => onReady());
@@ -19,7 +19,7 @@ mixin YuroLifeCycleMixin {
   }
 
   @nonVirtual
-  void onDestroy() {
+  void $destroy() {
     if (_destroyed) return;
     onDispose();
     _destroyed = true;
