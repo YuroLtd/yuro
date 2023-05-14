@@ -47,7 +47,6 @@ class YuroApp extends StatelessWidget {
   final Map<LogicalKeySet, Intent>? shortcuts;
   final Map<Type, Action<Intent>>? actions;
   final String? restorationScopeId;
-  final bool useInheritedMediaQuery;
 
   YuroApp({
     super.key,
@@ -82,7 +81,6 @@ class YuroApp extends StatelessWidget {
     this.shortcuts,
     this.actions,
     this.restorationScopeId,
-    this.useInheritedMediaQuery = false,
   })  : assert(pages.isNotEmpty),
         assert(supportedLocales.isNotEmpty);
 
@@ -142,7 +140,6 @@ class YuroApp extends StatelessWidget {
           shortcuts: shortcuts,
           actions: actions,
           restorationScopeId: restorationScopeId,
-          useInheritedMediaQuery: useInheritedMediaQuery,
         ));
   }
 }
