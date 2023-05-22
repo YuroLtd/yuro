@@ -39,7 +39,3 @@ extension ListIntExt on List<int> {
 
   String toStr() => utf8.decode(this);
 }
-
-extension ObjectExt on Object? {
-  String toJsonStr({Object? Function(dynamic object)? toEncodable}) => json.encode(this, toEncodable: toEncodable);
-}
