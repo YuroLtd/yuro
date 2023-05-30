@@ -1,39 +1,107 @@
-import 'dart:ui';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:yuro/core/core.dart';
-import 'package:yuro/storage/storage.dart';
+import 'package:go_router/go_router.dart';
+import 'package:yuro/core/interface.dart';
 
-import 'src/yuro_app.dart';
+abstract class YuroApp extends StatelessWidget {
+  const YuroApp({
+    super.key,
+    //
+    required this.title,
+    this.onGenerateTitle,
+    this.color,
+    this.builder,
+    //
+    required this.routes,
+    this.observers,
+    this.navigatorKey,
+    this.initialLocation,
+    this.initialExtra,
+    this.refreshListenable,
+    this.redirectLimit = 5,
+    this.routerNeglect = false,
+    this.redirect,
+    this.errorPageBuilder,
+    this.errorBuilder,
+    //
+    this.locale,
+    required this.localizationsDelegates,
+    this.localeListResolutionCallback,
+    this.localeResolutionCallback,
+    required this.supportedLocales,
+    //
+    this.debugShowMaterialGrid = false,
+    this.showPerformanceOverlay = false,
+    this.checkerboardRasterCacheImages = false,
+    this.checkerboardOffscreenLayers = false,
+    this.showSemanticsDebugger = false,
+    this.debugShowCheckedModeBanner = true,
+    this.shortcuts,
+    this.actions,
+    this.restorationScopeId,
+    this.scrollBehavior,
+  });
 
-export 'src/yuro_app.dart';
+  final String title;
+  final GenerateAppTitle? onGenerateTitle;
+  final Color? color;
+  final TransitionBuilder? builder;
 
-typedef YuroAppBuilder = YuroApp Function();
+  final List<RouteBase> routes;
+  final List<NavigatorObserver>? observers;
+  final GlobalKey<NavigatorState>? navigatorKey;
+  final String? initialLocation;
+  final Object? initialExtra;
+  final Listenable? refreshListenable;
+  final int redirectLimit;
+  final bool routerNeglect;
+  final GoRouterRedirect? redirect;
+  final GoRouterPageBuilder? errorPageBuilder;
+  final GoRouterWidgetBuilder? errorBuilder;
 
-void runYuroApp({
-  FutureVoidCallback? beforeRun,
-  FlutterExceptionHandler? onFlutterError,
-  ErrorCallback? onPlatformError,
-  SystemUiOverlayStyle? systemUiOverlayStyle,
-  required YuroAppBuilder builder,
-}) async {
-  WidgetsFlutterBinding.ensureInitialized();
+  final Locale? locale;
+  final Iterable<LocalizationsDelegate<dynamic>> localizationsDelegates;
+  final LocaleListResolutionCallback? localeListResolutionCallback;
+  final LocaleResolutionCallback? localeResolutionCallback;
+  final Iterable<Locale> supportedLocales;
 
-  // 初始化SharedPreferences
-  await Yuro.initSharedPreferences();
+  final bool debugShowMaterialGrid;
+  final bool showPerformanceOverlay;
+  final bool checkerboardRasterCacheImages;
+  final bool checkerboardOffscreenLayers;
+  final bool showSemanticsDebugger;
+  final bool debugShowCheckedModeBanner;
+  final Map<LogicalKeySet, Intent>? shortcuts;
+  final Map<Type, Action<Intent>>? actions;
+  final String? restorationScopeId;
+  final ScrollBehavior? scrollBehavior;
 
-  // 调用自定义初始化方法
-  await beforeRun?.call();
 
-  // 绑定错误处理
-  if (onFlutterError != null) FlutterError.onError = onFlutterError;
-  if (onPlatformError != null) PlatformDispatcher.instance.onError = onPlatformError;
+  /// 构造go_router
+  GoRouter buildRouter() => Yuro.router = GoRouter(
+        routes: routes,
+        errorPageBuilder: errorPageBuilder,
+        errorBuilder: errorBuilder,
+        redirect: redirect,
+        refreshListenable: refreshListenable,
+        redirectLimit: redirectLimit,
+        routerNeglect: routerNeglect,
+        initialLocation: initialLocation,
+        initialExtra: initialExtra,
+        observers: observers,
+        navigatorKey: navigatorKey,
+        debugLogDiagnostics: kDebugMode,
+        restorationScopeId: restorationScopeId,
+      );
 
-  // 状态栏配置
-  SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle ?? const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+  /// 构建App
+  Widget buildApp(BuildContext context);
 
-  // 启动应用
-  runApp(builder.call());
+  // 点击空白处隐藏软键盘
+  Widget transitionBuilder(BuildContext context, Widget? child) => GestureDetector(
+        behavior: HitTestBehavior.translucent,
+        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+        child: builder?.call(context, child) ?? child,
+      );
 }
+

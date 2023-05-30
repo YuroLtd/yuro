@@ -1,11 +1,11 @@
 > yaml配置
 ```yaml
 dependencies:
-  intl: ^0.17.0
+  intl: ^0.18.0
   
 dev_dependencies:
-  build_runner: ^2.2.0
-  isar_generator: ^3.0.2
+  build_runner: ^2.4.4
+  isar_generator: ^3.1.0
 
 flutter_intl:
   enabled: true # Required. Must be set to true to activate the package. Default: false
