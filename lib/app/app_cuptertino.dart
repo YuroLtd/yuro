@@ -7,7 +7,7 @@ class YuroCupertinoApp extends YuroMaterialApp {
   const YuroCupertinoApp({
     super.key,
     //
-    required super.title,
+    super.title,
     super.onGenerateTitle,
     super.color,
     super.builder,
@@ -57,7 +57,7 @@ class YuroCupertinoApp extends YuroMaterialApp {
         theme: context.select<CupertinoViewModel, CupertinoThemeData?>((value) => value.theme),
         //
         builder: transitionBuilder,
-        title: title,
+        title: title ?? '',
         onGenerateTitle: onGenerateTitle,
         color: color,
         //

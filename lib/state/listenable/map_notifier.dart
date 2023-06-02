@@ -1,8 +1,9 @@
 import 'dart:collection';
 
 import 'package:flutter/foundation.dart';
+import 'package:yuro/state/obs.dart';
 
-class MapNotifier<K, V> extends ValueNotifier<Map<K, V>> with MapMixin<K, V> {
+class MapNotifier<K, V> extends ValueNotifier<Map<K, V>> with MapMixin<K, V>, ValueNotifierMixin {
   factory MapNotifier.fromMap(Map<K, V> other) => MapNotifier(Map.from(other));
 
   factory MapNotifier.of(Map<K, V> other) => MapNotifier(Map.of(other));

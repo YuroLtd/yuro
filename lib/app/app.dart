@@ -7,7 +7,7 @@ abstract class YuroApp extends StatelessWidget {
   const YuroApp({
     super.key,
     //
-    required this.title,
+    this.title,
     this.onGenerateTitle,
     this.color,
     this.builder,
@@ -42,7 +42,7 @@ abstract class YuroApp extends StatelessWidget {
     this.scrollBehavior,
   });
 
-  final String title;
+  final String? title;
   final GenerateAppTitle? onGenerateTitle;
   final Color? color;
   final TransitionBuilder? builder;

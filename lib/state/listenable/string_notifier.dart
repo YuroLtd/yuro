@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
+import 'package:yuro/state/obs.dart';
 
-class StringNotifier extends ValueNotifier<String> implements Comparable<String>, Pattern {
+class StringNotifier extends ValueNotifier<String> with ValueNotifierMixin implements Comparable<String>, Pattern {
   StringNotifier(super.value);
 
   @override

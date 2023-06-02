@@ -1,8 +1,9 @@
 import 'dart:collection';
 
 import 'package:flutter/foundation.dart';
+import 'package:yuro/state/obs.dart';
 
-class ListNotifier<T> extends ValueNotifier<List<T>> with ListMixin<T> {
+class ListNotifier<T> extends ValueNotifier<List<T>> with ListMixin<T>, ValueNotifierMixin {
   factory ListNotifier.filled(int length, T fill, {bool growable = false}) {
     return ListNotifier(List.filled(length, fill, growable: growable));
   }

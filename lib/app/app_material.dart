@@ -10,7 +10,7 @@ class YuroMaterialApp extends YuroApp {
     super.key,
     //
     this.scaffoldMessengerKey,
-    required super.title,
+    super.title,
     super.onGenerateTitle,
     super.color,
     super.builder,
@@ -66,7 +66,7 @@ class YuroMaterialApp extends YuroApp {
         routerConfig: buildRouter(),
         //
         builder: transitionBuilder,
-        title: title,
+        title: title ?? '',
         onGenerateTitle: onGenerateTitle,
         color: color,
         //

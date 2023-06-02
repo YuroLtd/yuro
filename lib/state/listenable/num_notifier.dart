@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
+import 'package:yuro/state/obs.dart';
 
-class NumNotifier<T extends num> extends ValueNotifier<T> implements Comparable<T> {
+class NumNotifier<T extends num> extends ValueNotifier<T> with ValueNotifierMixin  implements Comparable<T> {
   NumNotifier(super.value);
 
   @override

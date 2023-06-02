@@ -21,6 +21,7 @@ export 'state/lifecycle.dart';
 export 'state/service.dart';
 export 'state/view.dart';
 export 'state/viewmodel.dart';
+export 'state/obs.dart';
 export 'state/mixin/http_mixin.dart';
 export 'state/mixin/scroll_mixin.dart';
 export 'state/mixin/stream_mixin.dart';

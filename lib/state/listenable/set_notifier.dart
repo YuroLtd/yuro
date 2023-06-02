@@ -1,8 +1,9 @@
 import 'dart:collection';
 
 import 'package:flutter/foundation.dart';
+import 'package:yuro/state/obs.dart';
 
-class SetNotifier<T> extends ValueNotifier<Set<T>> with SetMixin<T> {
+class SetNotifier<T> extends ValueNotifier<Set<T>> with SetMixin<T> , ValueNotifierMixin{
   factory SetNotifier.from(Set<T> other) => SetNotifier(Set.from(other));
 
   factory SetNotifier.of(Set<T> other) => SetNotifier(Set.of(other));

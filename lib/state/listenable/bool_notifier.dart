@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
+import 'package:yuro/state/obs.dart';
 
-class BoolNotifier extends ValueNotifier<bool> {
+class BoolNotifier extends ValueNotifier<bool> with ValueNotifierMixin {
   BoolNotifier(super.value);
 
   bool operator &(bool other) => other && value;
