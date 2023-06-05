@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:yuro/app/viewmodel/material.dart';
+import 'package:yuro/core/interface.dart';
 
 import 'app.dart';
 
 class YuroMaterialApp extends YuroApp {
-  const YuroMaterialApp({
+   const YuroMaterialApp({
     super.key,
     //
     this.scaffoldMessengerKey,
@@ -15,23 +16,19 @@ class YuroMaterialApp extends YuroApp {
     super.color,
     super.builder,
     //
-    required super.routes,
-    super.observers,
-    super.navigatorKey,
-    super.initialLocation,
-    super.initialExtra,
-    super.refreshListenable,
-    super.redirectLimit,
-    super.routerNeglect,
-    super.redirect,
-    super.errorPageBuilder,
-    super.errorBuilder,
-    //
     super.locale,
     required super.localizationsDelegates,
     super.localeListResolutionCallback,
     super.localeResolutionCallback,
     required super.supportedLocales,
+    //
+    this.theme,
+    this.darkTheme,
+    this.highContrastTheme,
+    this.highContrastDarkTheme,
+    this.themeMode = ThemeMode.system,
+    this.themeAnimationDuration = kThemeAnimationDuration,
+    this.themeAnimationCurve = Curves.linear,
     //
     super.debugShowMaterialGrid,
     super.showPerformanceOverlay,
@@ -47,13 +44,13 @@ class YuroMaterialApp extends YuroApp {
 
   final GlobalKey<ScaffoldMessengerState>? scaffoldMessengerKey;
 
-  // ThemeData? theme,
-  // ThemeData? darkTheme,
-  // ThemeData? highContrastTheme,
-  // ThemeData? highContrastDarkTheme,
-  // ThemeMode? themeMode = ThemeMode.system,
-  // Duration themeAnimationDuration = kThemeAnimationDuration,
-  // Curve themeAnimationCurve = Curves.linear,
+  final ThemeData? theme;
+  final ThemeData? darkTheme;
+  final ThemeData? highContrastTheme;
+  final ThemeData? highContrastDarkTheme;
+  final ThemeMode? themeMode;
+  final Duration themeAnimationDuration;
+  final Curve themeAnimationCurve;
 
   @override
   Widget build(BuildContext context) => Provider(create: (_) => MaterialViewModel(), builder: (context, child) => buildApp(context));
@@ -63,20 +60,20 @@ class YuroMaterialApp extends YuroApp {
         key: context.select<MaterialViewModel, UniqueKey?>((value) => value.appKey),
         scaffoldMessengerKey: scaffoldMessengerKey,
         //
-        routerConfig: buildRouter(),
+        routerConfig: Yuro.router,
         //
         builder: transitionBuilder,
         title: title ?? '',
         onGenerateTitle: onGenerateTitle,
         color: color,
         //
-        // theme: ,
-        // darkTheme: ,
-        // highContrastTheme:,
-        // highContrastDarkTheme: ,
-        // themeMode: ,
-        // themeAnimationDuration:
-        // themeAnimationCurve:
+        theme: theme,
+        darkTheme: darkTheme,
+        highContrastTheme: highContrastTheme,
+        highContrastDarkTheme: highContrastDarkTheme,
+        themeMode: themeMode,
+        themeAnimationDuration: themeAnimationDuration,
+        themeAnimationCurve: themeAnimationCurve,
         //
         locale: locale,
         localizationsDelegates: [

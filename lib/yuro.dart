@@ -52,6 +52,7 @@ export 'utils/platform.dart';
 export 'utils/date_time.dart';
 export 'utils/crc.dart';
 export 'utils/worker.dart';
+export 'utils/object.dart';
 
 export 'widgets/keyboard/dismiss_keyboard.dart';
 export 'widgets/keyboard/keyboard_listener.dart';

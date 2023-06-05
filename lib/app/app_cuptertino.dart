@@ -3,7 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:yuro/app/viewmodel/cupertino.dart';
 import 'package:yuro/yuro.dart';
 
-class YuroCupertinoApp extends YuroMaterialApp {
+class YuroCupertinoApp extends YuroApp {
   const YuroCupertinoApp({
     super.key,
     //
@@ -11,18 +11,6 @@ class YuroCupertinoApp extends YuroMaterialApp {
     super.onGenerateTitle,
     super.color,
     super.builder,
-    //
-    required super.routes,
-    super.observers,
-    super.navigatorKey,
-    super.initialLocation,
-    super.initialExtra,
-    super.refreshListenable,
-    super.redirectLimit,
-    super.routerNeglect,
-    super.redirect,
-    super.errorPageBuilder,
-    super.errorBuilder,
     //
     this.theme,
     //
@@ -53,7 +41,7 @@ class YuroCupertinoApp extends YuroMaterialApp {
   Widget buildApp(BuildContext context) => CupertinoApp.router(
         key: context.select<CupertinoViewModel, UniqueKey?>((value) => value.appKey),
         //
-        routerConfig: buildRouter(),
+        routerConfig: Yuro.router,
         theme: context.select<CupertinoViewModel, CupertinoThemeData?>((value) => value.theme),
         //
         builder: transitionBuilder,
@@ -71,6 +59,7 @@ class YuroCupertinoApp extends YuroMaterialApp {
         localeResolutionCallback: localeResolutionCallback,
         localeListResolutionCallback: localeListResolutionCallback,
         supportedLocales: supportedLocales,
+        //
         //
         showPerformanceOverlay: showPerformanceOverlay,
         checkerboardRasterCacheImages: checkerboardRasterCacheImages,

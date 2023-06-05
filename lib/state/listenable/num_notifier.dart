@@ -73,7 +73,7 @@ class NumNotifier<T extends num> extends ValueNotifier<T> with ValueNotifierMixi
   String toString() => value.toString();
 }
 
-class NNumNotifier<T extends num?> extends ValueNotifier<T?> implements Comparable<num> {
+class NNumNotifier<T extends num?> extends ValueNotifier<T?> with ValueNotifierMixin implements Comparable<num> {
   NNumNotifier([super.value]);
 
   @override

@@ -10,10 +10,13 @@ abstract class YuroView<T extends ViewModel> extends StatelessWidget {
 
   T createViewModel(BuildContext context);
 
+  bool get lazyLoad => true;
+
   @override
   Widget build(BuildContext context) => ChangeNotifierProvider(
         create: createViewModel,
         builder: (context, child) => builder(context, Provider.of<T>(context), child),
+        lazy: lazyLoad,
         child: child(),
       );
 

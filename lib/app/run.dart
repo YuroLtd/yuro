@@ -4,14 +4,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:logging/logging.dart';
-import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:yuro/core/interface.dart';
-import 'package:yuro/core/typedefs.dart';
-import 'package:yuro/utils/screen.dart';
-
-import 'app.dart';
+import 'package:yuro/yuro.dart';
 
 typedef YuroAppBuilder = YuroApp Function(BuildContext context);
 
@@ -33,6 +28,9 @@ void runYuroApp({
   /// 系统UI样式
   SystemUiOverlayStyle? systemUiOverlayStyle,
 
+  /// 系统路由配置
+  required GoRouter goRouter,
+
   /// 构建[YuroApp]
   required YuroAppBuilder builder,
 }) async {
@@ -53,6 +51,9 @@ void runYuroApp({
 
   // 等待初始化工作
   await onInit?.call();
+
+  // 加载路由配置
+  Yuro.router = goRouter;
 
   // 启动应用
   runApp(MultiProvider(providers: providers, builder: (context, _) => builder(context)));

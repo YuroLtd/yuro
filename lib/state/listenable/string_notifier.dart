@@ -84,7 +84,7 @@ extension StringNotifierExt on String {
   StringNotifier get obs => StringNotifier(this);
 }
 
-class NStringNotifier extends ValueNotifier<String?> implements Comparable<String>, Pattern {
+class NStringNotifier extends ValueNotifier<String?> with ValueNotifierMixin implements Comparable<String>, Pattern {
   NStringNotifier([super.value]);
 
   @override
