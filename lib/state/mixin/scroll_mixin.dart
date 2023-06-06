@@ -10,6 +10,8 @@ mixin ScrollMixin on ViewModel {
 
   set canLoadMore(bool value) => _canLoadMore = value;
 
+  var _currentPage = 1;
+
   @override
   Future<void> onInit() async {
     super.onInit();
@@ -25,9 +27,11 @@ mixin ScrollMixin on ViewModel {
     }
   }
 
-  Future<void> onRefresh();
+  Future<void> onRefresh() => loadData(_currentPage = 1);
 
-  void loadMore();
+  void loadMore() => loadData(++_currentPage);
+
+  Future<void> loadData(int page);
 
   @override
   void dispose() {
