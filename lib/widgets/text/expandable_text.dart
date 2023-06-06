@@ -104,9 +104,8 @@ class ExpandableTextState extends State<ExpandableText> {
   @override
   Widget build(BuildContext context) => LayoutBuilder(builder: (context, constraints) {
         assert(constraints.hasBoundedWidth);
-        var textSpan = TextSpan(text: widget.content, style: _textStyle);
         final textPainter = TextPainter(
-          text: textSpan,
+          text: TextSpan(text: widget.content, style: _textStyle),
           textDirection: TextDirection.ltr,
           maxLines: widget.minLines,
         );

@@ -20,6 +20,8 @@ extension NullableListExt<T> on List<T>? {
 extension MapExt<K, V> on Map<K, V> {
   bool equals(Map<K, V> other) => const DeepCollectionEquality().equals(this, other);
 
+  void put(K key, V value) => this[key] = value;
+
   Map<K, V> where(bool Function(K key, V value) test) {
     final list = <MapEntry<K, V>>[];
     for (final element in entries) {
@@ -40,7 +42,6 @@ extension MapExt<K, V> on Map<K, V> {
     return sb.toString().substring(0, sb.length - 1);
   }
 }
-
 
 extension NullableMapExt<K, V> on Map<K, V>? {
   bool get isNullOrEmpty => this == null || this!.isEmpty;
