@@ -18,6 +18,12 @@ mixin ScrollMixin on ViewModel {
     _scrollController.addListener(_scrollListener);
   }
 
+  @override
+  void onReady() {
+    super.onReady();
+    onRefresh();
+  }
+
   void _scrollListener() {
     if (_scrollController.position.atEdge) {
       if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {

@@ -73,11 +73,10 @@ class Observer<T> {
   }
 
   Future<void> cancel() async {
-    if (!completed) {
-      await _subscription?.cancel();
-      _canceled = true;
-      _subscription = null;
-    }
+    if (completed) return;
+    await _subscription?.cancel();
+    _canceled = true;
+    _subscription = null;
   }
 }
 

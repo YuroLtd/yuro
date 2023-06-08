@@ -60,7 +60,6 @@ export 'widgets/keyboard/keyboard_safe_area.dart';
 export 'widgets/text_field/text_input_formatter.dart';
 export 'widgets/switcher/switcher.dart';
 export 'widgets/text/expandable_text.dart';
-export 'widgets/text/label_value.dart';
 export 'widgets/overlay/overlay.dart';
 
 export 'package:equatable/equatable.dart';

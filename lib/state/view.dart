@@ -10,17 +10,60 @@ abstract class YuroView<T extends ViewModel> extends StatelessWidget {
 
   T createViewModel(BuildContext context);
 
-  bool get lazyLoad => true;
-
   @override
   Widget build(BuildContext context) => ChangeNotifierProvider(
         create: createViewModel,
         builder: (context, child) => builder(context, Provider.of<T>(context), child),
-        lazy: lazyLoad,
-        child: child(),
+        child: builderChild(context),
       );
 
-  Widget? child() => null;
+  Widget builder(BuildContext context, T viewModel, Widget? child);
+
+  Widget? builderChild(BuildContext context) => null;
+}
+
+abstract class YuroKeepAliveView<T extends ViewModel> extends StatefulWidget {
+  const YuroKeepAliveView(this.state, {super.key});
+
+  final GoRouterState state;
+
+  T createViewModel(BuildContext context);
+
+  void initState() {}
+
+  void dispose() {}
 
   Widget builder(BuildContext context, T viewModel, Widget? child);
+
+  Widget? builderChild(BuildContext context) => null;
+
+  @override
+  YuroKeepAliveViewState createState() => YuroKeepAliveViewState();
+}
+
+class YuroKeepAliveViewState<T extends ViewModel> extends State<YuroKeepAliveView<T>> with AutomaticKeepAliveClientMixin {
+  @override
+  void initState() {
+    super.initState();
+    widget.initState();
+  }
+
+  @override
+  void dispose() {
+    widget.dispose();
+    super.dispose();
+  }
+
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+    return ChangeNotifierProvider(
+      create: (context) => widget.createViewModel(context),
+      builder: (context, child) => widget.builder(context, Provider.of<T>(context), child),
+      child: widget.builderChild(context),
+    );
+  }
 }
