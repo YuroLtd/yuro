@@ -6,11 +6,11 @@ import 'package:yuro/core/interface.dart';
 import 'package:yuro/widgets/overlay/overlay.dart';
 
 class Observer<T> {
-  Observer._(this._fetchData);
+  Observer(this.future);
 
-  factory Observer.fromFuture(Future<T> fetchData) => Observer._(fetchData);
+  final Future<T> future;
 
-  final Future<T> _fetchData;
+  late final _stream = StreamController<T>.broadcast();
 
   StreamSubscription<T>? _subscription;
 
@@ -33,8 +33,7 @@ class Observer<T> {
     ValueSetter<String>? onError,
     VoidCallback? onDone,
     Widget? loading,
-    Duration delay = const Duration(milliseconds: 500),
-  }) async {
+  }) {
     _onDataFunc = onData;
     _onErrorFunc = onError;
     _onDoneFunc = onDone;
@@ -43,12 +42,22 @@ class Observer<T> {
       Yuro.dismissLoading();
       Yuro.showLoading(child: loading, onDismiss: cancel);
     }
-    await Future.delayed(delay);
-    _subscription = Stream<T>.fromFuture(_fetchData).listen(
+
+    _subscription = _stream.stream.listen(
       (event) => _onData(event),
       onError: (err, stackTrace) => _onError(err, stackTrace),
       cancelOnError: true,
     );
+
+    _fetchData();
+  }
+
+  void _fetchData() async {
+    try {
+      _stream.add(await future);
+    } catch (e, stackTrace) {
+      _onError(e, stackTrace);
+    }
   }
 
   void _onData(T event) {
@@ -61,6 +70,7 @@ class Observer<T> {
     if (err is DioError) {
       _onErrorFunc?.call(err.message ?? err.error.toString());
     } else {
+      _onErrorFunc?.call(err.toString());
       Error.throwWithStackTrace(err, stackTrace);
     }
   }
@@ -79,5 +89,3 @@ class Observer<T> {
     _subscription = null;
   }
 }
-
-

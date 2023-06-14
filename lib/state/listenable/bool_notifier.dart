@@ -18,7 +18,7 @@ extension BoolNotifierExt on bool {
   BoolNotifier get obs => BoolNotifier(this);
 }
 
-class NBoolNotifier extends ValueNotifier<bool?> {
+class NBoolNotifier extends ValueNotifier<bool?> with ValueNotifierMixin {
   NBoolNotifier([super.value]);
 
   bool operator &(bool other) => other && (value ?? false);
