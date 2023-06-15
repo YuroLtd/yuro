@@ -67,7 +67,7 @@ class Observer<T> {
 
   void _onError(Object err, stackTrace) {
     _onCompleted();
-    if (err is DioError) {
+    if (err is DioException) {
       _onErrorFunc?.call(err.message ?? err.error.toString());
     } else {
       _onErrorFunc?.call(err.toString());

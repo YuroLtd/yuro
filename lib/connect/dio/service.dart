@@ -50,25 +50,25 @@ mixin HttpServiceMixin on HttpService {
   void addInterceptors(List<Interceptor> list) => _dio.interceptors.addAll(list);
 
   void setCertificate(String pem) {
-    (_dio.httpClientAdapter as IOHttpClientAdapter).onHttpClientCreate = (client) {
+    dio.httpClientAdapter = IOHttpClientAdapter(createHttpClient: () {
+      final client = HttpClient(context: SecurityContext(withTrustedRoots: false));
       client.badCertificateCallback = (cert, host, port) => cert.pem == pem;
       return client;
-    };
+    });
   }
 
   void setCertificateFile(File file) {
-    (_dio.httpClientAdapter as IOHttpClientAdapter).onHttpClientCreate = (client) {
+    dio.httpClientAdapter = IOHttpClientAdapter(createHttpClient: () {
       return HttpClient(context: SecurityContext()..setTrustedCertificates(file.path));
-    };
+    });
   }
 
   /// eg. 192.168.0.1:8888
   set httpProxy(String? proxy) {
     if (proxy.isNullOrBlank) return;
-    (_dio.httpClientAdapter as IOHttpClientAdapter).onHttpClientCreate = (client) {
-      client.findProxy = (uri) => "PROXY $proxy";
-      return client;
-    };
+    dio.httpClientAdapter = IOHttpClientAdapter(createHttpClient: () {
+      return HttpClient()..findProxy = (url) => "PROXY $proxy";
+    });
   }
 
   void openLog({
