@@ -71,3 +71,4 @@ export 'package:isar/isar.dart';
 export 'package:buffer/buffer.dart';
 export 'package:go_router/go_router.dart';
 export 'package:provider/provider.dart';
+export 'package:intl/intl.dart';
