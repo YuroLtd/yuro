@@ -3,7 +3,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter/widgets.dart';
 import 'package:yuro/state/viewmodel.dart';
 
-mixin SingleTickerMixin on ViewModel implements TickerProvider {
+mixin SingleTickerMixin on BaseViewModel implements TickerProvider {
   Ticker? _ticker;
 
   @override
@@ -51,7 +51,7 @@ mixin SingleTickerMixin on ViewModel implements TickerProvider {
   }
 }
 
-mixin TickerMixin on ViewModel implements TickerProvider {
+mixin TickerMixin on BaseViewModel implements TickerProvider {
   Set<Ticker>? _tickers;
 
   @override

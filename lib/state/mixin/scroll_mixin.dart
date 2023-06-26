@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:yuro/state/viewmodel.dart';
 
-mixin ScrollMixin on ViewModel {
+mixin ScrollMixin on BaseViewModel {
   final ScrollController _scrollController = ScrollController();
 
   ScrollController get scrollController => _scrollController;

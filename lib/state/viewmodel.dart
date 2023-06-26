@@ -3,17 +3,28 @@ import 'package:go_router/go_router.dart';
 
 import 'lifecycle.dart';
 
-abstract class ViewModel extends YuroLifeCycle with ChangeNotifier {
-  ViewModel(this.context, this.state);
+abstract class BaseViewModel extends YuroLifeCycle with ChangeNotifier {
+  BaseViewModel(this.context);
 
   final BuildContext context;
+}
+
+abstract class ViewModel extends BaseViewModel {
+  ViewModel(super.context, this.state);
+
   final GoRouterState state;
 
-  String? pathParam(String key) => state.pathParameters[key];
+  Map<String, String> get pathParameters => state.pathParameters;
 
-  String? queryParam(String key) => state.queryParameters[key];
+  String? pathParam(String key) => pathParameters[key];
 
-  List<String>? queryParamAll(String key) => state.queryParametersAll[key];
+  Map<String, String> get queryParameters => state.queryParameters;
+
+  String? queryParam(String key) => queryParameters[key];
+
+  Map<String, List<String>> get queryParametersAll => state.queryParametersAll;
+
+  List<String>? queryParamAll(String key) => queryParametersAll[key];
 
   T? extra<T>() => state.extra as T?;
 }

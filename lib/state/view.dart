@@ -3,10 +3,27 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:yuro/state/viewmodel.dart';
 
-abstract class YuroView<T extends ViewModel> extends StatelessWidget {
+abstract class YuroView<T extends BaseViewModel> extends StatelessWidget {
   const YuroView(this.state, {super.key});
 
   final GoRouterState state;
+
+  T createViewModel(BuildContext context);
+
+  @override
+  Widget build(BuildContext context) => ChangeNotifierProvider(
+        create: createViewModel,
+        builder: (context, child) => builder(context, Provider.of<T>(context), child),
+        child: builderChild(context),
+      );
+
+  Widget builder(BuildContext context, T viewModel, Widget? child);
+
+  Widget? builderChild(BuildContext context) => null;
+}
+
+abstract class YuroViewWithoutState<T extends BaseViewModel> extends StatelessWidget {
+  const YuroViewWithoutState({super.key});
 
   T createViewModel(BuildContext context);
 
@@ -66,4 +83,16 @@ class YuroKeepAliveViewState<T extends ViewModel> extends State<YuroKeepAliveVie
       child: widget.builderChild(context),
     );
   }
+}
+
+/// 父组件要求是[YuroView]
+abstract class YuroWidget<T extends BaseViewModel> extends StatelessWidget {
+  const YuroWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) => Consumer<T>(builder: builder, child: builderChild(context));
+
+  Widget builder(BuildContext context, T viewModel, Widget? child);
+
+  Widget? builderChild(BuildContext context) => null;
 }

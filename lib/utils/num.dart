@@ -11,7 +11,7 @@ extension NumExt on num {
     }
   }
 
-  String format({int fixed = 2, String unit = ''}) => '${toStringAsFixed(fixed)}$unit';
+  String format({int fixed = 2, String pUnit = '',String sUnit = ''}) => '$pUnit${toStringAsFixed(fixed)}$sUnit';
 }
 
 extension DurationExt on int {
