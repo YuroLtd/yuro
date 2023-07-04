@@ -16,7 +16,7 @@ mixin HttpMixin on YuroLifeCycle {
 
   @override
   void dispose() {
-    super.dispose();
     observers.where((e) => !e.completed && !e.canceled).forEach((e) => e.cancel());
+    super.dispose();
   }
 }

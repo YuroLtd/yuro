@@ -3,10 +3,48 @@ import 'package:go_router/go_router.dart';
 
 import 'lifecycle.dart';
 
-abstract class BaseViewModel extends YuroLifeCycle with ChangeNotifier {
+abstract class BaseViewModel extends YuroLifeCycle with ChangeNotifier, WidgetsBindingObserver {
   BaseViewModel(this.context);
 
   final BuildContext context;
+
+  @override
+  Future<void> onInit() {
+    WidgetsBinding.instance.addObserver(this);
+    return super.onInit();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    switch (state) {
+      case AppLifecycleState.inactive:
+        inactive();
+        break;
+      case AppLifecycleState.resumed:
+        onResumed();
+        break;
+      case AppLifecycleState.paused:
+        onPaused();
+        break;
+      case AppLifecycleState.detached:
+        detached();
+        break;
+    }
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  void inactive() {}
+
+  void onResumed() {}
+
+  void onPaused() {}
+
+  void detached() {}
 }
 
 abstract class ViewModel extends BaseViewModel {

@@ -6,6 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:logging/logging.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:yuro/route/go_router_config.dart';
+import 'package:yuro/route/navigator_observer.dart';
 import 'package:yuro/yuro.dart';
 
 typedef YuroAppBuilder = YuroApp Function(BuildContext context);
@@ -28,8 +30,11 @@ void runYuroApp({
   /// 系统UI样式
   SystemUiOverlayStyle? systemUiOverlayStyle,
 
+  /// 路由配置
+  GoRouterConfig? routerConfig,
+
   /// 系统路由配置
-  required GoRouter goRouter,
+  required List<RouteBase> routes,
 
   /// 构建[YuroApp]
   required YuroAppBuilder builder,
@@ -53,7 +58,22 @@ void runYuroApp({
   await onInit?.call();
 
   // 加载路由配置
-  Yuro.router = goRouter;
+  final config = GoRouterConfig(observers: [YuroNavigatorObserver()]).merge(routerConfig);
+  Yuro.router = GoRouter(
+    routes: routes,
+    errorPageBuilder: config.errorPageBuilder,
+    errorBuilder: config.errorBuilder,
+    redirect: config.redirect,
+    refreshListenable: config.refreshListenable,
+    redirectLimit: config.redirectLimit,
+    routerNeglect: config.routerNeglect,
+    initialLocation: config.initialLocation,
+    initialExtra: config.initialExtra,
+    observers: config.observers,
+    debugLogDiagnostics: config.debugLogDiagnostics,
+    navigatorKey: config.navigatorKey,
+    restorationScopeId: config.restorationScopeId,
+  );
 
   // 启动应用
   runApp(MultiProvider(providers: providers, builder: (context, _) => builder(context)));

@@ -10,15 +10,15 @@ mixin StreamMixin<T> on YuroLifeCycle {
 
   @override
   Future<void> onInit() async {
-    super.onInit();
     _subscription = Yuro.broadcast.stream.where((event) => event is T).cast<T>().listen(handlerEvent);
+    return super.onInit();
   }
 
   void handlerEvent(T event);
 
   @override
   void dispose() {
-    super.dispose();
     _subscription.cancel();
+    super.dispose();
   }
 }

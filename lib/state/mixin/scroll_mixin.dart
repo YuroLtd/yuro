@@ -13,9 +13,9 @@ mixin ScrollMixin on BaseViewModel {
   var _currentPage = 1;
 
   @override
-  Future<void> onInit() async {
-    super.onInit();
+  Future<void> onInit() {
     _scrollController.addListener(_scrollListener);
+    return super.onInit();
   }
 
   @override
