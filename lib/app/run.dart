@@ -6,8 +6,6 @@ import 'package:flutter/services.dart';
 import 'package:logging/logging.dart';
 import 'package:provider/single_child_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:yuro/route/go_router_config.dart';
-import 'package:yuro/route/navigator_observer.dart';
 import 'package:yuro/yuro.dart';
 
 typedef YuroAppBuilder = YuroApp Function(BuildContext context);

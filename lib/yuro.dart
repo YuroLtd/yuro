@@ -26,6 +26,7 @@ export 'state/mixin/http_mixin.dart';
 export 'state/mixin/scroll_mixin.dart';
 export 'state/mixin/stream_mixin.dart';
 export 'state/mixin/ticker_mixin.dart';
+export 'state/mixin/navigator_mixin.dart';
 export 'state/listenable/bool_notifier.dart';
 export 'state/listenable/double_notifier.dart';
 export 'state/listenable/int_notifier.dart';
@@ -38,6 +39,9 @@ export 'state/listenable/string_notifier.dart';
 
 export 'storage/isar.dart';
 // export 'storage/disk_lru_cache/disk_lru_cache.dart';
+
+export 'route/go_router_config.dart';
+export 'route/navigator_observer.dart';
 
 export 'utils/collection.dart';
 export 'utils/convert.dart';
