@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
 import 'package:yuro/state/service.dart';
-import 'package:yuro/utils/string.dart';
 
 abstract class HttpService extends YuroService {
   // ignore: prefer_final_fields
@@ -65,9 +64,8 @@ mixin HttpServiceMixin on HttpService {
 
   /// eg. 192.168.0.1:8888
   set httpProxy(String? proxy) {
-    if (proxy.isNullOrBlank) return;
     dio.httpClientAdapter = IOHttpClientAdapter(createHttpClient: () {
-      return HttpClient()..findProxy = (url) => "PROXY $proxy";
+      return HttpClient()..findProxy = (url) => proxy == null ? 'DIRECT' : "PROXY $proxy";
     });
   }
 

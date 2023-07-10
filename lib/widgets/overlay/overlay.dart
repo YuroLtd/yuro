@@ -33,6 +33,7 @@ extension YuroOverlayExt on YuroInterface {
     );
     showOverlay(
       builder: (_) => Container(
+        constraints: BoxConstraints(maxWidth: 0.8.sw),
         padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.w),
         decoration: BoxDecoration(color: theme.color, borderRadius: BorderRadius.circular(5.w)),
         child: DefaultTextStyle(style: theme.textStyle, child: Text(content)),
