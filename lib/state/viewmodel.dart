@@ -9,9 +9,9 @@ abstract class BaseViewModel extends YuroLifeCycle with ChangeNotifier, WidgetsB
   final BuildContext context;
 
   @override
-  Future<void> onInit() {
+  void onInit() async {
     WidgetsBinding.instance.addObserver(this);
-    return super.onInit();
+    super.onInit();
   }
 
   @override

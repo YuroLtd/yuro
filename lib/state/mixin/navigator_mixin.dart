@@ -3,9 +3,9 @@ import 'package:yuro/state/viewmodel.dart';
 
 mixin NavigatorMixin on ViewModel {
   @override
-  Future<void> onInit() {
+  void onInit() {
     YuroNavigatorObserver.register(state.name ?? state.location, this);
-    return super.onInit();
+    super.onInit();
   }
 
   @override

@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:yuro/app/viewmodel/cupertino.dart';
-import 'package:yuro/yuro.dart';
+import 'package:provider/provider.dart';
+import 'package:yuro/core/interface.dart';
+
+import 'app.dart';
+import 'app_viewmodel.dart';
 
 class YuroCupertinoApp extends YuroApp {
   const YuroCupertinoApp({
@@ -35,7 +38,10 @@ class YuroCupertinoApp extends YuroApp {
   final CupertinoThemeData? theme;
 
   @override
-  Widget build(BuildContext context) => Provider(create: (_) => CupertinoViewModel(), builder: (context, child) => buildApp(context));
+  Widget build(BuildContext context) => Provider(
+        create: (context) => CupertinoViewModel(context),
+        builder: (context, child) => buildApp(context),
+      );
 
   @override
   Widget buildApp(BuildContext context) => CupertinoApp.router(

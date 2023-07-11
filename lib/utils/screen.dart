@@ -2,21 +2,35 @@ import 'dart:ui';
 
 import 'package:flutter/widgets.dart';
 import 'package:yuro/core/interface.dart';
+import 'package:yuro/utils/num.dart';
 
 class Screen {
-  Screen(Size? uiSize) {
-    final window = MediaQueryData.fromView(WidgetsBinding.instance.platformDispatcher.implicitView!);
+  static Future<void> initScreen(Size? uiSize) async {
+    final binding = WidgetsFlutterBinding.ensureInitialized();
+    binding.deferFirstFrame();
+    FlutterView? view;
+    await Future.doWhile(() {
+      view = binding.platformDispatcher.implicitView;
+      if (view == null || view!.physicalSize.isEmpty) {
+        return Future.delayed(10.millisecond, () => true);
+      }
+      Yuro.screen = Screen._(MediaQueryData.fromView(view!), uiSize);
+      return false;
+    });
+    binding.allowFirstFrame();
+  }
 
-    _devicePixelRatio = window.devicePixelRatio;
+  Screen._(MediaQueryData data, Size? uiSize) {
+    _devicePixelRatio = data.devicePixelRatio;
 
-    _width = window.size.width;
-    _height = window.size.height;
+    _width = data.size.width;
+    _height = data.size.height;
 
-    _orientation = window.orientation;
-    _brightness = window.platformBrightness;
+    _orientation = data.orientation;
+    _brightness = data.platformBrightness;
 
-    _statusBarHeight = window.viewInsets.top;
-    _bottomBarHeight = window.viewInsets.bottom;
+    _statusBarHeight = data.viewInsets.top;
+    _bottomBarHeight = data.viewInsets.bottom;
 
     if (uiSize != null) {
       // 如果设计图屏幕方向与实际方向不一致,交换设计尺寸的宽高值

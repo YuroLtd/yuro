@@ -9,9 +9,9 @@ mixin StreamMixin<T> on YuroLifeCycle {
   List<int> get events;
 
   @override
-  Future<void> onInit() async {
+  void onInit() async {
     _subscription = Yuro.broadcast.stream.where((event) => event is T).cast<T>().listen(handlerEvent);
-    return super.onInit();
+    super.onInit();
   }
 
   void handlerEvent(T event);

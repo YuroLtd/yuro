@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:yuro/app/viewmodel/material.dart';
 import 'package:yuro/core/interface.dart';
 
 import 'app.dart';
+import 'app_viewmodel.dart';
 
 class YuroMaterialApp extends YuroApp {
-   const YuroMaterialApp({
+  const YuroMaterialApp({
     super.key,
     //
     this.scaffoldMessengerKey,
@@ -53,7 +53,10 @@ class YuroMaterialApp extends YuroApp {
   final Curve themeAnimationCurve;
 
   @override
-  Widget build(BuildContext context) => Provider(create: (_) => MaterialViewModel(), builder: (context, child) => buildApp(context));
+  Widget build(BuildContext context) => Provider(
+        create: (context) => MaterialViewModel(context),
+        builder: (context, child) => buildApp(context),
+      );
 
   @override
   Widget buildApp(BuildContext context) => MaterialApp.router(

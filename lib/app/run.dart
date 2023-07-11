@@ -42,8 +42,6 @@ void runYuroApp({
 
   // 初始化SharedPreferences
   Yuro.sp = await SharedPreferences.getInstance();
-  // 初始化screen
-  Yuro.screen = Screen(uiSize);
 
   // 绑定错误处理
   if (onFlutterError != null) FlutterError.onError = onFlutterError;
@@ -51,9 +49,6 @@ void runYuroApp({
 
   // 配置SystemUiOverlayStyle
   SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle ?? const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
-
-  // 等待初始化工作
-  await onInit?.call();
 
   // 加载路由配置
   final config = GoRouterConfig(observers: [YuroNavigatorObserver()]).merge(routerConfig);
@@ -72,6 +67,12 @@ void runYuroApp({
     navigatorKey: config.navigatorKey,
     restorationScopeId: config.restorationScopeId,
   );
+
+  // 等待屏幕参数初始化
+  await Screen.initScreen(uiSize);
+
+  // 等待应用启动前的准备工作
+  await onInit?.call();
 
   // 启动应用
   runApp(MultiProvider(providers: providers, builder: (context, _) => builder(context)));
