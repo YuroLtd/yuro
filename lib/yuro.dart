@@ -65,6 +65,7 @@ export 'widgets/text_field/text_input_formatter.dart';
 export 'widgets/switcher/switcher.dart';
 export 'widgets/text/expandable_text.dart';
 export 'widgets/overlay/overlay.dart';
+export 'widgets/extension.dart';
 
 export 'package:equatable/equatable.dart';
 export 'package:collection/collection.dart';
@@ -76,3 +77,4 @@ export 'package:buffer/buffer.dart';
 export 'package:go_router/go_router.dart';
 export 'package:provider/provider.dart';
 export 'package:intl/intl.dart';
+export 'package:flutter_animate/flutter_animate.dart';
