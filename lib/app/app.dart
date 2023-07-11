@@ -1,39 +1,61 @@
-import 'dart:ui';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:yuro/core/core.dart';
-import 'package:yuro/storage/storage.dart';
 
-import 'src/yuro_app.dart';
+abstract class YuroApp extends StatelessWidget {
+  const YuroApp({
+    super.key,
+    //
+    this.title,
+    this.onGenerateTitle,
+    this.color,
+    this.builder,
+    //
+    this.locale,
+    required this.localizationsDelegates,
+    this.localeListResolutionCallback,
+    this.localeResolutionCallback,
+    required this.supportedLocales,
+    //
+    this.debugShowMaterialGrid = false,
+    this.showPerformanceOverlay = false,
+    this.checkerboardRasterCacheImages = false,
+    this.checkerboardOffscreenLayers = false,
+    this.showSemanticsDebugger = false,
+    this.debugShowCheckedModeBanner = true,
+    this.shortcuts,
+    this.actions,
+    this.restorationScopeId,
+    this.scrollBehavior,
+  });
 
-export 'src/yuro_app.dart';
+  final String? title;
+  final GenerateAppTitle? onGenerateTitle;
+  final Color? color;
+  final TransitionBuilder? builder;
 
-typedef YuroAppBuilder = YuroApp Function();
+  final Locale? locale;
+  final Iterable<LocalizationsDelegate<dynamic>> localizationsDelegates;
+  final LocaleListResolutionCallback? localeListResolutionCallback;
+  final LocaleResolutionCallback? localeResolutionCallback;
+  final Iterable<Locale> supportedLocales;
 
-void runYuroApp({
-  FutureVoidCallback? beforeRun,
-  FlutterExceptionHandler? onFlutterError,
-  ErrorCallback? onPlatformError,
-  SystemUiOverlayStyle? systemUiOverlayStyle,
-  required YuroAppBuilder builder,
-}) async {
-  WidgetsFlutterBinding.ensureInitialized();
+  final bool debugShowMaterialGrid;
+  final bool showPerformanceOverlay;
+  final bool checkerboardRasterCacheImages;
+  final bool checkerboardOffscreenLayers;
+  final bool showSemanticsDebugger;
+  final bool debugShowCheckedModeBanner;
+  final Map<LogicalKeySet, Intent>? shortcuts;
+  final Map<Type, Action<Intent>>? actions;
+  final String? restorationScopeId;
+  final ScrollBehavior? scrollBehavior;
 
-  // 初始化SharedPreferences
-  await Yuro.initSharedPreferences();
+  /// 构建App
+  Widget buildApp(BuildContext context);
 
-  // 调用自定义初始化方法
-  await beforeRun?.call();
-
-  // 绑定错误处理
-  if (onFlutterError != null) FlutterError.onError = onFlutterError;
-  if (onPlatformError != null) PlatformDispatcher.instance.onError = onPlatformError;
-
-  // 状态栏配置
-  SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle ?? const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
-
-  // 启动应用
-  runApp(builder.call());
+  // 点击空白处隐藏软键盘
+  Widget transitionBuilder(BuildContext context, Widget? child) => GestureDetector(
+        behavior: HitTestBehavior.translucent,
+        onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+        child: builder?.call(context, child) ?? child,
+      );
 }
