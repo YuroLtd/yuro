@@ -38,7 +38,7 @@ class YuroCupertinoApp extends YuroApp {
   final CupertinoThemeData? theme;
 
   @override
-  Widget build(BuildContext context) => Provider(
+  Widget build(BuildContext context) => ChangeNotifierProvider(
         create: (context) => CupertinoViewModel(context),
         builder: (context, child) => buildApp(context),
       );

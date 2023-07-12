@@ -53,7 +53,7 @@ class YuroMaterialApp extends YuroApp {
   final Curve themeAnimationCurve;
 
   @override
-  Widget build(BuildContext context) => Provider(
+  Widget build(BuildContext context) => ChangeNotifierProvider(
         create: (context) => MaterialViewModel(context),
         builder: (context, child) => buildApp(context),
       );
