@@ -14,7 +14,7 @@ class PlatformLoading extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget indicator;
     if (Yuro.isMacOS || Yuro.isIOS) {
-      indicator = const CupertinoActivityIndicator();
+      indicator = const CupertinoActivityIndicator(color: Colors.white);
     } else {
       indicator = const CircularProgressIndicator(strokeWidth: 3,color: Colors.white);
     }
