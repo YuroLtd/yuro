@@ -27,9 +27,13 @@ extension PositionedExt on Widget {
 
   Offstage offstage(bool offstage) => Offstage(offstage: offstage, child: this);
 
-  SizedBox size({double? width, double? height}) => SizedBox(width: width, height: height, child: this);
-
   SizedBox sizeSquare(double? dimension) => SizedBox.square(dimension: dimension, child: this);
+
+  SizedBox size(double width, double height) => SizedBox(width: width, height: height, child: this);
+
+  SizedBox width(double width) => SizedBox(width: width, child: this);
+
+  SizedBox height(double height) => SizedBox(height: height, child: this);
 
   ConstrainedBox constrained(BoxConstraints constraints) => ConstrainedBox(constraints: constraints, child: this);
 }
