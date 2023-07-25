@@ -2,19 +2,20 @@ import 'dart:async';
 
 import 'package:yuro/core/interface.dart';
 import 'package:yuro/state/lifecycle.dart';
+import 'package:yuro/utils/event_bus.dart';
 
-mixin StreamMixin<T> on YuroLifeCycle {
+mixin EventMixin on YuroLifeCycle {
   late final StreamSubscription _subscription;
 
   List<int> get events;
 
   @override
   void onInit() async {
-    _subscription = Yuro.broadcast.stream.where((event) => event is T).cast<T>().listen(handlerEvent);
+    _subscription = Yuro.stream<Event>().where((event) => events.contains(event.code)).listen(handlerEvent);
     super.onInit();
   }
 
-  void handlerEvent(T event);
+  void handlerEvent(Event event);
 
   @override
   void dispose() {

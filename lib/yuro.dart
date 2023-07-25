@@ -24,7 +24,7 @@ export 'state/viewmodel.dart';
 export 'state/obs.dart';
 export 'state/mixin/http_mixin.dart';
 export 'state/mixin/scroll_mixin.dart';
-export 'state/mixin/stream_mixin.dart';
+export 'state/mixin/event_mixin.dart';
 export 'state/mixin/ticker_mixin.dart';
 export 'state/mixin/navigator_mixin.dart';
 export 'state/listenable/bool_notifier.dart';
