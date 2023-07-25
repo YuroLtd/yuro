@@ -56,11 +56,11 @@ abstract class ViewModel extends BaseViewModel {
 
   String? pathParam(String key) => pathParameters[key];
 
-  Map<String, String> get queryParameters => state.queryParameters;
+  Map<String, String> get queryParameters => state.uri.queryParameters;
 
   String? queryParam(String key) => queryParameters[key];
 
-  Map<String, List<String>> get queryParametersAll => state.queryParametersAll;
+  Map<String, List<String>> get queryParametersAll => state.uri.queryParametersAll;
 
   List<String>? queryParamAll(String key) => queryParametersAll[key];
 

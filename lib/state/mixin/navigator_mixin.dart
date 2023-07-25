@@ -4,13 +4,13 @@ import 'package:yuro/state/viewmodel.dart';
 mixin NavigatorMixin on ViewModel {
   @override
   void onInit() {
-    YuroNavigatorObserver.register(state.name ?? state.location, this);
+    YuroNavigatorObserver.register(state.name ?? state.uri.toString(), this);
     super.onInit();
   }
 
   @override
   void dispose() {
-    YuroNavigatorObserver.unRegister(state.name ?? state.location);
+    YuroNavigatorObserver.unRegister(state.name ?? state.uri.toString());
     super.dispose();
   }
 

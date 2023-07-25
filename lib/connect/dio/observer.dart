@@ -22,38 +22,37 @@ class Observer<T> {
 
   bool get canceled => _canceled;
 
+  bool _loading = false;
+
   late final ValueSetter<T> _onDataFunc;
   late final ValueSetter<String>? _onErrorFunc;
   late final VoidCallback? _onDoneFunc;
 
-  ///
-  /// [delay] 延迟请求
-  void listen({
-    required ValueSetter<T> onData,
-    ValueSetter<String>? onError,
-    VoidCallback? onDone,
-    Widget? loading,
-  }) {
+  void listen({required ValueSetter<T> onData, ValueSetter<String>? onError, VoidCallback? onDone}) {
     _onDataFunc = onData;
     _onErrorFunc = onError;
     _onDoneFunc = onDone;
+    _fetchData();
+  }
 
-    if (loading != null) {
-      Yuro.dismissLoading();
-      Yuro.showLoading(child: loading, onDismiss: cancel);
-    }
+  void loading({required ValueSetter<T> onData, ValueSetter<String>? onError, VoidCallback? onDone}) {
+    _onDataFunc = onData;
+    _onErrorFunc = onError;
+    _onDoneFunc = onDone;
+    _loading = true;
 
-    _subscription = _stream.stream.listen(
-      (event) => _onData(event),
-      onError: (err, stackTrace) => _onError(err, stackTrace),
-      cancelOnError: true,
-    );
-
+    Yuro.dismissLoading();
+    Yuro.showLoading(onDismiss: cancel);
     _fetchData();
   }
 
   void _fetchData() async {
     try {
+      _subscription = _stream.stream.listen(
+        (event) => _onData(event),
+        onError: (err, stackTrace) => _onError(err, stackTrace),
+        cancelOnError: true,
+      );
       _stream.add(await future);
     } catch (e, stackTrace) {
       _onError(e, stackTrace);
@@ -78,7 +77,7 @@ class Observer<T> {
   void _onCompleted() {
     _completed = true;
     _subscription = null;
-    Yuro.dismissLoading();
+    if (_loading) Yuro.dismissLoading();
     _onDoneFunc?.call();
   }
 
