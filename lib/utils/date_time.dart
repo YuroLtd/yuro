@@ -51,6 +51,6 @@ extension DateTimeExt on DateTime {
   DateTime get max => DateTime(year, month, day, 23, 59, 59);
 
   DateTime get min => DateTime(year, month, day);
+
+  DateTime get date => DateTime(year, month, day);
 }
-
-
