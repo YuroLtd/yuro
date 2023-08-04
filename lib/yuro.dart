@@ -60,7 +60,6 @@ export 'utils/object.dart';
 
 export 'widgets/keyboard/dismiss_keyboard.dart';
 export 'widgets/keyboard/keyboard_listener.dart';
-export 'widgets/keyboard/keyboard_safe_area.dart';
 export 'widgets/text_field/text_input_formatter.dart';
 export 'widgets/switcher/switcher.dart';
 export 'widgets/text/expandable_text.dart';

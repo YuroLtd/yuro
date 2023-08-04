@@ -38,4 +38,10 @@ extension PositionedExt on Widget {
   ConstrainedBox constrained(BoxConstraints constraints) => ConstrainedBox(constraints: constraints, child: this);
 
   AspectRatio aspectRatio(double aspectRatio) => AspectRatio(aspectRatio: aspectRatio, child: this);
+
+  ClipRect clipRect() => ClipRect(child: this);
+
+  ClipOval clipOval() => ClipOval(child: this);
+
+  ClipRRect clipRRect(BorderRadiusGeometry borderRadius) => ClipRRect(borderRadius: borderRadius, child: this);
 }
