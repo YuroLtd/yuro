@@ -102,7 +102,7 @@ mixin _ObserverComponent on ComponentElement {
 class _ObsElement = StatelessElement with _ObserverComponent;
 
 abstract class _ObsWidget extends StatelessWidget {
-  const _ObsWidget({Key? key}) : super(key: key);
+  const _ObsWidget({super.key});
 
   @override
   StatelessElement createElement() => _ObsElement(this);
@@ -112,7 +112,7 @@ class Obs extends _ObsWidget {
   final Widget Function(Widget? child) builder;
   final Widget? child;
 
-  const Obs(this.builder, {Key? key, this.child}) : super(key: key);
+  const Obs(this.builder, {super.key, this.child});
 
   @override
   Widget build(BuildContext context) => builder.call(child);
@@ -123,8 +123,20 @@ class ObsValue<T> extends _ObsWidget {
   final Widget Function(T value, Widget? child) builder;
   final Widget? child;
 
-  const ObsValue({Key? key, required this.notifier, required this.builder, this.child}) : super(key: key);
+  const ObsValue({super.key, required this.notifier, required this.builder, this.child});
 
   @override
   Widget build(BuildContext context) => builder.call(notifier.value, child);
+}
+
+class ObsValue2<T, R> extends _ObsWidget {
+  final ValueNotifier<T> notifier1;
+  final ValueNotifier<R> notifier2;
+  final Widget Function(T value1, R value2, Widget? child) builder;
+  final Widget? child;
+
+  const ObsValue2({super.key, required this.notifier1, required this.notifier2, required this.builder, this.child});
+
+  @override
+  Widget build(BuildContext context) => builder.call(notifier1.value, notifier2.value, child);
 }
