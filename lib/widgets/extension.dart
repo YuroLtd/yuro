@@ -35,7 +35,16 @@ extension PositionedExt on Widget {
 
   SizedBox height(double height) => SizedBox(height: height, child: this);
 
-  ConstrainedBox constrained(BoxConstraints constraints) => ConstrainedBox(constraints: constraints, child: this);
+  ConstrainedBox constrained({
+    double minWidth = 0.0,
+    double maxWidth = double.infinity,
+    double minHeight = 0.0,
+    double maxHeight = double.infinity,
+  }) =>
+      ConstrainedBox(
+        constraints: BoxConstraints(minWidth: minWidth, maxWidth: maxWidth, minHeight: minHeight, maxHeight: maxHeight),
+        child: this,
+      );
 
   AspectRatio aspectRatio(double aspectRatio) => AspectRatio(aspectRatio: aspectRatio, child: this);
 
@@ -44,4 +53,6 @@ extension PositionedExt on Widget {
   ClipOval clipOval() => ClipOval(child: this);
 
   ClipRRect clipRRect(BorderRadiusGeometry borderRadius) => ClipRRect(borderRadius: borderRadius, child: this);
+
+  ColoredBox color(Color color) => ColoredBox(color: color, child: this);
 }

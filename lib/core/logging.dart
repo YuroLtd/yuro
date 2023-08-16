@@ -6,13 +6,14 @@ import 'interface.dart';
 
 void _loggerRecord(LogRecord record) {
   if (record.level >= Level.SEVERE) {
-    final Object? error = record.error;
-    FlutterError.dumpErrorToConsole(FlutterErrorDetails(
-      exception: error is Exception ? error : Exception(error),
-      stack: record.stackTrace,
-      library: record.loggerName,
-      context: ErrorDescription(record.message),
-    ));
+    FlutterError.dumpErrorToConsole(
+        FlutterErrorDetails(
+          exception: record.error ?? record.time,
+          stack: record.stackTrace,
+          library: record.loggerName,
+          context: ErrorDescription(record.message),
+        ),
+        forceReport: true);
     return;
   }
 

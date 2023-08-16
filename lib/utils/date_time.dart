@@ -14,13 +14,16 @@ extension DateTimeForIntExt on int {
 }
 
 extension DateTimeForStringExt on String {
-  DateTime? toDateTime([DateFormat? df, bool utc = false]) {
-    try {
-      return df == null ? DateTime.tryParse(this) : df.parse(this, utc);
-    } catch (e) {
-      return null;
-    }
-  }
+  // DateFormat无法解析自定义格式日期
+  // DateTime? toDateTime([DateFormat? df, bool utc = false]) {
+  //   try {
+  //     return df == null ? DateTime.tryParse(this) : df.parse(this, utc);
+  //   } catch (e) {
+  //     return null;
+  //   }
+  // }
+
+  DateTime? toDateTime() => DateTime.tryParse(this);
 }
 
 sealed class DateFormats {
