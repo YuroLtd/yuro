@@ -42,7 +42,7 @@ class Observer<T> {
     _loading = true;
 
     Yuro.dismissLoading();
-    Yuro.showLoading(onDismiss: cancel);
+    Yuro.showLoading();
     _fetchData();
   }
 
@@ -84,6 +84,7 @@ class Observer<T> {
   Future<void> cancel() async {
     if (completed) return;
     await _subscription?.cancel();
+    if (_loading) Yuro.dismissLoading();
     _canceled = true;
     _subscription = null;
   }
