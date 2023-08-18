@@ -17,6 +17,8 @@ abstract class BaseViewModel extends YuroLifeCycle with ChangeNotifier, WidgetsB
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     switch (state) {
+      case AppLifecycleState.hidden:
+        break;
       case AppLifecycleState.inactive:
         inactive();
         break;
